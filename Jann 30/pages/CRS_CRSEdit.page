@@ -1,0 +1,319 @@
+<apex:page standardController="CRS__c" extensions="CRS_CRSEdit">
+<!-- TODO: move text to labels -->
+
+<apex:includeScript value="{!$Resource.jQuery}"/> 
+<style type="text/css">
+.crsLongInput{
+  width: 480px;
+}
+.crsTextArea{
+  width: 216px;
+}
+</style>
+<script type="text/javascript">
+  var previousBU;
+  var previousProduct;
+  $(function(){
+    previousBU = $('[id$=crsBU]').attr('value');
+    previousProduct = $('[id$=beverageProduct]').attr('value');
+  });
+  function checkBUChanged(currentBU) {
+        // only if BU is changed
+       if (previousBU != currentBU) {
+         populateBUDependencies(currentBU);
+         previousBU = currentBU;
+        }
+      }  
+
+  function openLookup(baseURL, width, modified, searchParam){
+    var originalbaseURL = baseURL;
+    var originalwidth = width;
+    var originalmodified = modified;
+    var originalsearchParam = searchParam;
+ 
+    if (modified == '1') baseURL = baseURL + searchParam;
+ 
+    var objTypes = new Object();
+    // Input Id : Obj API Name
+    objTypes["initiatedBy"] = "User";
+    objTypes["crsBU"] = "CRS_Business_Unit__c";
+    objTypes["beverageCategory"] = "CRS_Beverage_Category__c";
+    objTypes["brand"] = "CRS_Brand__c";
+    objTypes["beverageProduct"] = "CRS_CRS_Product__c";
+    
+    var componentIds = ["initiatedBy","crsBU","beverageCategory","brand","beverageProduct"];
+    
+    var urlArr = baseURL.split("&");
+    var txtId = '';
+    if(urlArr.length > 2) {
+      urlArr = urlArr[1].split('=');
+      txtId = urlArr[1];
+    }
+    
+    var inputId = "";
+    var isCustomLookup = false;
+    for(var i = 0; i<componentIds.length; i++) {
+      inputId = componentIds[i];
+      if(txtId.indexOf(inputId) > -1 ){
+        isCustomLookup = true;
+        break;  
+      }
+    }
+    
+    if(isCustomLookup){
+      baseURL = "/apex/CRS_LookupSingleSelect";
+      baseURL += "?txt=" + txtId;
+      
+      var objType = objTypes[inputId];
+      baseURL += "&objType=" + objType;
+      
+      baseURL += "&gvw={!IF(isGvw,1,0)}";
+ 
+      // Following is the id of apex:form control "theForm".
+      baseURL = baseURL + "&frm=" + escapeUTF("{!$Component.theForm}");
+      if (modified == '1') {
+        baseURL = baseURL + "&lksearch=" + searchParam;
+      }
+    }
+ 
+    if(isCustomLookup == true){
+      openPopup(baseURL, "lookup", 350, 680, "width="+width+",height=680,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollbars=yes", true);
+    }
+    else {
+      if (modified == '1') originalbaseURL = originalbaseURL + originalsearchParam;
+      openPopup(originalbaseURL, "lookup", 350, 480, "width="+originalwidth+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+    } 
+  }
+  
+  function productChange(currentProduct){
+       if (previousProduct != currentProduct) {
+         processBeverage(currentProduct);
+         previousProduct = currentProduct;
+      }
+  }
+  
+</script>
+
+
+  <apex:sectionHeader subtitle="{!CRS__c.name}" title="{!IF(isGvw, $Label.CRS_gvwCRS_Edit, $Label.CRS_CRS_Edit)}" />
+  <apex:pageMessage severity="error" rendered="{!isLock}" summary="You don't have permissions."></apex:pageMessage>
+  <apex:form id="theForm" rendered="{!!isLock}">
+      <apex:actionFunction action="{!populateBUDependencies}" immediate="true" name="populateBUDependencies" reRender="crsGroup,approversSection,countryComponent,crsMsg">
+          <apex:param name="bu" value=""/>
+      </apex:actionFunction>
+  
+      <apex:pageBlock title="{!IF(isGvw, $Label.CRS_gvwCRS_Edit, $Label.CRS_CRS_Edit)}" mode="edit">
+          <apex:pageMessages id="crsMsg" />
+          <apex:inputField value="{!CRS__c.Internal_Status__c}" style="display: none;" />
+          <apex:inputField value="{!CRS__c.Owner.Id}" style="display: none;" />
+          <apex:inputField value="{!CRS__c.Internal_Status2__c}" style="display: none;" />
+
+          <apex:pageblockButtons >
+                <apex:commandButton value="Save" action="{!doSave}"/>
+                <apex:commandButton value="Cancel" action="{!Cancel}"/>
+          </apex:pageblockButtons>
+          <apex:pageblockSection >
+              <apex:include pageName="CRS_gvwCRSlogo" rendered="{!isGvw}"/>
+          </apex:pageblockSection>
+          <apex:pageblockSection title="{!IF(isGvw, $Label.CRS_gvwCRS_Detail, $Label.CRS_CRS_Detail)}" collapsible="false" columns="2" >
+            
+               
+             <apex:inputField value="{!CRS__c.CRS_Title__c}" required="true" /> <!-- ++CRS Enhancement -->
+              <apex:outputField value="{!CRS__c.Status__c}" />
+             
+              <apex:outputField value="{!CRS__c.name}" />
+              <apex:inputField value="{!CRS__c.CRS_Product_Name__c}" id="beverageProduct" onchange="productChange(this.value);"/>
+              <apex:outputField value="{!CRS__c.OwnerId}" /> <!-- ++CRS Enhancement owner to place below Tracking # -->
+              
+               <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_Flavor_Names__c.label}"/>
+                  <c:CRS_MultiSelectControl id="flavorInput" disabled="{!specialProductSelected}" objectType="CRS_Flavor__c" isGvw="{!isGvw}"
+                          fieldName="CRS_Flavor_to_CRS__c" fieldValue="{!selectedMultipleIds['CRS_Flavor_to_CRS__c']}"/>
+              </apex:pageBlockSectionItem>
+              <apex:inputField value="{!CRS__c.Initiated_By__c}" id="initiatedBy" required="true" />
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_Brand__c.label}"/>
+                  <apex:outputPanel id="brandInput">
+                      <apex:inputField value="{!CRS__c.CRS_Brand__c}" rendered="{!!isGeneralCommProductSelected}" id="brand"/>
+                      <apex:inputText value="{!CRS__c.CRS_Brand__r.Name}" disabled="true" rendered="{!isGeneralCommProductSelected}"/>
+                  </apex:outputPanel>
+              </apex:pageBlockSectionItem>
+             
+              
+               <apex:inputField value="{!CRS__c.Claim_Owner_and_Email_Id__c}" /> 
+               <!-- ++CRS Enhancement owner to place below Tracking # -->
+               <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_Beverage_Category__c.label}"/>
+                  <apex:outputPanel id="beverageCategoryInput">
+                      <apex:inputField value="{!CRS__c.CRS_Beverage_Category__c}" rendered="{!!isGeneralCommProductSelected}" id="beverageCategory"/>
+                      <apex:inputText value="{!CRS__c.CRS_Beverage_Category__r.Name}" disabled="true" rendered="{!isGeneralCommProductSelected}"/>
+                  </apex:outputPanel>
+              </apex:pageBlockSectionItem>
+                 
+               
+               <apex:inputField value="{!CRS__c.Key_Stakeholder_and_Email_Id__c}" /><!-- ++CRS Enhancement owner to place below Tracking # -->
+              
+              
+               <apex:outputField value="{!CRS__c.Date_Closed__c}" />
+                
+              
+
+              <apex:inputField value="{!CRS__c.Date_Initiated__c}" required="true" />
+               <apex:outputField value="{!CRS__c.MTR_Day_Count__c}" />
+              <apex:inputField value="{!CRS__c.CRS_Business_Unit__c}" id="crsBU" onchange="javascript:checkBUChanged(this.value)" required="true" />
+              <!--<apex:inputField value="{!CRS__c.CRS_Business_Unit__c}" id="crsBU" onchange="javascript:checkBUChanged(this.value)" required="true" />-->
+              
+              &nbsp;
+              <apex:outputField value="{!CRS__c.CRS_Group__c}" id="crsGroup" />
+              &nbsp;
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_Country_Names__c.label}"/>
+                  <c:CRS_MultiSelectControl id="countryComponent" fieldName="CRS_Country_to_CRS__c" objectType="CRS_Country__c" fieldValue="{!selectedMultipleIds['CRS_Country_to_CRS__c']}"
+                          filterField="Business_Unit__c" filterValue="{!CRS__c.CRS_Business_Unit__c}"/>
+              </apex:pageBlockSectionItem>
+              &nbsp;
+              <apex:outputField value="{!CRS__c.Process_Flow__c}" id="processFlowHidden" />
+
+              
+              
+          </apex:pageblockSection>
+
+          <apex:pageblockSection title="Additional Information" collapsible="false" columns="2" >
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.Package_Size__c.label}"/>
+                  <apex:outputpanel id="packageSize">
+                      <apex:inputField value="{!CRS__c.Package_Size__c}" id="packageSizeInput"/>
+                      <script>document.getElementById('{!$Component.packageSizeInput}').disabled = {!specialProductSelected};</script>
+                  </apex:outputpanel>
+              </apex:pageBlockSectionItem>
+              
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_Package_Type_Names__c.label}"/>
+                  <c:CRS_MultiSelectControl id="packageTypeInput" disabled="{!specialProductSelected}" objectType="CRS_Package_Type__c" isGvw="{!isGvw}"
+                          fieldName="CRS_PacType_to_CRS__c" fieldValue="{!selectedMultipleIds['CRS_PacType_to_CRS__c']}"/>
+              </apex:pageBlockSectionItem>
+              
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_Type_Names__c.label}"/>
+                  <c:CRS_MultiSelectControl id="crsTypeInput" objectType="CRS_Type__c" isGvw="{!isGvw}"
+                          fieldName="CRS_Type_to_CRS__c" fieldValue="{!selectedMultipleIds['CRS_Type_to_CRS__c']}"/>
+              </apex:pageBlockSectionItem>
+              
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.BBN__c.label}"/>
+                  <apex:outputpanel id="bbn">
+                      <apex:inputField value="{!CRS__c.BBN__c}" id="bbnInput"/>
+                      <script>document.getElementById('{!$Component.bbnInput}').disabled = {!specialProductSelected};</script>
+                  </apex:outputpanel>
+              </apex:pageBlockSectionItem>
+
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_Media_Type_Names__c.label}"/>
+                  <c:CRS_MultiSelectControl id="mediaTypeInput" disabled="{!specialProductSelected}" objectType="CRS_Media_Type__c" isGvw="{!isGvw}" 
+                          fieldName="CRS_MediaType_to_CRS__c" fieldValue="{!selectedMultipleIds['CRS_MediaType_to_CRS__c']}"/>
+              </apex:pageBlockSectionItem>
+          </apex:pageblockSection>
+
+          <apex:pageblockSection title="System Information" collapsible="false" columns="2" >
+              <apex:outputField value="{!CRS__c.Total_CRS__c}" />
+
+             
+              <apex:inputField value="{!CRS__c.Total_Page_Count__c}" />
+
+              <apex:inputField value="{!CRS__c.Audit_Status__c}" />
+              
+              
+          </apex:pageblockSection>
+          <!--   FR 12.1
+          <apex:pageblockSection title="{!IF(isGvw, $Label.CRS_gvwCRS_to_be_Approved, $Label.CRS_CRS_to_be_Approved)}" collapsible="false" columns="1" >
+              
+              <apex:inputField value="{!CRS__c.Individual_CRS_01__c}" styleClass="crsLongInput" />
+              <apex:inputField value="{!CRS__c.Individual_CRS_02__c}" styleClass="crsLongInput" />
+              <apex:inputField value="{!CRS__c.Individual_CRS_03__c}" styleClass="crsLongInput" />
+              <apex:inputField value="{!CRS__c.Individual_CRS_04__c}" styleClass="crsLongInput" />
+              <apex:inputField value="{!CRS__c.Individual_CRS_05__c}" styleClass="crsLongInput" />
+              <apex:inputField value="{!CRS__c.Individual_CRS_06__c}" styleClass="crsLongInput" />
+              <apex:inputField value="{!CRS__c.Individual_CRS_07__c}" styleClass="crsLongInput" />
+              <apex:inputField value="{!CRS__c.Individual_CRS_08__c}" styleClass="crsLongInput" />
+              <apex:inputField value="{!CRS__c.Individual_CRS_09__c}" styleClass="crsLongInput" />
+              <apex:inputField value="{!CRS__c.Individual_CRS_10__c}" styleClass="crsLongInput" />
+          </apex:pageblockSection>
+             -->
+          <apex:pageblockSection title="{!IF(isGvw, $Label.CRS_gvwCRS_List_of_Approvers, $Label.CRS_List_of_Approvers)}" collapsible="false" columns="1" id="approversSection">
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_BU_Legal_Approver__c.label}" />
+                  <c:CRS_SelectApproversControl fieldName="CRS_BU_Legal_Approver__c" fieldValue="{!CRS__c.CRS_BU_Legal_Approver__c}" businessUnit="{!CRS__c.CRS_Business_Unit__c}" isGvw="{!isGvw}" readonly="{!IsReadOnlyBULegal}"/>
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem rendered="{!isApproval3}">
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_BU_PAC_Approver__c.label}"/>
+                  <c:CRS_SelectApproversControl fieldName="CRS_BU_PAC_Approver__c" fieldValue="{!CRS__c.CRS_BU_PAC_Approver__c}" businessUnit="{!CRS__c.CRS_Business_Unit__c}" isGvw="{!isGvw}" readonly="{!IsReadOnlyBUPac}"/>
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_Field_SRA_Approver__c.label}" />
+                  <c:CRS_SelectApproversControl fieldName="CRS_Field_SRA_Approver__c" fieldValue="{!CRS__c.CRS_Field_SRA_Approver__c}" businessUnit="{!CRS__c.CRS_Business_Unit__c}" isGvw="{!isGvw}" readonly="{!IsReadOnlyFieldSRA}"/>
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem rendered="{! isApproval1a || isApproval1b || isApproval2 ||isApproval3 || isGvw}">
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_Corp_SRA_Approver__c.label}" />
+                  <c:CRS_SelectApproversControl fieldName="CRS_Corp_SRA_Approver__c" fieldValue="{!CRS__c.CRS_Corp_SRA_Approver__c}" readonly="{!IsReadOnlyCorpSRA}" />
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem rendered="{! isApproval1a || isApproval1b || isApproval2 ||isApproval3 || isGvw}">
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_Corp_Food_Law_Approver__c.label}" />
+                  <c:CRS_SelectApproversControl fieldName="CRS_Corp_Food_Law_Approver__c" fieldValue="{!CRS__c.CRS_Corp_Food_Law_Approver__c}" readonly="{!IsReadOnlyCorpFoodLaw}" />
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem rendered="{! isApproval1a || isApproval2 ||isApproval3}">
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_Corp_Formula_Governance__c.label}" />
+                  <c:CRS_SelectApproversControl fieldName="CRS_Corp_Formula_Governance__c" fieldValue="{!CRS__c.CRS_Corp_Formula_Governance__c}" readonly="{!IsReadOnlyCorpFormulaGovern}" />
+              </apex:pageBlockSectionItem>
+               <apex:pageBlockSectionItem rendered="{! isApproval1a || isApproval2 ||isApproval3}">
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_Corporate_PAC_Approver__c.label}" />
+                  <c:CRS_SelectApproversControl fieldName="CRS_Corporate_PAC_Approver__c" fieldValue="{!CRS__c.CRS_Corporate_PAC_Approver__c}" readonly="{!IsReadOnlyCorpPAC}"/>
+              </apex:pageBlockSectionItem>
+              <!-- removed for Requirement FR 5.1 <apex:pageBlockSectionItem rendered="{! isApproval1a || isApproval1b || isGvw}">
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_VP_Chief_Scientific_Regulatory__c.label}" />
+                  <c:CRS_SelectApproversControl fieldName="CRS_VP_Chief_Scientific_Regulatory__c" fieldValue="{!CRS__c.CRS_VP_Chief_Scientific_Regulatory__c}" readonly="{!IsReadOnlyVPChiefScientific}" />
+              </apex:pageBlockSectionItem> -->
+              <apex:pageBlockSectionItem rendered="{! isApproval2 || isApproval3}">
+                  <apex:outputLabel value="{!$ObjectType.CRS__c.fields.CRS_VP_Science_Division__c.label}" />
+                  <c:CRS_SelectApproversControl fieldName="CRS_VP_Science_Division__c" fieldValue="{!CRS__c.CRS_VP_Science_Division__c}" readonly="{!isReadOnlyVPScience}" />
+              </apex:pageBlockSectionItem>
+
+              <apex:outputField value="{!CRS__c.Send_Corp_Form_Gov__c}" rendered="{!!isShowSendCorpFormGov && !isGvw}" />
+              <apex:inputField value="{!CRS__c.Send_Corp_Form_Gov__c}" rendered="{!isShowSendCorpFormGov && !isGvw}" required="true"/>
+              
+              <apex:outputField value="{!CRS__c.Send_Corporate_PAC__c}" rendered="{!!isShowSendCorpPAC  && !isGvw}" />
+              <apex:inputField value="{!CRS__c.Send_Corporate_PAC__c}" rendered="{!isShowSendCorpPAC  && !isGvw}" required="true"/>
+              
+              <apex:outputField value="{!CRS__c.Send_VP_Science__c}" rendered="{!!isShowSendVPScience && !isGvw}" />
+              <apex:inputField value="{!CRS__c.Send_VP_Science__c}" rendered="{!isShowSendVPScience && !isGvw}" required="true"/>
+
+             <!-- removed for Requirement FR 5.1 <apex:outputField value="{!CRS__c.Send_VP_Chief__c}" rendered="{!!isShowSendVPChief}"/>
+              <apex:inputField value="{!CRS__c.Send_VP_Chief__c}" rendered="{!isShowSendVPChief}"   onchange="if(this.value == 'Yes'){$('[id*=notificationMessage]').show('fast');}else{$('[id*=notificationMessage]').hide('fast');}"/>
+              -->
+              <apex:outputField value="{!CRS__c.Additional_Submission_Required__c}" rendered="{!!isShowConditionalapprover}"/>
+              
+              <apex:inputField value="{!CRS__c.Additional_Submission_Required__c}" rendered="{!isShowConditionalapprover}" required="true"/>
+             
+              <apex:outputField value="{!CRS__c.Conditional_Approval_Required__c}" rendered="{!!isShowConditionalapprover}"/>
+              
+              <apex:inputField value="{!CRS__c.Conditional_Approval_Required__c}" rendered="{!isShowConditionalapprover}" required="true"/>
+              
+              <apex:inputField value="{!CRS__c.CRS_Corporate_SRA_Approver_Message__c}" id="notificationMessage" style="width:300px;height:70px;display:none;" rendered="{!isShowSendVPChief}" />
+          </apex:pageblockSection>
+      </apex:pageBlock>
+
+      <apex:actionFunction name="applyApprovers" action="{!assignUsers}" immediate="true" rerender="approversSection">
+          <apex:param name="firstParam" assignTo="{!selectedUsersIds}" value=""/>
+          <apex:param name="fieldName" value=""/>
+      </apex:actionFunction>
+
+      <apex:actionFunction name="applyMultiselect" action="{!assignMultiselect}" immediate="true" rerender="theForm">
+          <apex:param name="selectedIds" value=""/>
+          <apex:param name="fieldName" value=""/>
+      </apex:actionFunction>
+      
+      <apex:actionFunction name="processBeverage" action="{!processBeverageProductChange}" immediate="true"
+                          rerender="flavorInput,brandInput,beverageCategoryInput,crsTypeInput,packageTypeInput,mediaTypeInput,bbn,packageSize,processFlowHidden,approversSection,crsMsg">
+          <apex:param name="product" value=""/>
+      </apex:actionFunction>                          
+  </apex:form>
+</apex:page>

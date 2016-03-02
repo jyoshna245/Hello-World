@@ -1,0 +1,64 @@
+<apex:page standardController="CRS__c" recordSetVar="CRSList" extensions="CRS_ExportToExelController"
+            sidebar="false" showHeader="false" cache="true" contentType="application/vnd.ms-excel">
+    <apex:pageBlock title="{!$CurrentPage.parameters.selectedView} View">
+        <apex:pageBlockTable value="{!CRSList}" var="val" style="background-color: #EC1C2D; color: white;">
+            <apex:column headerValue="Tracking #" style="background-color: #F6F6F6; color: black;">
+                   <apex:outputLink value="{!baseLink}{!val.id}">{!val.Name}</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Date Initiated" style="background-color: #F6F6F6; color: black; text-align: left;">
+                    <apex:outputField value="{!val.Date_Initiated__c}"/>
+            </apex:column>
+            <!-- ++ CRS Enhancement -->
+            <apex:column headerValue="Date Closed" style="background-color: #F6F6F6; color: black; text-align: left;">
+                    <apex:outputField value="{!val.Date_Closed__c}"/>
+            </apex:column>
+             <!--end -->
+            <apex:column headerValue="Country" style="background-color: #F6F6F6; color: black;">
+                    <apex:outputField value="{!val.CRS_Country_Names__c}"/>
+            </apex:column>
+              <!-- ++ CRS Enhancement -->
+            <apex:column headerValue="BBN" style="background-color: #F6F6F6; color: black; text-align: left;">
+                    <apex:outputField value="{!val.BBN__c}"/>
+            </apex:column>
+             <!--end -->
+            <apex:column headerValue="Product Name" style="background-color: #F6F6F6; color: black;">
+                    <apex:outputField value="{!val.CRS_Product_Name__c}"/>
+            </apex:column>
+            <apex:column headerValue="Document Title" style="background-color: #F6F6F6; color: black;">
+                    <apex:outputText value="{!val.CRS_Document_Title__c}"/>
+            </apex:column>
+            <apex:column headerValue="CRS Status" style="background-color: #F6F6F6; color: black;">
+                    <apex:outputText value="{!val.Status__c}"/>
+            </apex:column>
+                <!-- ++ CRS Enhancement -->
+            <apex:column headerValue="Days Under Review" style="background-color: #F6F6F6; color: black; text-align: left;">
+                    <apex:outputField value="{!val.MTR_Day_Count__c}"/>
+            </apex:column>
+             <!--end -->
+               <!-- ++ CRS Enhancement -->
+            <apex:column headerValue="Group" style="background-color: #F6F6F6; color: black; text-align: left;">
+                    <apex:outputField value="{!val.CRS_Group__c}"/>
+            </apex:column>
+             <!--end -->
+               <!-- ++ CRS Enhancement -->
+            <apex:column headerValue="Business Unit" style="background-color: #F6F6F6; color: black; text-align: left;">
+                    <apex:outputField value="{!val.CRS_Business_Unit__c}"/>
+            </apex:column>
+             <!--end -->
+             <!-- Removed  ++ CRS Enhancement
+            <apex:column headerValue="Total CRS" style="background-color: #F6F6F6; color: black;text-align: left;">
+                    <apex:outputText value="{!val.Total_CRS__c}"/>
+            </apex:column>
+            end --> 
+            <apex:column headerValue="Total Page Count" style="background-color: #F6F6F6; color: black; text-align: left;">
+                    <apex:outputText value="{!val.Total_Page_Count__c}"/>
+            </apex:column>
+            
+            <!-- added testing 
+            <apex:column headerValue="Date Closed" style="background-color: #F6F6F6; color: black; text-align: left;">
+                    <apex:outputText value="{!val.Date_Closed__c}"/>
+            </apex:column>   
+            end -->                      
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

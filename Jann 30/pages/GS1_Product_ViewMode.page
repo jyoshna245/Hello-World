@@ -1,0 +1,381 @@
+<apex:page standardController="GS1_Request__c" extensions="GS1_RequestCtrl">
+<apex:detail subject="{! GS1_Request__c.id}"/>
+<apex:pageBlock title="Similar Request(s)" mode="false"  rendered="{! SimilarRequests!=null}">
+   <apex:pageBlockTable value="{!SimilarRequests}" var="Request">
+        <apex:column headerValue="Description"><apex:outputLink value="/{! Request.id}" target="_blank">{! IF(Request.Description__c!='',Request.Description__c,Request.Description_Computed__c)}</apex:outputLink></apex:column>
+        <apex:column value="{!Request.EAN_Code__c}" headerValue="Barcode"/>
+        <apex:column value="{!Request.Country__c}" headerValue="Country"/>
+        <apex:column value="{!Request.Status__c}" headerValue="Status"/>             
+    </apex:pageBlockTable> 
+</apex:pageBlock>
+<apex:includeScript value="/soap/ajax/33.0/connection.js"/>
+<apex:includeScript value="/soap/ajax/33.0/apex.js"/>
+
+<apex:includeScript value="/soap/ajax/35.0/connection.js" loadOnReady="false"/>
+<apex:includeScript value="/soap/ajax/35.0/apex.js" loadOnReady="false"/>
+<apex:includeScript value="/apex/GS1_SharedJSFunctions" loadOnReady="false"/>
+<apex:includeScript value="/apex/GS1_CustomLookupLoaderPage" loadOnReady="false"/>
+<apex:includeScript value="/apex/GS1_AppWebHelperJS" loadOnReady="false"/> 
+
+
+<style>
+.hideListButton
+{
+    display:none;
+}
+
+.showListButton
+{
+    display:none;
+}
+
+.pbSubheader
+{
+    background-color: #FED3D5 !important;
+}
+</style>
+    
+<script>
+/*
+Some JavaScript routines specific to Request screen in view mode
+*/
+sforce.connection.sessionId = '{!$Api.Session_ID}';
+var requestId = '{! GS1_Request__c.Id }';
+var requestRefNum = '{! GS1_Request__c.Name}';
+var dialogTitleError = '{! dialogTextError}';
+var dialogTitleInfo = '{! dialogTextInformation}';
+var dialogTitleWarn = '{! dialogTextWarning}';
+var productType = '{! GS1_Request__c.Product_Type__c}';
+var description = '{! JSENCODE(GS1_Request__c.Description__c)}';
+var refnumber = '{! GS1_Request__c.Name}';
+var allocateRetURL = '{! IF($Label.GS1_Allocate_RetURL='<CURRENT_REQUEST>', '', $Label.GS1_Allocate_RetURL)}';
+
+if (allocateRetURL == '') allocateURL = location.href;
+
+
+
+
+
+
+function withdrawCurrentRequest() {
+    Utils.Dialog.confirm(
+    'This request will be withdrawn.\n\nWould you like to continue?', 
+    dialogTitleWarn, 
+    function() {
+        //Utils.Dialog.status('Withdrawing current request. Please wait...');
+        var ret = GS1.withdrawRequest(requestId);
+        ret = JSON.parse(ret);
+        if (ret.status == 'ok') {
+           //Utils.Dialog.status();
+            location.reload();
+        } else {
+           // Utils.Dialog.status();
+            Utils.Dialog.alert(ret.message, dialogTitleError);
+        }   
+    });
+}
+
+function reactivateCurrentRequest() {
+    Utils.Dialog.confirm(
+    'This request will be re-activated.\n\nWould you like to continue?', dialogTitleWarn, function() {
+        Utils.Dialog.status('Re-activating current request. Please wait...');
+        var ret = GS1.reactivateRequest(requestId);
+        ret = JSON.parse(ret);
+        if (ret.status == 'ok') {
+            location.reload();
+        } else {
+            Utils.Dialog.status();
+            Utils.Dialog.alert(ret.message,dialogTitleError); 
+        }   
+    });
+
+}
+
+ 
+
+
+
+function submitForApproval() {
+    Utils.Dialog.status('Submitting current request. Please wait...');
+    var ret = GS1.findDuplicateRequest(requestId);
+    Utils.Dialog.status();
+    var duplicateId = '';
+    
+    ret = JSON.parse(ret);
+    
+    var submitRequest = function(msg) {
+        Utils.Dialog.status('Submitting current request. Please wait...');
+        ret = GS1.submitRequest(requestId, duplicateId);        
+        ret = JSON.parse(ret);
+        if (ret.status == 'ok' ){ 
+            Utils.Dialog.status();
+            Utils.Dialog.alert(msg,
+            dialogTitleInfo, function() {
+                window.location.reload();
+            });
+        } else {    
+            Utils.Dialog.status();
+            Utils.Dialog.alert(ret.message, dialogTitleError);       
+        }    
+    }
+    
+    
+    if (ret.status == 'ok') {
+        if (ret.data != '') { //duplicate found!
+            duplicateId = ret.data.Id;
+            //this is not going to happen since a decision that duplicate request should not be submitted / 20.Sep.2013
+            Utils.Dialog.confirm('The same request information exists under ' + ret.data.EAN_Code__r.Name + ' (barcode)\n\nWould you still like to submit this request?',dialogTitleWarn,
+                function() {
+                    submitRequest('NOTE: This duplicate request will still be put forward for review.\n\nApprover will have the option to either Approve or Reject this request.')
+                }, true);                
+        } else {
+            Utils.Dialog.confirm("Are you sure to send this request for approval?", dialogTitleWarn, 
+                function() {submitRequest('Your request is available for barcode-allocation by the administrator\n\nPlease check view Waiting Approval for status.')}, true);    
+        }    
+    } else {        
+        Utils.Dialog.status();
+        Utils.Dialog.alert(ret.message, dialogTitleError);
+    }
+    
+    
+}
+
+function allocateEANToCurrentRequest() {
+    var ret = GS1.findAllowableEAN(requestId);   
+    var duplicateList = '';    
+    ret = JSON.parse(ret);
+    if (ret.status == 'error') {
+        Utils.Dialog.alert(ret.message, dialogTitleError);
+        return;
+    } else if (ret.status == 'duplicate') {        
+        if (ret.data != '') {        
+            duplicateList = '<b>All the countries where the product already exists:</b>';
+            duplicateList += '<table width="100%"><tr><td>' + ret.data.replace(/(\|)/g,'</td></tr><tr><td>');
+            duplicateList += '</table>';
+            duplicateList = duplicateList.replace(/(\@)/g,'</td><td>');
+            duplicateList += '\n';
+        }   
+        Utils.Dialog.alert(duplicateList + 'There is already an identical product for this country.', dialogTitleError);
+        var cancelButton = document.getElementsByName('cancel_duplicate_request');
+        if (cancelButton) {
+            for (var i=0; i<cancelButton.length; i++) {
+                cancelButton[i].style.visibility = 'visible';
+                cancelButton[i].style.display = 'inline';
+            }            
+        }
+    } else {
+        if (ret.data != '') {        
+            duplicateList = '<b>All the countries where the product already exists:</b>';
+            duplicateList += '<table width=100%><tr><td>' + ret.data.replace(/(\|)/g,'</td></tr><tr><td>');
+            duplicateList += '</table>';
+            duplicateList = duplicateList.replace(/(\@)/g,'</td><td>');
+            duplicateList += '\n';
+        }
+        Utils.Dialog.confirm(duplicateList  + 'Do you want to assign the following ' + productType + ' barcode: <b>' + ret.eanCode + '</b>?', dialogTitleWarn , function() {
+            ret = GS1.allocateEAN(requestId, ret.eanId, ret.eanFree);
+            ret = JSON.parse(ret);
+            if (ret.status == 'ok' ) {
+                //location.reload();
+                location.href = allocateRetURL;
+            } else {
+                Utils.Dialog.alert(ret.message, dialogTitleError);
+            }
+        });
+    }
+}
+
+function allocateLongShortEANToCurrentRequest() {    
+    
+    var container = document.createElement('div');
+    var clbl = null; 
+    
+    container.innerHTML = '<b>Select the type of barcode you wish to assign:</b><br>'
+    var chk1 = document.createElement('input');
+    chk1.checked = true;
+    chk1.type = 'radio';
+    chk1.id = 'findLongEAN';
+    chk1.name = 'LongOrShort';    
+    clbl = document.createElement('label');
+    clbl.htmlFor = chk1.id;
+    clbl.appendChild(document.createTextNode('Assign long barcode'));
+    
+    container.appendChild(chk1);
+    container.appendChild(clbl);
+    container.appendChild(document.createElement('br'));
+    
+    var chk2 = document.createElement('input');
+    chk2.type = 'radio';
+    chk2.id = 'findShortEAN';
+    chk2.name = 'LongOrShort';    
+    clbl = document.createElement('label');
+    clbl.htmlFor = chk2.id;
+    clbl.appendChild(document.createTextNode('Assign short barcode'));
+    
+    container.appendChild(chk2);
+    container.appendChild(clbl);        
+        
+    Utils.Dialog.confirmPlus('This function is only for exceptional situations!', dialogTitleWarn,function() {
+            var LorS = chk2.checked ? 'Short' : 'Long';
+            var ret = GS1.findAllowableEANSpecial(requestId, LorS);
+            ret = JSON.parse(ret);
+            if (ret.status == 'duplicate') {
+                chk2 = document.createElement('input');
+                chk2.type = 'checkbox';
+                chk2.id = 'checkBoxNotifyRequestor';
+                clbl = document.createElement('label');
+                clbl.htmlFor = chk2.id;
+                clbl.style.fontWeight = 'BOLD';
+                clbl.appendChild(document.createTextNode('Notify requestor about similar request'));                                                
+                container = document.createElement('div');
+                container.appendChild(chk2);
+                container.appendChild(clbl);
+                
+                Utils.Dialog.alertPlus(ret.message, dialogTitleError, function(){
+                    if (chk2.checked) {
+                        Utils.Dialog.status('Sending notification to requestor. Please wait...');
+                        ret = GS1.sendDuplicateRequestEmail(requestId);
+                        ret = JSON.parse(ret);
+                        if (ret.status == 'error') {                            
+                            Utils.Dialog.status('');
+                            Utils.Dialog.alert(ret.message, dialogTitleError);
+                        } else {
+                            Utils.Dialog.status('');
+                        }
+                    }
+                }, [container]);                        
+                return; 
+            } else if (ret.status == 'ok'){
+                Utils.Dialog.confirm('Do you want to assign the following ' + productType + ' barcode: <b>' + ret.eanCode + '</b>?', dialogTitleWarn , function() {
+                    ret = GS1.allocateEAN(requestId, ret.eanId, ret.eanFree);
+                    ret = JSON.parse(ret);
+                    if (ret.status == 'ok' ) {
+                        //location.reload();
+                        location.href = allocateRetURL;
+                    } else {
+                        Utils.Dialog.alert(ret.message, dialogTitleError);
+                    }
+                });
+            } else {
+                Utils.Dialog.alert(ret.message, dialogTitleError);
+            }           
+        },
+        false,
+        [container]
+    );
+}
+
+function createCopy() {
+    //and so we'll use the default cloning function/url
+    
+    var status = '{! GS1_Request__c.Status__c}';
+    
+    if (status != 'New') {
+        Utils.Dialog.alert('You are not authorized to perform that operation.',dialogTitleError);
+    } else {
+        location = '/' + requestId + '/e?clone=1&CF{! $Label.GS1_Request_CountryFieldId}=';    
+    }    
+}
+    
+function cancelDuplicate() {
+    Utils.Dialog.confirm('Request will be rejected and a notification will be sent to the requestor.\n\nWould you like to continue?',dialogTitleWarn, 
+        function() {
+            Utils.Dialog.status('Cancelling the current request. Please wait...');
+            var ret = GS1.cancelDuplicateRequest(requestId);
+            ret = JSON.parse(ret);
+            if (ret.status != 'error') {
+                location.reload();
+            } else {
+                Utils.Dialog.status('');
+                Utils.Dialog.alert(ret.message,dialogTitleError);
+            }       
+        },
+        true);  
+}
+
+function cancelCurrentRequest() {
+
+    var ret = GS1.cancelRequest(requestId);
+    if (ret.status == 'error') {
+        Utils.Dialog.alert(ret.message, dialogTitleError);
+    } else {
+        var objectId = GS1.getObjectPrefix('GS1_Request__c');
+        if (objectId !='') {
+            location = '/' + objectId;
+        }
+    }    
+}
+    
+function hideButtons() {
+    var hideSubmit={! HideSubmit };
+    var hideAllocateEAN={! HideAllocateEAN };
+    var hideWithdraw={! HideWithdraw };
+    var hideReactivate={! HideReactivate };
+    var hideCreateNewCopy = {! HideCreateNewCopy};
+    var hideEdit = {! HideEdit};
+    var hideShortLongAlloc = {! HideShortLongAlloc};
+    var hideCancelRequest = {! CancelRequest};
+    
+    Utils.hideElementByName('piSubmit');
+    Utils.removeElementByName('piRemove');
+    Utils.removeElementByName('unlock');
+    
+    if (hideSubmit) {
+        Utils.removeElementByName('submit_now');
+    }
+    
+    if (hideAllocateEAN) {
+        Utils.removeElementByName('allocate_ean');
+    }
+    
+    if (hideWithdraw) {
+        Utils.removeElementByName('withdraw');
+    }
+    
+    if (hideReactivate) {
+        Utils.removeElementByName('re_activate')
+    } 
+    
+    if (hideCreateNewCopy) {
+        Utils.removeElementByName('create_new_copy');
+    }
+    
+    if (hideEdit) {
+        Utils.removeElementByName('edit');
+    }
+    
+    if (hideShortLongAlloc) {
+        Utils.removeElementByName('short_long_barcode_allocation');
+    }
+    
+    Utils.hideElementByName('cancel_duplicate_request');
+    
+    if (hideCancelRequest) {
+        Utils.removeElementByName('cancel_this_request');
+    }
+    
+    var actionLinks = Utils.getElementsByClassName("actionLink", document);
+    if (actionLinks.length > 0) {
+        for (var i=0; i<actionLinks.length; i++) {
+            if (actionLinks[i].innerHTML == 'Reassign') {
+                actionLinks[i].parentNode.removeChild(actionLinks[i].nextSibling);
+                actionLinks[i].parentNode.removeChild(actionLinks[i]);
+            }
+        }
+    }
+}
+
+function setDescAsHeader() {
+    var h1 = Utils.getElementsByClassName('pageType',document);
+    if (h1.length>0) {
+        h1[0].innerHTML += ': ' + refnumber;
+    }
+    var h2 = Utils.getElementsByClassName('pageDescription',document);
+    if (h2.length>0) {
+        h2[0].innerHTML = description ;
+    }
+}
+
+hideButtons();
+setDescAsHeader();
+</script>
+</apex:page>

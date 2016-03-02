@@ -1,0 +1,161 @@
+<apex:page standardController="CRS_Dossier__c" extensions="CRS_EditDossier" tabStyle="CRS_Dossier__c" showHeader="true" sidebar="true" cache="true" id="page1">
+    <br />
+    <div style="text-align: left;font-weight: bold;font-size:15px;">CRS DETAILS</div>
+    <apex:pageBlock mode="Details" >
+    <apex:pageblockSection title="{!objCRS.name}" collapsible="false" columns="2" >
+        <apex:outputField value="{!objCRS.Status__c}"/>
+        <apex:outputField value="{!objCRS.Date_Initiated__c}"/>
+        <apex:outputField value="{!objCRS.CRS_Title__c}"/>
+        <apex:outputField value="{!objCRS.Date_Closed__c}"/> 
+        <apex:outputField value="{!objCRS.name}"/>
+        <apex:outputField value="{!objCRS.BBN__c}"/>
+        <apex:outputField value="{!objCRS.Initiated_By__r.name}" label="Initiated For"/>
+        <apex:outputField value="{!objCRS.CRS_Product_Name__r.Name}" label="Product Name"/>
+        <apex:outputField value="{!objCRS.CRS_Business_Unit__r.name}" label="Business Unit"/>
+        <apex:outputField value="{!objCRS.CRS_Flavor_Names__c}"/>
+        <apex:outputField value="{!objCRS.CRS_Group__r.name}" label="Group"/>
+        <apex:outputField value="{!objCRS.CRS_Brand__r.name}" label="Brand"/>
+        <apex:outputField value="{!objCRS.CRS_Country_Names__c}"/>
+        <apex:outputField value="{!objCRS.CRS_Beverage_Category__r.name}" label="Beverage Category"/>
+    </apex:pageblockSection>
+    </apex:pageBlock>
+    
+    
+    <apex:form id="theForm"><br />
+     <div style="text-align: center;font-weight: bold;font-size:15px;">DOSSIER MUST BE COMPLETED FOR ALL SUBMISSIONS</div>
+     <div style="text-align: center;font-weight: bold;font-size:12px;"> The sections that are Mandatory are marked with '<span style="text-align: center;font-weight: bold;color: #C00000 ;font-size:15px;">|</span>'. All other sections are optional.   </div>
+     <div style="text-align: center;font-weight: bold;font-size:12px;"> If you need to attach additional information in the form of a table/image in a field that does not allow that, please upload it within the Chatter feed clearly mentioning section number from Dossier and indicate the same in the field below. </div><br/>
+     <apex:pageBlock mode="details" >
+    <apex:pageMessages /> 
+    <apex:pageBlockButtons >
+        <apex:commandButton action="{!saveDossier}" value="Save"/>
+        <apex:commandButton action="{!saveCloseDossier}" value="Save & Close"/>
+        <apex:commandButton value="Close Without Saving" action="{!cancelDossier}" immediate="true"/>
+        
+    </apex:pageBlockButtons>
+    
+    <!-- Section 1 -->
+    <apex:pageblockSection title="1.0 Overview:" collapsible="false" columns="1" >
+    <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_1_1Label}" rendered="{!Section_1_1Visibility}" title="{!Section_1_1Title}" />
+    <apex:inputField required="{!Section_1_1required}" style="width:100%;" value="{!objDossier.Section_1_1__c}" rendered="{!Section_1_1Visibility}" label=""/>
+    <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_1_2Label}" rendered="{!Section_1_2Visibility}" title="{!Section_1_2Title}" />
+    <apex:inputField required="{!Section_1_2required}" style="width:100%;" value="{!objDossier.Section_1_2__c}" rendered="{!Section_1_2Visibility}" label=""/>
+    </apex:pageblockSection>
+    
+    <!-- Section 2 -->
+    <apex:pageblockSection title="2.0 Individual Claim(s) for Approval" collapsible="false" columns="1" >
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_2_0Label}" rendered="{!Section_2_0Visibility}" title="{!Section_2_0Title}" />
+        <apex:inputField required="{!Section_2_0required}" style="width:100%;" value="{!objDossier.Section_2_0__c}" rendered="{!Section_2_0Visibility}" label=""/>
+    </apex:pageblockSection>
+    
+    <!-- Section 3 -->
+    <apex:pageblockSection title="3.0 Non-product specific materials" collapsible="false" columns="1" >
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_3_0Label}" rendered="{!Section_3_0Visibility}" title="{!Section_3_0Title}" />
+        <apex:inputField required="{!Section_3_0required}" style="width:100%;" value="{!objDossier.Section_3_0__c}" rendered="{!Section_3_0Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_3_1Label}" rendered="{!Section_3_1Visibility}" title="{!Section_3_1Title}" />
+        <apex:inputField required="{!Section_3_1required}" style="width:100%;" value="{!objDossier.Section_3_1__c}" rendered="{!Section_3_1Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_3_2Label}" rendered="{!Section_3_2Visibility}" title="{!Section_3_2Title}" />
+        <apex:inputField required="{!Section_3_2required}" style="width:100%;" value="{!objDossier.Section_3_2__c}" rendered="{!Section_3_2Visibility}" label=""/>
+    </apex:pageblockSection>
+    
+    <!-- Section 4 -->
+    <apex:pageblockSection title="4.0 Product description" collapsible="false" columns="1" >
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_4_1Label}" rendered="{!Section_4_1Visibility}" title="{!Section_4_1Title}" />
+        <apex:inputField required="{!Section_4_1required}" style="width:100%;" value="{!objDossier.Section_4_1__c}" rendered="{!Section_4_1Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_4_2Label}" rendered="{!Section_4_2Visibility}" title="{!Section_4_2Title}" />
+        <apex:inputField required="{!Section_4_2required}" style="width:100%;" value="{!objDossier.Section_4_2__c}" rendered="{!Section_4_2Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_4_3Label}" rendered="{!Section_4_3Visibility}" title="{!Section_4_3Title}" />
+        <apex:inputField required="{!Section_4_3required}" style="width:100%;" value="{!objDossier.Section_4_3__c}" rendered="{!Section_4_3Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_4_4Label}" rendered="{!Section_4_4Visibility}" title="{!Section_4_4Title}" />
+        <apex:inputField required="{!Section_4_4required}" style="width:100%;" value="{!objDossier.Section_4_4__c}" rendered="{!Section_4_4Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_4_5Label}" rendered="{!Section_4_5Visibility}" title="{!Section_4_5Title}" />
+        <apex:inputField required="{!Section_4_5required}" style="width:100%;" value="{!objDossier.Section_4_5__c}" rendered="{!Section_4_5Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_4_6Label}" rendered="{!Section_4_6Visibility}" title="{!Section_4_6Title}" />
+        <apex:inputField required="{!Section_4_6required}" style="width:100%;" value="{!objDossier.Section_4_6__c}" rendered="{!Section_4_6Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_4_7Label}" rendered="{!Section_4_7Visibility}" title="{!Section_4_7Title}" />
+        <apex:inputField required="{!Section_4_7required}" style="width:100%;" value="{!objDossier.Section_4_7__c}" rendered="{!Section_4_7Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_4_8Label}" rendered="{!Section_4_8Visibility}" title="{!Section_4_8Title}" />
+        <apex:inputField required="{!Section_4_8required}" style="width:100%;" value="{!objDossier.Section_4_8__c}" rendered="{!Section_4_8Visibility}" label=""/>
+    </apex:pageblockSection>
+    
+     <!-- Section 5 -->
+    <apex:pageblockSection title="5.0 Substantiation for Specifically Allowed CRS" collapsible="false" columns="1" >
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_5_1Label}" rendered="{!Section_5_1Visibility}" title="{!Section_5_1Title}" />
+        <apex:inputField required="{!Section_5_1required}" style="width:100%;" value="{!objDossier.Section_5_1__c}" rendered="{!Section_5_1Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_5_2Label}" rendered="{!Section_5_2Visibility}" title="{!Section_5_2Title}" />
+        <apex:inputField required="{!Section_5_1required}" style="width:100%;" value="{!objDossier.Section_5_2__c}" rendered="{!Section_5_2Visibility}" label=""/>
+    </apex:pageblockSection>
+     
+    <!-- Section 6 -->
+    <apex:pageblockSection title="6.0 Substantiation for CRS Not Specifically Allowed" collapsible="false" columns="1" >
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_6_1Label}" rendered="{!Section_6_1Visibility}" title="{!Section_6_1Title}" />
+        <apex:inputField required="{!Section_6_1required}" style="width:100%;" value="{!objDossier.Section_6_1__c}" rendered="{!Section_6_1Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_6_2Label}" rendered="{!Section_6_2Visibility}" title="{!Section_6_2Title}" />
+        <apex:inputField required="{!Section_6_2required}" style="width:100%;" value="{!objDossier.Section_6_2__c}" rendered="{!Section_6_2Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_6_3Label}" rendered="{!Section_6_3Visibility}" title="{!Section_6_3Title}" />
+        <apex:inputField required="{!Section_6_3required}" style="width:100%;" value="{!objDossier.Section_6_3__c}" rendered="{!Section_6_3Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_6_4Label}" rendered="{!Section_6_4Visibility}" title="{!Section_6_4Title}" />
+        <apex:inputField required="{!Section_6_4required}" style="width:100%;" value="{!objDossier.Section_6_4__c}" rendered="{!Section_6_4Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_6_5Label}" rendered="{!Section_6_5Visibility}" title="{!Section_6_5Title}" />
+        <apex:inputField required="{!Section_6_5required}" style="width:100%;" value="{!objDossier.Section_6_5__c}" rendered="{!Section_6_5Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_6_6Label}" rendered="{!Section_6_6Visibility}" title="{!Section_6_6Title}" />
+        <apex:inputField required="{!Section_6_6required}" style="width:100%;" value="{!objDossier.Section_6_6__c}" rendered="{!Section_6_6Visibility}" label=""/>
+    </apex:pageblockSection> 
+    
+     <!-- Section 7 --> 
+    <apex:pageblockSection title="7.0 Substantiation for CRS that are Not Related to Nutrition and Health" collapsible="false" columns="1" >
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_7_1Label}" rendered="{!Section_7_1Visibility}" title="{!Section_7_1Title}" />
+        <apex:inputField required="{!Section_7_1required}" style="width:100%;" value="{!objDossier.Section_7_1__c}" rendered="{!Section_7_1Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_7_2Label}" rendered="{!Section_7_2Visibility}" title="{!Section_7_2Title}" />
+        <apex:inputField required="{!Section_7_2required}" style="width:100%;" value="{!objDossier.Section_7_2__c}" rendered="{!Section_7_2Visibility}" label=""/>
+    </apex:pageblockSection>
+     
+     <!-- Section 8 -->
+    <apex:pageblockSection title="8.0 Competitor Claims in country of sale" collapsible="false" columns="1" >
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_8_0Label}" rendered="{!Section_8_0Visibility}" title="{!Section_8_0Title}" />
+        <apex:inputField required="{!Section_8_0required}" style="width:100%;" value="{!objDossier.Section_8_0__c}" rendered="{!Section_8_0Visibility}" label=""/>
+        
+    </apex:pageblockSection>
+    
+     <!-- Section 9 -->
+    <apex:pageblockSection title="9.0 References" collapsible="false" columns="1" >
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_9_0Label}" rendered="{!Section_9_0Visibility}" title="{!Section_9_0Title}" />
+        <apex:inputField required="{!Section_9_0required}" style="width:100%;" value="{!objDossier.Section_9_0__c}" rendered="{!Section_9_0Visibility}" label=""/>
+        
+    </apex:pageblockSection>
+    
+     <!-- Section 10 -->
+    <apex:pageblockSection title="10.0 Additional information 1" collapsible="false" columns="1" >
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_10_1Label}" rendered="{!Section_10_1Visibility}" title="{!Section_10_1Title}" />
+        <apex:inputField required="{!Section_10_1required}" style="width:100%;" value="{!objDossier.Section_10_1__c}" rendered="{!Section_10_1Visibility}" label=""/>
+        
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_10_2Label}" rendered="{!Section_10_2Visibility}" title="{!Section_10_2Title}" />
+        <apex:inputField required="{!Section_10_2required}" style="width:100%;" value="{!objDossier.Section_10_2__c}" rendered="{!Section_10_2Visibility}" label=""/>
+    </apex:pageblockSection>
+    
+     <!-- Section 11 -->
+    <apex:pageblockSection title="11.0 Additional information 2" collapsible="false" columns="1" >
+        <apex:outputText style="font-weight: bold;font-size:11px;" value="{!Section_11_0Label}" rendered="{!Section_11_0Visibility}" title="{!Section_11_0Title}" />
+        <apex:inputField required="{!Section_11_0required}" style="width:100%;" value="{!objDossier.Section_11_0__c}" rendered="{!Section_11_0Visibility}" label=""/>
+        
+    </apex:pageblockSection>
+    
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

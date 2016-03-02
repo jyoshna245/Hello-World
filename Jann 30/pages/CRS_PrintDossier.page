@@ -1,0 +1,331 @@
+<apex:page applyBodyTag="false" standardController="CRS_Dossier__c" renderAs="pdf" extensions="CRS_EditDossier" tabStyle="CRS__c" showHeader="true" sidebar="true" cache="true" id="page1">
+    
+    <head>
+        <style>
+            body { font-family: 'Sans-serif'; }
+
+        </style> 
+    </head>
+    <!--<div style="text-align: left;;font-weight: bold;">CRS Details</div>-->
+    <table width="100%">
+    <tr width="100%">
+    <td width="50%" style="text-align: left;;font-weight: bold;">CRS Details</td>
+    <td width="50%" style="text-align: right;;font-weight: bold;">{!myDate}</td>
+    <!--<div style="text-align: left;;font-weight: bold;">CRS Details</div>
+    <div style="text-align: left;;font-weight: bold;">{!myDate}</div>-->
+    </tr>
+    </table>
+    <hr/>
+    <table cellpadding="2px;" cellspacing="2px;"> 
+    <tr>
+        <td style="text-align: left;font-weight: bold;font-size:15px;">CRS Status :</td>
+        <td><apex:outputField value="{!objCRS.Status__c}" /></td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="text-align: left;font-weight: bold;font-size:15px;">Date Initiated :</td>
+        <td><apex:outputField value="{!objCRS.Date_Initiated__c}" /></td>
+    </tr>
+    <tr>
+        <td style="text-align: left;font-weight: bold;font-size:15px;">CRS Title : </td>
+        <td><apex:outputField value="{!objCRS.CRS_Title__c}"/></td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="text-align: left;font-weight: bold;font-size:15px;">Date Closed :</td>
+        <td><apex:outputField value="{!objCRS.Date_Closed__c}"/></td>
+    </tr>
+    <tr>
+        <td style="text-align: left;font-weight: bold;font-size:15px;">Tracking # :</td>
+        <td><apex:outputField value="{!objCRS.name}" /></td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="text-align: left;font-weight: bold;font-size:15px;">BBN :</td>
+        <td><apex:outputField value="{!objCRS.BBN__c}" /></td>
+    </tr>
+    <tr>
+        <td style="text-align: left;font-weight: bold;font-size:15px;">Initiated For : </td>
+        <td><apex:outputField value="{!objCRS.Initiated_By__r.name}"/></td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="text-align: left;font-weight: bold;font-size:15px;">Product Name :</td>
+        <td><apex:outputField value="{!objCRS.CRS_Product_Name__r.Name}"/></td>
+    </tr>
+    <tr>
+        <td style="text-align: left;font-weight: bold;font-size:15px;">Business Unit :</td>
+        <td><apex:outputField value="{!objCRS.CRS_Business_Unit__r.name}"/></td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="text-align: left;font-weight: bold;font-size:15px;">Flavor :</td>
+        <td><apex:outputField value="{!objCRS.CRS_Flavor_Names__c}" /></td>
+    </tr>
+    <tr>
+        <td style="text-align: left;font-weight: bold;font-size:15px;">Group :</td>
+        <td><apex:outputField value="{!objCRS.CRS_Group__r.name}" /></td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="text-align: left;font-weight: bold;font-size:15px;">Brand :</td>
+        <td><apex:outputText value="{!objCRS.CRS_Brand__r.name}"/></td>
+    </tr>
+    <tr>
+        <td style="text-align: left;font-weight: bold;font-size:15px;">Country :</td>
+        <td><apex:outputField value="{!objCRS.CRS_Country_Names__c}"/></td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="text-align: left;font-weight: bold;font-size:15px;">Beverage Category :</td>
+        <td><apex:outputField value="{!objCRS.CRS_Beverage_Category__r.name}" /></td>
+    </tr>
+    </table><br />
+    <hr/><br /><br />
+        
+    <div style="text-align: center;;font-weight: bold;">CRS Dossier</div>
+
+    
+    <div style="text-align: center;font-weight: bold;font-size:15px;">DOSSIER MUST BE COMPLETED FOR ALL SUBMISSIONS</div> <br/>
+    
+    <table width="100%" >
+    <!-- section 1 -->
+    <tr>
+        <td colspan="2" style="background:#B4C3D1; font-weight: bold;">1.0 Overview:</td>   
+    </tr>
+    <tr style="display: {!IF(Section_1_1Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_1_1Label}" rendered="{!Section_1_1Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_1_1Visibility,'','none')};">
+        
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_1_1__c}" rendered="{!Section_1_1Visibility}" /></td>
+    </tr>
+    <tr style="display: {!IF(Section_1_2Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_1_2Label}" rendered="{!Section_1_2Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_1_2Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_1_2__c}" rendered="{!Section_1_2Visibility}" /></td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+    <!--  section 2 -->
+    <tr>
+        <td colspan="2" style="background:#B4C3D1; font-weight: bold;">2.0 Individual Claim(s) for Approval:</td>   
+    </tr>
+    <tr style="display: {!IF(Section_2_0Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_2_0Label}" rendered="{!Section_2_0Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_2_0Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_2_0__c}" rendered="{!Section_2_0Visibility}" /></td>
+    </tr>
+    <tr>
+    <td>&nbsp;</td></tr>
+    <!--  section 3 --> 
+    <tr>
+        <td colspan="2" style="background:#B4C3D1; font-weight: bold;">3.0 Non-product specific materials:</td> 
+    </tr>
+    <tr style="display: {!IF(Section_3_0Visibility,'','none')};">
+        <td style="font-weight: bold; "><apex:outputText value="{!Section_3_0Label}" rendered="{!Section_3_0Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_3_0Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_3_0__c}" rendered="{!Section_3_0Visibility}" /></td>
+    </tr>
+    
+     <tr style="display: {!IF(Section_3_1Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_3_1Label}" rendered="{!Section_3_1Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_3_1Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_3_1__c}" rendered="{!Section_3_1Visibility}" /></td>
+    </tr>
+    
+     <tr style="display: {!IF(Section_3_2Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_3_2Label}" rendered="{!Section_3_2Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_3_2Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_3_2__c}" rendered="{!Section_3_2Visibility}" /></td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+    <!-- section 4 -->
+    
+    <tr >
+        <td colspan="2" style="background:#B4C3D1; font-weight: bold;">4.0 Product description:</td>    
+    </tr>
+    <tr style="display: {!IF(Section_4_1Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_4_1Label}" rendered="{!Section_4_1Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_4_1Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_4_1__c}" rendered="{!Section_4_1Visibility}" /></td>
+    </tr>
+    
+     <tr style="display: {!IF(Section_4_2Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_4_2Label}" rendered="{!Section_4_2Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_4_2Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_4_2__c}" rendered="{!Section_4_2Visibility}" /></td>
+    </tr>
+    
+     <tr style="display: {!IF(Section_4_3Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_4_3Label}" rendered="{!Section_4_3Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_4_3Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_4_3__c}" rendered="{!Section_4_3Visibility}" /></td>
+    </tr>
+    <tr style="display: {!IF(Section_4_4Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_4_4Label}" rendered="{!Section_4_4Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_4_4Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_4_4__c}" rendered="{!Section_4_4Visibility}" /></td>
+    </tr>
+    
+     <tr style="display: {!IF(Section_4_5Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_4_5Label}" rendered="{!Section_4_5Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_4_5Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_4_5__c}" rendered="{!Section_4_5Visibility}" /></td>
+    </tr>
+    
+     <tr style="display: {!IF(Section_4_6Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_4_6Label}" rendered="{!Section_4_6Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_4_6Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_4_6__c}" rendered="{!Section_4_6Visibility}" /></td>
+    </tr>
+    <tr style="display: {!IF(Section_4_7Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_4_7Label}" rendered="{!Section_4_7Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_4_7Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_4_7__c}" rendered="{!Section_4_7Visibility}" /></td>
+    </tr>
+    
+     <tr style="display: {!IF(Section_4_8Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_4_8Label}" rendered="{!Section_4_8Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_4_8Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_4_8__c}" rendered="{!Section_4_8Visibility}" /></td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+    <!-- section 5 -->
+     <tr> 
+        <td colspan="2" style="background:#B4C3D1; font-weight: bold;">5.0 Substantiation for Specifically Allowed CRS:</td>    
+    </tr>
+        
+     <tr style="display: {!IF(Section_5_1Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_5_1Label}" rendered="{!Section_5_1Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_5_1Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_5_1__c}" rendered="{!Section_5_1Visibility}" /></td>
+    </tr>
+    
+     <tr style="display: {!IF(Section_5_2Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_5_2Label}" rendered="{!Section_5_2Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_5_2Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_5_2__c}" rendered="{!Section_5_2Visibility}" /></td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+    <!-- Section 6 -->
+    <tr>
+        <td colspan="2" style="background:#B4C3D1; font-weight: bold;">6.0 Substantiation for CRS Not Specifically Allowed: </td>   
+    </tr>
+        
+     <tr style="display: {!IF(Section_6_1Visibility,'','none')};"> 
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_6_1Label}" rendered="{!Section_6_1Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_6_1Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_6_1__c}" rendered="{!Section_6_1Visibility}" /></td>
+    </tr>
+    
+     <tr style="display: {!IF(Section_6_2Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_6_2Label}" rendered="{!Section_6_2Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_6_2Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_6_2__c}" rendered="{!Section_6_2Visibility}" /></td>
+    </tr >
+     <tr style="display: {!IF(Section_6_3Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_6_3Label}" rendered="{!Section_6_3Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_6_3Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_6_3__c}" rendered="{!Section_6_3Visibility}" /></td>
+    </tr>
+    
+     <tr style="display: {!IF(Section_6_4Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_6_4Label}" rendered="{!Section_6_4Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_6_4Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_6_4__c}" rendered="{!Section_6_4Visibility}" /></td>
+    </tr>
+     <tr style="display: {!IF(Section_6_5Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_6_5Label}" rendered="{!Section_6_5Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_6_5Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_6_5__c}" rendered="{!Section_6_5Visibility}" /></td>
+    </tr>
+    
+     <tr style="display: {!IF(Section_6_6Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_6_6Label}" rendered="{!Section_6_6Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_6_6Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_6_6__c}" rendered="{!Section_6_6Visibility}" /></td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+    <!-- section 7 -->
+     <tr>
+        <td colspan="2" style="background:#B4C3D1; font-weight: bold;">7.0 Substantiation for CRS that are Not Related to Nutrition and Health: </td>   
+    </tr>
+        
+     <tr style="display: {!IF(Section_7_1Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_7_1Label}" rendered="{!Section_7_1Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_7_1Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_7_1__c}" rendered="{!Section_7_1Visibility}" /></td>
+    </tr>
+    
+     <tr style="display: {!IF(Section_7_2Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_7_2Label}" rendered="{!Section_7_2Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_7_2Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_7_2__c}" rendered="{!Section_7_2Visibility}" /></td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+    <!--  section 8 -->
+    <tr>
+        <td colspan="2" style="background:#B4C3D1; font-weight: bold;">8.0 Competitor Claims in country of sale: </td>  
+    </tr>
+        
+     <tr style="display: {!IF(Section_8_0Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_8_0Label}" rendered="{!Section_8_0Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_8_0Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_8_0__c}" rendered="{!Section_8_0Visibility}" /></td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+    <!-- section 9 -->
+    <tr>
+        <td colspan="2" style="background:#B4C3D1; font-weight: bold;">9.0 References: </td>    
+    </tr>
+        
+     <tr style="display: {!IF(Section_9_0Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_9_0Label}" rendered="{!Section_9_0Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_9_0Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_9_0__c}" rendered="{!Section_9_0Visibility}" /></td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+     <!-- section 10 -->
+    <tr>
+        <td colspan="2" style="background:#B4C3D1; font-weight: bold;">10.0 Additional information 1: </td> 
+    </tr>
+        
+     <tr style="display: {!IF(Section_10_1Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_10_1Label}" rendered="{!Section_10_1Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_10_1Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_10_1__c}" rendered="{!Section_10_1Visibility}" /></td>
+    </tr>
+    
+    <tr style="display: {!IF(Section_10_2Visibility,'','none')};">
+        <td style="font-weight: bold;"><apex:outputText value="{!Section_10_2Label}" rendered="{!Section_10_2Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_10_2Visibility,'','none')};">
+        <td style="border:1px solid black;"><apex:outputField value="{!objDossier.Section_10_2__c}" rendered="{!Section_10_2Visibility}" /></td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+    <!-- section 11 -->
+    <tr>
+        <td colspan="2" style="background:#B4C3D1; font-weight: bold;">11.0 Additional information 2: </td> 
+    </tr>
+        
+     <tr style="display: {!IF(Section_11_0Visibility,'','none')};">
+        <td style="font-weight: bold; display: {!IF(Section_11_0Visibility,'','none')};"><apex:outputText value="{!Section_11_0Label}" rendered="{!Section_11_0Visibility}"/></td>
+    </tr>
+    <tr style="display: {!IF(Section_11_0Visibility,'','none')};">
+        <td style="border:1px solid black; display: {!IF(Section_11_0Visibility,'','none')};"><apex:outputField value="{!objDossier.Section_11_0__c}" rendered="{!Section_11_0Visibility}" /></td>
+    </tr>
+    
+    </table>
+</apex:page>

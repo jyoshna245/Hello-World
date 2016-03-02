@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>CRS_EditDossier</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>CRS_DossierView</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Dossier object is in Master-detail relationship with CRS Object.</description>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>CRSDossierToCRS__c</fullName>
+        <externalId>false</externalId>
+        <label>CRS</label>
+        <referenceTo>CRS__c</referenceTo>
+        <relationshipLabel>CRS Dossiers</relationshipLabel>
+        <relationshipName>CRS_Dossiers</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>LastModifiedDate__c</fullName>
+        <externalId>false</externalId>
+        <label>LastModifiedDate</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Section_10_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Section 10.1</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_10_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Section 10.2</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_11_0__c</fullName>
+        <externalId>false</externalId>
+        <label>Section 11.1</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_1_1__c</fullName>
+        <externalId>false</externalId>
+        <label>1.1 ExecSum</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_1_2__c</fullName>
+        <externalId>false</externalId>
+        <label>1.2 Similar CRS #</label>
+        <length>1024</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_2_0__c</fullName>
+        <externalId>false</externalId>
+        <label>2.1 Claims</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_3_0__c</fullName>
+        <externalId>false</externalId>
+        <label>3.0 Non-prod materials</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_3_1__c</fullName>
+        <externalId>false</externalId>
+        <label>3.1 Description</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_3_2__c</fullName>
+        <externalId>false</externalId>
+        <label>3.2 Target</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_4_1__c</fullName>
+        <externalId>false</externalId>
+        <label>4.1 Designation/Stmt Id</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_4_2__c</fullName>
+        <externalId>false</externalId>
+        <label>4.2 Ingredients</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_4_3__c</fullName>
+        <externalId>false</externalId>
+        <label>4.3 Nutr Info</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_4_4__c</fullName>
+        <externalId>false</externalId>
+        <label>4.4 % fruit/milk</label>
+        <length>130048</length>
+        <trackHistory>false</trackHistory>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_4_5__c</fullName>
+        <externalId>false</externalId>
+        <label>4.5 AC</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_4_6__c</fullName>
+        <externalId>false</externalId>
+        <label>4.6 AC content</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_4_7__c</fullName>
+        <externalId>false</externalId>
+        <label>4.7 AC bioavail</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_4_8__c</fullName>
+        <externalId>false</externalId>
+        <label>4.8 AC stability</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_5_1__c</fullName>
+        <externalId>false</externalId>
+        <label>5.1 Regulation</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_5_2__c</fullName>
+        <externalId>false</externalId>
+        <label>5.2 Prod attrib</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_6_1__c</fullName>
+        <externalId>false</externalId>
+        <label>6.1 AC Ref Val</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_6_2__c</fullName>
+        <externalId>false</externalId>
+        <label>6.2 AC daily intake</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_6_3__c</fullName>
+        <externalId>false</externalId>
+        <label>6.3 AC safety sum</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_6_4__c</fullName>
+        <externalId>false</externalId>
+        <label>6.4 Sci substant</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_6_5__c</fullName>
+        <externalId>false</externalId>
+        <label>6.5 Evi rank</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_6_6__c</fullName>
+        <externalId>false</externalId>
+        <label>6.6 Regulation</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_7_1__c</fullName>
+        <externalId>false</externalId>
+        <label>7.1 Substantiation</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_7_2__c</fullName>
+        <externalId>false</externalId>
+        <label>7.2 Regulation</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_8_0__c</fullName>
+        <externalId>false</externalId>
+        <label>8.1 Competitor Info</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section_9_0__c</fullName>
+        <externalId>false</externalId>
+        <label>9.1 References</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>isSubmitted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>isSubmitted</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <label>CRS Dossier</label>
+    <nameField>
+        <displayFormat>CRSDossier-{0000}</displayFormat>
+        <label>CRS Dossier Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>CRS Dossiers</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

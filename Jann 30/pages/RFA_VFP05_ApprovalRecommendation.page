@@ -1,0 +1,51 @@
+<apex:page standardController="RFA__c" extensions="RFA_VFC04_ApprovalProcessController" sidebar="false" showHeader="false">
+
+<!--  GA 8/19/13: The following line has been commented out. It closes popup VF page to close automatically onBlur and it causes an issue with JS Confirmation message on Safari Browser. -->
+<!--  <apex:includeScript value="{!URLFOR($Resource.RFA_STR02_CustomScript, 'js/rfapopup-1.0.min.js')}"/> -->
+ 
+ <script type="text/javascript">
+    function window_Close(hasError) 
+    {
+        if (hasError == false)
+        {
+            window.opener.parentReload();
+            window.close();
+        }
+    }       
+</script>
+
+      <apex:form >
+            <apex:pageMessages id="pageMessage"></apex:pageMessages>
+            <apex:outputText value="{!RFA__c.Level__c}" rendered="false"/>
+            <apex:outputText value="{!RFA__c.ControlNumber__c }" rendered="false"/>
+          <apex:pageBlock title="Request-{!rfaObj.ControlNumber__c}" id="pageBlock">
+          <apex:pageBlockButtons location="bottom">
+            <apex:commandButton value="Submit" onclick="if(!confirm('Are you sure?')){ return false; }" action="{!submitRecommendation}" onComplete="window_Close({!hasError})" reRender="pageMessage"/>                                       
+            <apex:commandButton value="Cancel" onClick="{self.close();}"/>
+
+
+          </apex:pageBlockButtons>
+                <apex:pageBlockSection title="ApprovalRecommendation" columns="1" id="pageBlockSection">
+                           <apex:pageBlockSectionItem id="section1">
+                                 <apex:outputPanel >
+                                       <apex:outputLabel >Act on Behalf of</apex:outputLabel>
+                                 </apex:outputPanel>
+                                 <apex:selectList value="{!selectedWorkItem}" size="1" multiselect="false" required="true">
+                                         <apex:selectOptions value="{!workItemOptions}"/>
+                                   </apex:selectList>
+                                  
+                           </apex:pageBlockSectionItem>
+                           <apex:pageBlockSectionItem id="section2">
+                                 <apex:outputLabel >Recommendation</apex:outputLabel>
+                                 <apex:selectList value="{!selectedRecommendation}" size="1" multiselect="false" required="true">
+                                       <apex:selectOptions value="{!recommendationOptions}"/>
+                                 </apex:selectList>
+                           </apex:pageBlockSectionItem> 
+                           <apex:pageBlockSectionItem id="section3">
+                                 <apex:outputLabel >Comments</apex:outputLabel>
+                                 <apex:inputTextArea value="{!approvalComments}" richText="false" rows="10" cols="50"></apex:inputTextArea>
+                           </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+          </apex:pageBlock>
+      </apex:form>
+</apex:page>

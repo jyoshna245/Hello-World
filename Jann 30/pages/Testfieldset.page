@@ -1,0 +1,10 @@
+<apex:page standardController="RFA__c" extensions="getValuesFieldset">
+    <apex:pageBlock title="Fields in Proper Names"  mode="edit">
+        <apex:repeat value="{!$ObjectType.RFA__c.FieldSets.General_Section}" var="f"  >             
+              <apex:outputField value="{!RFA__c[rfaObj.name]}"  style="Color : White;"/>
+        </apex:repeat>
+        
+    </apex:pageBlock> 
+     
+      
+</apex:page>

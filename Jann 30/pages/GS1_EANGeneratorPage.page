@@ -1,0 +1,36 @@
+<apex:page tabStyle="GS1_EAN__c" standardcontroller="GS1_EAN__c" extensions="GS1_EAN_CodeGenCtrl">
+    <apex:sectionHeader title="Create Barcode Range"/>
+    <apex:form id="thisForm">
+        <apex:pageMessages ></apex:pageMessages>
+        <apex:pageBlock title="Create Barcode Parameters" mode="false">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Create the barcode" action="{! generateEANCodes}" rendered="{! EANCodes==null}" />
+                <apex:commandButton value="Create another barcode range" action="{! startOver}" rendered="{! EANCodes!=null}"/>
+                <apex:commandButton value="Done" action="{! goBack}" immediate="true"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1" collapsible="false" rendered="{! EANCodes==null}">
+                <apex:outputText label="Short or Long" value="{! shortOrLong}" />
+                <apex:inputField value="{! GS1_EAN__c.Property_2__c}" required="true"/>
+                <apex:inputField value="{! GS1_EAN__c.Property_3__c}" required="true"/>
+                <apex:inputText label="Start Range (7 or 12 digits)" value="{! startNum}" required="true"/>
+                <apex:inputText label="End Range (7 or 12 digits)" value="{! endNum}" required="true"/>                
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" collapsible="false" rendered="{! EANCodes!=null}">
+                <apex:outputText label="Short or Long" value="{! shortOrLong}" />
+                <apex:outputField value="{! GS1_EAN__c.Property_2__c}" label="CU/DU or Pallet"/>
+                <apex:outputField value="{! GS1_EAN__c.Property_3__c}" label="Promo or No-Promo"/>
+                <apex:outputText label="Start Range (7 or 12 digits)" value="{! startNum}" />
+                <apex:outputText label="End Range (7 or 12 digits)" value="{! endNum}"/>
+                <apex:outputText label=" " escape="false" value="The process generated <b>{! EANCodes.size} barcode records</b>" />
+            </apex:pageBlockSection>            
+    </apex:pageBlock>
+    <apex:pageBlock title="Generated Barcodes" mode="false"  rendered="{! EANCodes!=null}">
+       <apex:pageBlockTable value="{!EANCodes}" var="EAN">
+            <apex:column headerValue="EAN Code"><apex:outputLink value="/{! EAN.id}" target="_blank">{! EAN.name}</apex:outputLink></apex:column>
+            <apex:column value="{! shortOrLong}" headerValue="Short or Long"/>
+            <apex:column value="{!EAN.Property_2__c}" headerValue="CU/DU or Pallet"/> 
+            <apex:column value="{!EAN.Property_3__c}" headerValue="Promo or No-Promo"/> 
+        </apex:pageBlockTable> 
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

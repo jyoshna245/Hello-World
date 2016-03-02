@@ -1,0 +1,57 @@
+<apex:page standardController="ITPR__c" extensions="ITSES_ViewAttachments"  showHeader="false" sidebar="false">
+<apex:form >
+<apex:pageMessages />
+<apex:pageBlock title="" rendered="{!DisplayViewAttachments}" >
+    <div align="center">
+    <apex:commandButton value="Attach File" action="{!NewPage}" rendered="{!IsUploadAllowed}"/>
+    </div>
+    
+    <apex:outputPanel id="pnlData" >
+        <apex:pageBlockTable value="{!Attachments}" var="item" width="100%">
+                <apex:column headerValue="Action" rendered="{!IsDeleteAllowed}">                    
+                    <apex:commandLink value="Delete" action="{!DeleteAttachment}" onClick="if(!confirm('Are you sure you want to delete the Additional attachment?'))return false;" reRender="pnlData">
+                        <apex:param name="AttachId" value="{!Item.Id}" assignTo="{!AttachId}"/>
+                    </apex:commandLink>
+                </apex:column>
+                
+                <apex:column headerValue="Name">
+                    <apex:outputLink value="/servlet/servlet.FileDownload?file={!Item.Id}" target="_blank">{!item.name}</apex:outputLink>
+                </apex:column>
+                <apex:column value="{!Item.description}" headerValue="Description" id="description"/>
+                <apex:column value="{!item.CreatedById}" headerValue="Created By"/>
+                <apex:column value="{!item.CreatedDate}" headerValue="Created Date "/>
+                
+       </apex:pageBlockTable>
+    
+        <div align="center">
+        <apex:commandButton value="Previous" action="{!PreviousPage}" rendered="{!hasPreviousFind}" reRender="pnlData"/> &nbsp; &nbsp;
+        <apex:commandButton value="Next" action="{!NextPage}" rendered="{!hasNextFind}" reRender="pnlData"/>
+        </div>
+    </apex:outputPanel>
+</apex:pageBlock>
+
+<apex:pageBlock title="Upload an Attachment" rendered="{!DisplayAddAttachments}">
+
+  <div align="center">
+    <apex:commandButton action="{!upload}" value="Save"/> &nbsp; &nbsp;
+    <apex:commandButton action="{!cancel}" value="Cancel"/>        
+  </div>
+  
+  <apex:pageBlockSection showHeader="false" columns="1" id="block1">
+
+    <apex:pageBlockSectionItem >
+      <apex:outputLabel value="Browse :" styleClass="bold" for="file"/>
+      <apex:inputFile value="{!attachment.body}" filename="{!attachment.name}" id="file"/>
+    </apex:pageBlockSectionItem>
+
+    <apex:pageBlockSectionItem >
+      <apex:outputLabel value="Description :" styleClass="bold" for="description"/>
+      <apex:inputTextarea value="{!attachment.description}"  required="false"/>
+    </apex:pageBlockSectionItem>
+
+  </apex:pageBlockSection>
+
+</apex:pageBlock>
+</apex:form>
+  
+</apex:page>

@@ -1,0 +1,2 @@
+<apex:page standardController="ReportingUnit__c" extensions="RFA_VFC11_ReportingUnitRecalculation" action="{!callRecalculationMethod}">
+</apex:page>

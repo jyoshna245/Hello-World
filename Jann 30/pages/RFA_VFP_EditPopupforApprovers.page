@@ -1,0 +1,32 @@
+<!-- Author          : Infosys -->
+<!-- Date Created    : 11/18/2015 -->
+<apex:page standardController="RFAUserRole__c" extensions="RFA_VFC_EditPopupforApprvrsControler">
+    
+    <script src="/resource/1357724829000/jquery" type="text/javascript"></script>
+<script src="/soap/ajax/22.0/connection.js" type="text/javascript"></script>
+<script type = "text/javascript">
+    window.onload=function()       
+    {
+        var RFAId = '{!rfaobj.RFA__c}';
+        var str = '{!ProfileName}';
+        var RFAuserroleId ='{!rfauseroleobj.Id}';
+        var usertype ='{!usertype}'
+        var userexistinpc ='{!userexistinPC}'
+        var reloadUrl = "/"+ RFAId;        
+        if('{!stage.stage__c}' == 'Circulation' && str.indexOf('RFA') >= 0 && userexistinpc == true && (usertype == 'Approver' || usertype == 'Info Copy Only') )
+            {
+                
+                alert("You do not have permission to edit the Approval Details record.  RFA approvers should click the 'Submit Approval Recommendation' button at the top of the page to enter an approval recommendation.");
+                 window.parent.location.href = reloadUrl;
+ 
+                }
+        else
+            {
+                  window.parent.location.href ='../apex/RFA_VFP13_New_Approver?Id='+RFAuserroleId;
+                
+            }
+    };
+</script>
+    <apex:form >
+    </apex:form>
+</apex:page>

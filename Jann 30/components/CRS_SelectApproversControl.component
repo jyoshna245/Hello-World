@@ -1,0 +1,13 @@
+<apex:component controller="CRS_SelectApproversController">
+    <apex:attribute name="fieldName" required="true" type="String" description="for custom multiselect popup"/>
+    <apex:attribute name="fieldValue" required="true" type="String" assignTo="{!fieldValue}" description="for custom multiselect popup"/>
+    <apex:attribute name="businessUnit" required="false" type="String" description="for custom multiselect popup"/>
+    <apex:attribute name="isGvw" required="false" type="Boolean" description="for custom multiselect popup"/>
+    <apex:attribute name="readonly" required="false" type="Boolean" default="false" description="for custom multiselect popup"/>
+    <apex:outputPanel >
+        <apex:outputText value="{!userNames}" />
+        <apex:outputLink value="javascript:void(0)" onclick="window.open('/apex/CRS_LookupMultiSelect?approvers=1&objType=User&fieldName={!fieldName}&fieldValue={!fieldValue}&businessUnit={!businessUnit}&gvw={!IF(isGvw,1,0)}','customMultiselectPopup','height=600,width=700,top=200,left=300,resizable=yes,scrollbars=yes'); return false;" rendered="{!!readonly}">
+            <img src="/s.gif" alt="Multiselect Approvers (New Window)" class="lookupIcon" onblur="this.className = 'lookupIcon';" onfocus="this.className = 'lookupIconOn';" onmouseout="this.className = 'lookupIcon';this.className = 'lookupIcon';" onmouseover="this.className = 'lookupIconOn';this.className = 'lookupIconOn';" title="Multiselect Approvers (New Window)" />
+        </apex:outputLink>
+    </apex:outputPanel>
+</apex:component>

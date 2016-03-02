@@ -1,0 +1,33 @@
+<apex:page standardController="CRS_Message__c" extensions="CRS_CRSResendController">
+     <script type="text/javascript">
+
+   var url = location.href;
+   var match = url.match(/inline=1/);
+   if (match != null) { 
+      var newUrl = url.replace(/inline=1/, ''); 
+      window.top.location=newUrl;
+   }
+
+</script>
+    
+    <apex:sectionHeader subtitle="{!crs.Name}" title="{!$Label.CRS_ResendApprovalNotification}">
+    <div style="font-family: 'Verdana','Geneva',sans-serif; font-size: 91.3%;">
+        &nbsp;«&nbsp;<a href="/{!crs.Id}" style="color: #015BA7; text-decoration:none">Back to CRS: {!crs.name}</a>
+    </div>
+    </apex:sectionHeader>
+    <apex:form >
+        <apex:pageBlock title="Approval Notification Details" >
+            <apex:pageBlockSection columns="1">
+                <apex:outputField value="{!crs.Name}"/>
+                <apex:outputField value="{!crs.OwnerId}"/>
+                
+                <apex:inputField value="{!CRS_Message__c.Notification_Comment__c}" style="width:540px;height:100px;" rendered="{!isShowMessageBox}"/>
+                <apex:inputField value="{!CRS_Message__c.High_Priority__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Send" action="{!sendMessage}"/>
+                <apex:commandButton value="Cancel" action="{!doCancel}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

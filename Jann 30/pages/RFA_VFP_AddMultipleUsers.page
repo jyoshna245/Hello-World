@@ -1,0 +1,259 @@
+<!-- Author          : Infosys -->
+<!-- Date Created    : 11/14/2015 -->
+
+<apex:page standardController="RFA__c" extensions="RFA_VFC_AddMultipleUsersctlr" action="{!insertInauObj}">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <style>
+        .width15px {
+            
+            width: 15% !important;
+        }
+        .mySelect {    
+         font-size: 12px;
+         width:100%;
+         color: #000;
+         background: transparent;
+         appearance: none;
+        -webkit-appearance: none;
+         border: none;
+        width:initial;
+         }
+        .mySelect:focus {
+    -webkit-appearance: menulist ;
+    appearance: menulist ;
+    border: 1px solid #000;
+    background: white;
+    margin: 0;
+    width:initial;
+        }
+   .ui-state-active
+        {
+    border: 1px solid #fbd850;
+    background: #e6e6e6;
+    font-weight: bold;
+    color: #e6e6e6;
+        }
+   
+    </style>     
+    <apex:form id="Formid" >        
+            <apex:PageBlock title="Selected Approvers" id="PBId">                      
+                <apex:pageMessage severity="Warning" summary="No RFA Approvers/Users were identified based on the RFA Request Amount, Primary DOA Category and Profit Center selected.  Please manually add required RFA Approvers/Users below. " rendered="{!Criteriausr}" strength="2"></apex:pageMessage>
+                <apex:pageMessage severity="Warning" summary="Approvers / Info copy users can't be edited in RFA circulation stage" rendered="{!EditMessage}" strength="2"></apex:pageMessage>
+                <apex:pageMessage severity="Warning" summary="Empty row deletion is not allowed" rendered="{!delemptyrowmsg}" strength="3"></apex:pageMessage>
+                <apex:pageMessage severity="Error" summary="Approved / Awaiting / Rejected Users can't be Edited or deleted" rendered="{!ErrorMessage}" strength="3"></apex:pageMessage>                
+            <apex:messages style="color:red;" />                
+                <apex:variable var="rowNum" value="{!0}"/>                 
+                <apex:pageBlockTable value="{!finallist}" var="loclvar"  headerClass="headerclass" style="width:100%;" id="Autoaprvrtable" >
+                    <apex:column headerValue="Action" rendered="{!tobeEdited != loclvar.Id }" styleClass="{!IF(loclvar.Usercount__c != null,'ui-state-active','')}" >
+                       <apex:commandLink value="Edit" action="{!EditUsers}">
+                            <apex:param name="EditId" assignTo="{!tobeEdited}" value="{!loclvar.Id}" />
+                           <apex:param value="{!rowNum}" name="indexid" assignTo="{!editvalue}" /> 
+                        </apex:commandLink>&nbsp;&nbsp;
+                        <apex:OutputLabel Value="|"/>&nbsp;&nbsp;
+                        <apex:commandLink Value="Remove" action="{!DeleteUsers}" >
+                          <apex:param name="DeleteId" assignTo="{!tobeDeleted}" value="{!loclvar.Id}" />
+                            <apex:param value="{!rowNum}" name="indexid" assignTo="{!deletevalue}" />
+                            <apex:param value="{!rowNum}" name="indexid" />
+                        </apex:commandLink>                                           
+                        <apex:variable var="rowNum" value="{!rowNum+1}"/> 
+                    </apex:column>                     
+                    <apex:column headerValue="Action" rendered="{!tobeEdited == loclvar.Id}" styleClass="{!IF(loclvar.Usercount__c != null,'ui-state-active','')}" >
+                       <apex:commandLink value="Save" action="{!SaveUsers}" >
+                           <apex:param name="Saverownum" assignTo="{!savevalue}" value="{!rowNum}" />                                                       
+                        </apex:commandLink>&nbsp;&nbsp;
+                        <apex:OutputLabel Value="|"/>&nbsp;&nbsp;                        
+                        <apex:commandLink Value="Cancel" action="{!Cancelusers}" >
+                          <apex:param name="Cancelrownum" assignTo="{!cancelvalue}" value="{!rowNum}" />                           
+                        </apex:commandLink>                                            
+                        <apex:variable var="rowNum" value="{!rowNum+1}"/>
+                    </apex:column>                   
+                    <apex:column headerValue="Manual/Automated"  styleClass="{!IF(loclvar.Usercount__c != null,'ui-state-active','')}">
+                        <apex:outputLabel value="{!loclvar.Manual_Automated__c}"/>                          
+                    </apex:column>
+                    <apex:column headerValue="User Email" styleClass="{!IF(loclvar.Usercount__c != null,'ui-state-active','')}">
+                        <apex:outputLabel value="{!loclvar.Approver__r.Email}"/>                          
+                    </apex:column>
+                    <apex:column headerValue="User Name" styleClass="{!IF(loclvar.Usercount__c != null,'ui-state-active','')}">
+                        <apex:outputField value="{!loclvar.Approver__c}"  rendered="{!tobeEdited != loclvar.Id }"/>                           
+                           <apex:InputField value="{!loclvar.Approver__c}" rendered="{!tobeEdited == loclvar.id }" >
+                             <apex:actionSupport event="onchange"  action="{!updateagentsinfo}" oncomplete="validateusertype(this)"  />                            
+                        </apex:InputField>
+                    </apex:column>
+                     <apex:column headerValue="User Type" styleClass="{!IF(loclvar.Usercount__c != null,'ui-state-active','')}"  >
+                        <apex:outputField value="{!loclvar.RoleType__c}"  rendered="{!tobeEdited != loclvar.Id}"/>
+                        <apex:InputField value="{!loclvar.RoleType__c}" rendered="{!tobeEdited == loclvar.id && loclvar.ExistingOne__c == null }" id="RoleType"/>                                                                       
+                        <apex:outputField value="{!loclvar.RoleType__c}" rendered="{!tobeEdited == loclvar.id && loclvar.ExistingOne__c != null}" />
+                    </apex:column> 
+                    <apex:column headerValue="Level" styleClass="{!IF(loclvar.Usercount__c != null,'ui-state-active','')}"  >
+                      <apex:outputField value="{!loclvar.Level__c}"  rendered="{!tobeEdited != loclvar.Id }" id="LevelO"/>
+                            <apex:InputField value="{!loclvar.Level__c}" rendered="{!tobeEdited == loclvar.id }" id="LevelI"  />
+                       </apex:column>                                                         
+                    <apex:column headerValue="Agent 1"  styleClass="{!IF(loclvar.Usercount__c != null,'ui-state-active','')}" id="colagt1" >
+                        <apex:outputField value="{!loclvar.Agent1__c}"  rendered="{!tobeEdited != loclvar.Id  }" id="Agent1O"/> 
+                        <apex:InputField value="{!loclvar.Agent1__c}" Id="agent1" rendered="{!tobeEdited == loclvar.id }" id="Agent1I"/> 
+                    </apex:column>
+                    <apex:column headerValue="Agent 2"  styleClass="{!IF(loclvar.Usercount__c != null,'ui-state-active','')}" id="colagt2">
+                        <apex:outputField value="{!loclvar.Agent2__c}" rendered="{!tobeEdited != loclvar.Id  }" id="Agent2O"/>
+                        <apex:inputField value="{!loclvar.Agent2__c}"  rendered="{!tobeEdited == loclvar.id }" id="Agent2I"/>
+                    </apex:column>
+                    <apex:column headerValue="Agent 3" styleClass="{!IF(loclvar.Usercount__c != null,'ui-state-active','')}" id="colagt3">
+                        <apex:outputField value="{!loclvar.Agent3__c}" rendered="{!tobeEdited != loclvar.Id }" id="Agent3O"/>
+                        <apex:inputField value="{!loclvar.Agent3__c}"  rendered="{!tobeEdited == loclvar.id}" id="Agent3I"/>
+                    </apex:column>
+                     <apex:column headerValue="Approval Recommendation"  styleClass="{!IF(loclvar.Usercount__c != null,'ui-state-active','')}">
+                        <apex:outputField value="{!loclvar.ApprovalComments__c}" /> 
+                    </apex:column>
+                </apex:pageBlockTable>
+                <apex:pageBlockButtons >
+                  <!--  <apex:commandButton Value="Add Rows" action="{!AddRows}" disabled="{!enablebuttons}"  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                    <apex:commandButton Value="Add Approvers to List" action="{!InsertUsers}"  disabled="{!disablebuttons}"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <apex:commandButton Value="Cancel" action="{!Cancel}" disabled="{!disablebuttons}"/>
+                </apex:pageBlockButtons>
+               <!-- <apex:actionFunction name="addRow" action="{!AddRows}"/>   $("[id$=Agent1I]").prop("disabled",true);// $("[id$=LevelI]").prop("disabled",true);    -->
+                <apex:panelGrid columns="4">
+                    <apex:commandButton value="<<" action="{!first}" disabled="{!fst}"/>
+                    <apex:commandButton value="< Previous" action="{!previous}" disabled="{!prv}"/>
+                    <apex:commandButton value="Next >" action="{!next}" disabled="{!nxt}"/>
+                    <apex:commandButton value=">>" action="{!last}" disabled="{!lst}"/>                  
+                </apex:panelGrid>
+            </apex:PageBlock>      
+<script>
+
+function validateusertype(var selCntEle)
+{
+    
+var rowele=selCntEle.parentElement.parentElement;                       
+ childRecs=rowele.childNodes;
+ var pickele=childRecs[4].getElementsByTagName("select");
+ if(pickele.value=="Primary Point of Contact" || pickele.value=="Co-Creator")
+ {
+                        $("[id$=Agent1I]").val("");
+                        $("[id$=Agent2I]").val("");
+                        $("[id$=Agent3I]").val(""); 
+                        $("[id$=LevelI]").val("");
+                        $("[id$=Agent1I]").prop("disabled",true);
+                        $("[id$=Agent2I]").prop("disabled",true);
+                        $("[id$=Agent3I]").prop("disabled",true); 
+                       var Ele=childRecs[5].getElementsByTagName("select"); 
+                       Ele[0].disabled="true";  
+                       var agent1 =childRecs[6].getElementsByTagName("select");
+                        var agent2 =childRecs[6].getElementsByTagName("input");
+                        var agent3 =childRecs[6].getElementsByTagName("a");                     
+                         agent1 [0].disabled="true";
+                         agent2 [2].disabled="true";
+                         agent3[0].style.display = "none";
+                         var agent11 =childRecs[7].getElementsByTagName("select");
+                        var agent21 =childRecs[7].getElementsByTagName("input");
+                        var agent31 =childRecs[7].getElementsByTagName("a");                     
+                         agent11[0].disabled="true";
+                         agent21 [2].disabled="true";
+                         agent31[0].style.display = "none";
+                         var agent12 =childRecs[8].getElementsByTagName("select");
+                        var agent22 =childRecs[8].getElementsByTagName("input");
+                        var agent32 =childRecs[8].getElementsByTagName("a");                     
+                         agent12[0].disabled="true";
+                         agent22 [2].disabled="true";
+                         agent32[0].style.display = "none";
+  
+ }
+ else
+ {
+                        $("[id$=Agent1I]").prop("disabled",false);
+                        $("[id$=Agent2I]").prop("disabled",false);
+                        $("[id$=Agent3I]").prop("disabled",false); 
+                        $("[id$=LevelI]").prop("disabled",false); 
+                       var Ele=childRecs[5].getElementsByTagName("select");                      
+                       var agent1 =childRecs[6].getElementsByTagName("select");
+                        var agent2 =childRecs[6].getElementsByTagName("input");
+                        var agent3 =childRecs[6].getElementsByTagName("a");                                           
+                         agent1[0].disabled=null; 
+                         agent3[0].style.display = "initial";
+                         var agent11 =childRecs[7].getElementsByTagName("select");
+                        var agent21 =childRecs[7].getElementsByTagName("input");
+                        var agent31 =childRecs[7].getElementsByTagName("a");                     
+                         agent11[0].disabled=null;                        
+                         agent31[0].style.display = "initial";
+                         var agent12 =childRecs[8].getElementsByTagName("select");
+                        var agent22 =childRecs[8].getElementsByTagName("input");
+                        var agent32 =childRecs[8].getElementsByTagName("a");                     
+                         agent12[0].disabled=null;                         
+                         agent32[0].style.display = "initial";
+       
+ }
+   
+}
+ </script>
+   
+  <script>     
+         
+    $(document).ready(function(){
+            $("[id$=RoleType]").change(function(){            
+                if(this.value=="Primary Point of Contact" || this.value=="Co-Creator" )
+                {
+                        $("[id$=Agent1I]").val("");
+                        $("[id$=Agent2I]").val("");
+                        $("[id$=Agent3I]").val(""); 
+                        $("[id$=LevelI]").val("");
+                        $("[id$=Agent1I]").prop("disabled",true);
+                        $("[id$=Agent2I]").prop("disabled",true);
+                        $("[id$=Agent3I]").prop("disabled",true);                                                  
+                        var rowele=this.parentElement.parentElement;                       
+                        childRecs=rowele.childNodes;                        
+                       var pickele=childRecs[5].getElementsByTagName("select"); 
+                       pickele[0].disabled="true";  
+                     var agent1 =childRecs[6].getElementsByTagName("select");
+                        var agent2 =childRecs[6].getElementsByTagName("input");
+                        var agent3 =childRecs[6].getElementsByTagName("a");                     
+                         agent1 [0].disabled="true";
+                         agent2 [2].disabled="true";
+                         agent3[0].style.display = "none";
+                         var agent11 =childRecs[7].getElementsByTagName("select");
+                        var agent21 =childRecs[7].getElementsByTagName("input");
+                        var agent31 =childRecs[7].getElementsByTagName("a");                     
+                         agent11[0].disabled="true";
+                         agent21 [2].disabled="true";
+                         agent31[0].style.display = "none";
+                         var agent12 =childRecs[8].getElementsByTagName("select");
+                        var agent22 =childRecs[8].getElementsByTagName("input");
+                        var agent32 =childRecs[8].getElementsByTagName("a");                     
+                         agent12[0].disabled="true";
+                         agent22 [2].disabled="true";
+                         agent32[0].style.display = "none";
+
+                       
+                }
+                else{                                         
+                         $("[id$=Agent1I]").prop("disabled",false);
+                        $("[id$=Agent2I]").prop("disabled",false);
+                        $("[id$=Agent3I]").prop("disabled",false); 
+                        $("[id$=LevelI]").prop("disabled",false);                                                
+                        var rowele=this.parentElement.parentElement;                       
+                        childRecs=rowele.childNodes;                        
+                       var pickele=childRecs[5].getElementsByTagName("select");                      
+                       var agent1 =childRecs[6].getElementsByTagName("select");
+                        var agent2 =childRecs[6].getElementsByTagName("input");
+                        var agent3 =childRecs[6].getElementsByTagName("a");                                           
+                         agent1[0].disabled=null; 
+                         agent3[0].style.display = "initial";
+                         var agent11 =childRecs[7].getElementsByTagName("select");
+                        var agent21 =childRecs[7].getElementsByTagName("input");
+                        var agent31 =childRecs[7].getElementsByTagName("a");                     
+                         agent11[0].disabled=null;                        
+                         agent31[0].style.display = "initial";
+                         var agent12 =childRecs[8].getElementsByTagName("select");
+                        var agent22 =childRecs[8].getElementsByTagName("input");
+                        var agent32 =childRecs[8].getElementsByTagName("a");                     
+                         agent12[0].disabled=null;                         
+                         agent32[0].style.display = "initial";                     
+                       
+                                           
+                }               
+            });
+        });    
+        
+</script>
+
+
+
+    </apex:form>
+</apex:page>

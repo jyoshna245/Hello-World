@@ -1,0 +1,95 @@
+<apex:component access="Global">
+    <apex:attribute name="rfaObj" type="RFA__c" description="RFa object for populating email body."/>
+    
+    <!-- if you see this code <apex:outputPanel rendered="{!rfaObj.recordType.name !='Policy Exemption Request'}"> -->
+    <!-- this is for Policy Exemption Request Type to add fields and hide fields not needed for Policy Exemption -->
+    <!-- by Roy Castillo Aug 28, 2013 -->
+
+    
+    <style type="text/css">
+            .div
+            {
+                max-width:600px;                
+            }
+        
+        </style>
+            <div style = " font-size:14px;">
+               
+            <table border="0" width="80%">
+                    <tr>
+                        <td width="100%"><apex:outputText value="An Approver of this RFA has entered an Approval Recommendation of " /><apex:outputText style="font-weight:bold" value="Rejected"/><apex:outputText value=".  As location coordinator, your action is required to review the Rejection status and follow up with the Approver and/or RFA Primary Point of Contact, as necessary, to determine if the RFA should continue to route for approval or if the RFA should be removed from circulation."/></td>
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>
+                    
+                    <apex:outputPanel rendered="{!rfaObj.recordType.name =='Policy Exemption Request'}">
+                    <tr>
+                      <td width="100%"><apex:outputText style="font-weight:bold" value="Request Type:"/>&nbsp;<apex:outputText value="{!rfaObj.RecordType.name}"/></td>
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>                    
+
+                    </apex:outputPanel>
+
+                    <tr>
+                        <td width="100%"><apex:outputText style="font-weight:bold" value="Request Title:"/>&nbsp;<apex:outputText value="{!rfaObj.RequestTitle__c}"/></td>
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>  
+                    
+                    <apex:outputPanel rendered="{!rfaObj.recordType.name =='Policy Exemption Request'}">
+                    <tr>
+                        <td width="100%"><apex:outputText style="font-weight:bold" value="Policy Category:"/>&nbsp;<apex:outputText value="{!rfaObj.Policy_Category__c}"/></td>
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>  
+                    </apex:outputPanel>
+                                      
+                    <tr>
+                        <td width="100%"><apex:outputText style="font-weight:bold" value="Control Number:"/>&nbsp;<apex:outputText value="{!rfaObj.ControlNumber__c}"/></td>
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>
+                                        
+                    <apex:outputPanel rendered="{!rfaObj.recordType.name !='Policy Exemption Request'}">  
+                     
+                    <tr>    
+                    <td width="100%"><apex:outputText style="font-weight:bold" value="Profit Center:"/>&nbsp;<apex:outputText value="{!rfaObj.ProfitCenterNumberName__c}"/></td>         
+                    </tr>
+                     <tr><td>&nbsp;</td></tr>
+                    <tr>
+                        <td width="100%"><apex:outputText style="font-weight:bold" value="Request Amount (USD):"/>&nbsp;   
+                            <apex:outputText value="{0,number, #,###}">
+                                <apex:param value="{!rfaObj.RequestAmountUSD__c}"/>
+                            </apex:outputText>    
+                              
+                        </td>
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>                    
+                    <tr>
+                        <td width="100%"><apex:outputText style="font-weight:bold" value="Functional Currency (FC):"/>&nbsp;<apex:outputText value="{!rfaObj.Functional_Currency__r.Name}"/></td>
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>                    
+                    <tr>
+                        <td width="100%"><apex:outputText style="font-weight:bold" value="Request Amount (FC):"/>&nbsp;<apex:outputText value="{0,number, #,###}">
+                                <apex:param value="{!rfaObj.RequestAmountFunctionalCurrency__c}"/>
+                            </apex:outputText>  
+                        </td>           
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>                    
+                    <tr>
+                        <td width="100%"><apex:outputText style="font-weight:bold" value="Executive Summary:"/>&nbsp;<apex:outputField value="{!rfaObj.ExecutiveSummary__c}"/></td>                      
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>  
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!rfaObj.recordType.name =='Policy Exemption Request'}">
+                    <tr>
+                      <td width="100%"><apex:outputText style="font-weight:bold" value="Request Summary:"/>&nbsp;<apex:outputText value="{!rfaObj.Request_Summary__c}"/></td>
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>                    
+
+                    </apex:outputPanel>
+
+                                      
+                     <tr>
+                        <td width="100%"><apex:outputText style="font-weight:bold" value="Click this link to open the RFA Request Document: "/><a href="{!$Label.RFA_CL026}/{!rfaObj.Id}">{!rfaObj.Name}</a></td>
+                    </tr>                                   
+                     </table>
+            </div>
+</apex:component>

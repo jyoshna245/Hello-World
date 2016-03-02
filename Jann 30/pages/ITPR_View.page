@@ -1,0 +1,7 @@
+<apex:page standardController="ITPR__c" showHeader="true" sidebar="true" id="theMainPage" cache="false">    
+    <style>
+    /* === Hides Sumbit For Approval Button of Approval History Related list === */
+        input[name$='piSubmit']{display:none}
+     </style>
+     <apex:detail subject="{!ITPR__c.Id}" relatedList="true" />
+</apex:page>

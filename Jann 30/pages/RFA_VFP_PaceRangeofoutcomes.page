@@ -1,0 +1,99 @@
+<apex:page standardController="RFA__c" extensions="RFA_VFC_PaceRangeOfoutcomesController" >
+    <apex:form id="Paceblock" > 
+        <div align="center">
+            <apex:commandButton action="{!editpacerangefields}" value="Edit" rendered="{!editable == false}" /> &nbsp; &nbsp; &nbsp;
+            <!--<apex:commandLink value="Save" action="{!save}" target="_parent" rerender="Paceblock" styleClass="btn" style="text-decoration:none;padding:4px;"/> <br/><br/>-->
+            <apex:commandButton action="{!savepacerangefields}" value="Save"  rendered="{!editable == true}" />             
+            &nbsp; &nbsp; &nbsp;            
+            <apex:commandButton action="{!cancelpacerangefields}" value="cancel"  rendered="{!editable == true}"   /><br/><br/>
+        </div>
+        <apex:outputPanel id="refreshPanel" rendered="{!refreshPage}">
+            <script>
+                window.top.location='/{!rfaObj.id}';
+            </script>
+        </apex:outputPanel>
+        <apex:pageBlock rendered="{!!displayBusinessCaseFinancial}">
+        <div align="left">
+            <table  cellPadding="4" style="border-collapse: collapse; width : 100% ;border : 1px solid #D9D9D9;">                    
+                <TR style="border-bottom:1px solid #D9D9D9;">
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;">  </TH> 
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;" >Upside</TH> 
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;">Expected</TH>
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;">Downside</TH>
+                </TR>       
+                <TR style="border-bottom:1px solid #D9D9D9;">
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;" > Internal Rate Of Return  </TH> 
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;" >
+                        <apex:outputField value="{!rfaobj.Upside_Internal_Rate_Of_Return__c}" rendered="{!editable==false}"/>
+                        <apex:InputField value="{!rfaobj.Upside_Internal_Rate_Of_Return__c}" rendered="{!editable==true}"/>
+                        
+                    </TH>              
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;" > 
+                        <apex:outputField value="{!rfaobj.IRR__c}"  rendered="{!editable==false}"/>
+                        <apex:InputField value="{!rfaobj.IRR__c}"  rendered="{!editable==true}" required="true"/> 
+                    </TH>
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;"> 
+                        <apex:outputField value="{!rfaobj.Downside_Internal_Rate_Of_Return__c}" rendered="{!editable==false}"/>
+                        <apex:InputField value="{!rfaobj.Downside_Internal_Rate_Of_Return__c}" rendered="{!editable==true}"/>
+                    </TH>
+                </TR>
+                <TR style="border-bottom:1px solid #D9D9D9;">
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;" >NPV @ WACC</TH> 
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;">
+                        <apex:outputField value="{!rfaobj.Upside_NPV_WACC__c}" rendered="{!editable==false}"/>
+                        <apex:InputField value="{!rfaobj.Upside_NPV_WACC__c}" rendered="{!editable==true}"/>
+                    </TH> 
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;"> 
+                        <apex:outputField value="{!rfaobj.NPVUSD__c}" rendered="{!editable==false}"/> 
+                        <apex:InputField value="{!rfaobj.NPVUSD__c}" rendered="{!editable==true}" required="true"/>
+                    </TH>
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;"> 
+                        <apex:outputField value="{!rfaobj.Downside_NPV_WACC__c}" rendered="{!editable==false}"/>
+                        <apex:InputField value="{!rfaobj.Downside_NPV_WACC__c}" rendered="{!editable==true}"/>
+                    </TH>
+                </TR>
+                <TR style="border-bottom:1px solid #D9D9D9;border-right:1px solid #D9D9D9;text-align:center;">
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;">NPV/Investment</TH> 
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;">
+                        <apex:outputField value="{!rfaobj.Upside_NPV_Investment__c}" rendered="{!editable==false}"/>
+                        <apex:InputField value="{!rfaobj.Upside_NPV_Investment__c}" rendered="{!editable==true}"/>
+                    </TH> 
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;">
+                        <apex:outputField value="{!rfaobj.Expected_NPV_Investment__c}" rendered="{!editable==false}"/>
+                        <apex:InputField value="{!rfaobj.Expected_NPV_Investment__c}" rendered="{!editable==true}" required="true"/>
+                    </TH >
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;"> 
+                        <apex:outputField value="{!rfaobj.Downside_NPV_Investment__c}" rendered="{!editable==false}"/> 
+                        <apex:InputField value="{!rfaobj.Downside_NPV_Investment__c}" rendered="{!editable==true}"/>
+                    </TH>
+                </TR>
+                <TR style="border-bottom:1px solid #D9D9D9;border-right:1px solid #D9D9D9;">
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;" >Discounted Payback(Years)</TH> 
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;">
+                        <apex:outputField value="{!rfaobj.Upside_Discounted_Payback_Years__c}" rendered="{!editable==false}"/>
+                        <apex:InputField value="{!rfaobj.Upside_Discounted_Payback_Years__c}" rendered="{!editable==true}"/>
+                    </TH> 
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;"> 
+                        <apex:outputField value="{!rfaobj.DiscountedPaybackPeriodYears__c}" rendered="{!editable==false}"/>
+                        <apex:InputField value="{!rfaobj.DiscountedPaybackPeriodYears__c}" rendered="{!editable==true}" required="true"/> 
+                    </TH>
+                    <TH style="text-align:center;width: 25%;border-right:1px solid #D9D9D9;"> 
+                        <apex:outputField value="{!rfaobj.Downside_Discounted_Payback_Years__c}" rendered="{!editable==false}"/> 
+                        <apex:InputField value="{!rfaobj.Downside_Discounted_Payback_Years__c}" rendered="{!editable==true}"/>
+                    </TH>
+                </TR>
+            </table> 
+        </div>
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!displayBusinessCaseFinancial}">
+            <apex:pageBlockSection id="idBusinessCaseFinancialsSection" columns="2" >
+                <apex:repeat value="{!$ObjectType.RFA__c.FieldSets.Business_Case_Financials_Fieldset}" var="f">                    
+                    <!--<apex:outputText value="{!rfaobj[f]}" rendered="{!editable==false}" /> 
+                    <apex:inputField value="{!rfaobj[f.fieldpath]}"  required="{!OR(f.required, f.dbrequired)}" rendered="{!editable==true}"/>  -->
+                   <apex:inputField value="{!rfaobj[f]}" rendered="{!editable==true}" /> 
+                    <apex:OutputField value="{!rfaobj[f]}" rendered="{!editable==false}" /> 
+                </apex:repeat>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>      
+</apex:page>

@@ -1,0 +1,199 @@
+<apex:component controller="RFA_VCC04_CapitalExpComponentContrl" allowDML="true" >
+    <script type="text/javascript">
+      
+    
+       
+        /*GA 4/30 Added the below code for FR 1.13. When user try to navigate from Capital Request Detail page without saving the changes*/
+        
+        var ignoreUnloadMessage = {!NOT(editVisibleFlag)};
+        
+        function unloadMessage(){
+            
+         if (ignoreUnloadMessage == false) 
+            {
+             message = "Changes made to the Capital Request Details page have not been saved.  To save changes, return to the RFA and press the Complete Update button in Capital Request Details.";
+             return message;
+            }
+            
+        }
+        
+        function onBeforeUnload()
+        {
+            if (ignoreUnloadMessage == false)
+                window.onbeforeunload = unloadMessage;
+        }
+        
+        onBeforeUnload();
+         
+         /*
+         Requirement #FR1.13
+         Description #To add the confirmation box when user try to save the capital request detail changes.
+         History     #Added by ASHWANI KAUSHIK on 24-Apr-2013
+         */    
+          function confirmSubmit()
+            {
+                agree = window.confirm("Are you Sure?");
+                if(agree)
+                {
+                   saveChangesMethod();
+                }
+                else
+                {
+                   discardChangesMethod();
+                }
+               
+                
+            }   
+         //End
+    
+    
+      </script>
+      
+       <apex:attribute name="RecordRFAIds" description="Rfa ID" type="ID" required="false" assignTo="{!RecordRFAId}"/>
+       <apex:attribute name="editVisibleFlag" description="Visible Flag" type="Boolean" required="false" assignTo="{!editVisible}"/>
+       <apex:attribute name="renderComponent" description="Visible Flag" type="String" required="false"/>
+      
+    
+      <apex:form >
+      
+      <!-- 
+      Requirement #FR1.13
+      Description #To add the confirmation box when user try to save the capital request detail changes.
+      History     #Added by ASHWANI KAUSHIK on 24-Apr-2013
+       -->
+      
+      <apex:actionFunction name="saveChangesMethod" action="{!performSave}"/>
+      <apex:actionFunction name="discardChangesMethod" action="{!performCancel}"/>
+      
+      <!-- End  -->
+      
+  <br/>
+    <center>
+    {!RFA_Capital_CreationMethod}
+   
+    <apex:commandButton action="{!performEdit}" value="{!$Label.RFA_CL086}"  rendered="{!NOT(editVisibleFlag)}"/>&nbsp;&nbsp;
+    <apex:commandButton action="{!performSave}" value="{!$Label.RFA_CL087}" rendered="{!editVisibleFlag}" onclick="ignoreUnloadMessage = true; confirmSubmit();" />&nbsp;&nbsp;&nbsp;&nbsp;
+    <apex:commandButton action="{!performCancel}" value="{!$Label.RFA_CL088}" rendered="{!editVisibleFlag}" immediate="true" onclick="ignoreUnloadMessage = true;"/>
+    <BR/>
+</center>
+
+        <!--  
+        Requirement #FR1.78
+        Description #Added Capital Request Guidelines text on capital request detail page.
+        History     #Added by JOBAN BIR SINGH on 15-May-2013
+        -->
+    <br></br>   
+     
+        <table width="100%" id="GuidlinesTable">
+            <tr width="100%">
+                <td width="16%" valign="top" style="text-align: right;font-size: 91%;font-weight: bold;color: #4a4a56;font-family: Arial,Helvetica,sans-serif;" >
+                    Capital Request Details Guidelines
+                </td >
+                <td width ="1.5%">
+                </td>
+                <td width="82.5%" style="white-space: normal;cellpadding: 100px; text-align: left;border-collapse: separate;border-spacing: 2px;border-color: gray;">
+                     <apex:outputpanel rendered="{!NOT(recordTypeFlag)}">
+                        {!$Label.Capital_Detail_Guidelines}                     <!-- Custom Label added by Ashwani Kaushik for FR1.78 - July 1, 2013  -->
+                     </apex:outputpanel>
+                     
+                     <apex:outputpanel rendered="{!recordTypeFlag}">
+                        {!$Label.Small_Request_Guidelines}                      <!-- Custom Label added by Ashwani Kaushik for FR1.78 - July 1, 2013  -->
+                     </apex:outputpanel> 
+               </td>
+            </tr>
+        </table>
+<br></br>
+
+
+    <!-- -----------------END--------------------- --> 
+    
+<table id="investmentTable" style="border: 1px solid #D4DADC;border-color:#ECECEC;border-collapse:collapse;" cellspacing="0" cellpadding="0" >
+
+    <tr >
+        <th style="text-align: right;border: 1px solid #ECECEC;">&nbsp;</th>
+        <th colspan="20" style="text-align: left;border: 1px solid #ECECEC;"><Center>{!$Label.RFA_CL092}</Center></th>
+    </tr>
+
+<tr>
+    <th style="text-align: right;border: 1px solid #ECECEC;">&nbsp;</th>
+    <!--<div id="main" style="visibility:{!if(recordTypeFlag==true,'show','hidden')};">-->
+    <apex:repeat value="{!DataWrapperList[0].internalDataWapperRecords}" var="Second1" rendered="{!IF(recordTypeFlag || (NOT(recordTypeFlag)&& (editVisibleFlag==false)),true,false )}"> <!--rendered="{!((recordTypeFlag))}">-->
+        <th colspan="2" style="text-align: left;white-space: pre-wrap;border: 1px solid #ECECEC;">{!Second1.secondHeader}</th>
+    </apex:repeat>
+    <!--</div>-->
+  <!--<div id="mainSelectOptions" style="visibility:{!if(recordTypeFlag==false,'show','hidden')};">-->
+  <!--<apex:outputpanel id="selectedBoxVal" rendered="{!(NOT(recordTypeFlag))}">-->
+  
+  
+    <apex:outputpanel id="selectedBoxVal" rendered="{!IF((NOT(recordTypeFlag)&& (editVisibleFlag==true)),true,false )}" layout="none">
+        <td colspan="2" style="text-align: left;font-weight: bold;white-space: pre-wrap;border-style:inset;border: 1px solid #D4DADC;border-color:#ECECEC;">
+            <apex:selectList id="rt" value="{!selectedVal}" size="1" required="true" rendered="{!IF((NOT(recordTypeFlag)&& (editVisibleFlag==true)),true,false )}">
+                <apex:selectOptions value="{!DataWrapperList[0].internalDataWapperRecords[0].secondHeaderOptions}"/>
+            </apex:selectList>              
+            <!--<apex:outputText value="{!DataWrapperList[0].internalDataWapperRecords[0].secondHeader}"  rendered="{!IF((NOT(recordTypeFlag)&& (editVisibleFlag==false)),true,false )}"/>--> 
+        <!--<apex:selectOptions value="{!DataWrapperList[0].internalDataWapperRecords[0].secondHeaderOptions}"/>-->
+        </td>
+    </apex:outputpanel>
+   
+    <!--</div>-->
+</tr>
+
+    <tr>
+        <th style="text-align: left;border: 1px solid #ECECEC;">{!$Label.RFA_CL089}</th>
+        
+              <apex:repeat value="{!DataWrapperList[0].internalDataWapperRecords}" var="Second1" rendered="{!Not(IsNUll(DataWrapperList))}">
+                  <apex:outputPanel rendered="{!(editVisibleFlag)}" layout="none"> 
+                        <th colspan="2" style="text-align: right;border: 1px solid #ECECEC;">{!$Label.RFA_CL090}</th>
+                  </apex:outputPanel>
+                  
+                  <apex:outputPanel rendered="{!NOT(editVisibleFlag)}" layout="none"> 
+                        <th colspan="1" style="text-align: right;border: 1px solid #ECECEC;">{!$Label.RFA_CL090}</th>
+                       <th colspan="1" style="text-align: right;border: 1px solid #ECECEC;">{!$Label.RFA_CL091}</th>
+                 </apex:outputPanel>
+             </apex:repeat>
+    </tr>
+
+  <apex:repeat value="{!DataWrapperList}" var="master" rendered="{!Not(IsNUll(DataWrapperList))}">
+  
+ <tr>
+    <th style="text-align: right;border: 1px solid #ECECEC;">
+    <apex:outputText >{!master.AssetCategory}</apex:outputText>
+ </th>
+  
+  <apex:repeat value="{!master.internalDataWapperRecords}" var="Second" >
+  
+    <apex:outputPanel rendered="{!(editVisibleFlag)}" layout="none">
+        <td colspan="2" style="vertical-align: top;text-align: right; border: 1px solid #ECECEC;"><apex:inputtext value="{!Second.amt}" rendered="{!editVisibleFlag}" size="10" onchange="this.style='background-color:#FC9700;'"/>
+  
+            <apex:outputText value="{!Second.amtDisplay}" rendered="{!NOT(editVisibleFlag)}">
+                  <apex:param value="{!Second.amtDisplay}" />
+            </apex:outputText>
+  
+        </td>
+  
+    </apex:outputPanel>
+    
+        <apex:outputPanel rendered="{!NOT(editVisibleFlag)}" layout="none">
+            <td colspan="1" style="vertical-align: baseline;text-align: right; border: 1px solid #ECECEC;">
+                <apex:inputtext value="{!Second.amt}" rendered="{!editVisibleFlag}" size="10" onchange="this.style='background-color:#FC9700;'"/>
+    
+                        <apex:outputText value="{!Second.amtDisplay}" rendered="{!NOT(editVisibleFlag)}">
+                        <apex:param value="{!Second.amtDisplay}" ></apex:param> 
+                        </apex:outputText>
+    
+            </td>
+            
+            <td style="vertical-align: top;text-align: right; border: 1px solid #ECECEC;"> 
+        
+                <apex:outputText value="{!Second.amtUSD}" >
+                    <apex:param value="{!Second.amtUSD}" ></apex:param> 
+                </apex:outputText>        
+        
+            </td>
+    </apex:outputPanel>
+  </apex:repeat>
+  </tr>
+  </apex:repeat>
+  </table> 
+  </apex:form>
+</apex:component>

@@ -1,0 +1,16 @@
+<apex:page standardController="RFA__c" extensions="RFA_VFC_recordTypeSelectionController">
+    <apex:form >
+    <apex:PageBlock >
+      <apex:pageBlockSection title="General" rendered="{!section == true}">
+          <apex:repeat id="fielsets" value="{!$ObjectType.RFA__c.Fieldsets.General_Section}" var="fieldvalue1">              
+              <apex:outputField value="{!RFA__c[fieldvalue1]}"/><br/>              
+          </apex:repeat>  
+      </apex:pageBlockSection> 
+        <apex:pageBlockSection Title="Request Details" rendered="{!section == false}">
+           <apex:repeat id="fielsets1" value="{!$ObjectType.RFA__c.Fieldsets.RFARequestDetails}" var="fieldvalue2">
+               <apex:outputField value="{!RFA__c[fieldvalue2]}" /><br/>
+          </apex:repeat>
+        </apex:pageBlockSection>
+     </apex:PageBlock>
+    </apex:form>
+</apex:page>

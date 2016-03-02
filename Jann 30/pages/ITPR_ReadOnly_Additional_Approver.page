@@ -1,0 +1,16 @@
+<apex:page standardController="ITPR__c" extensions="ITPR" showheader="false" rendered="true" readOnly="true" >
+<apex:form id="addApprover" >
+<apex:pageBlock >
+        <apex:pageMessages id="showmsg"></apex:pageMessages>
+        <!-- Additional Approver Info Section-->  
+        <apex:outputPanel id="AdditionalapproverSec">
+        <apex:pageBlockSection title="Additional Approvers" columns="1" collapsible="false" id="AdditionalapproverSection" >
+            <apex:outputField value="{!ITPR__c.Additional_Approver_1__c}" rendered="{!(ITPR__c.Do_you_want_additional_approver__c == true)}"/>
+            <apex:outputfield value="{!ITPR__c.Additional_Approver_2__c}" rendered="{!(ITPR__c.Do_you_want_additional_approver__c == true)}"/>
+            <apex:outputfield value="{!ITPR__c.Additional_Approver_3__c}" rendered="{!(ITPR__c.Do_you_want_additional_approver__c == true)}"/>
+            <apex:commandButton value="Update Additional Approvers" onclick="window.parent.location.href='/apex/ITPR_Additional_Approver_Edit?Id={!ITPR__c.Id}'" rendered="{!ITPR__c.Do_you_want_additional_approver__c ==true && ITPR__c.Status__c=='All Digital Initials Obtained' && ITPR__c.Additional_Approval_Complete__c != true}" />
+        </apex:pageBlockSection>
+        </apex:outputPanel>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

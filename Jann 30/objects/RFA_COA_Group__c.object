@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>RFA object which is used for determining the automated list of approvers.</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Currency__c</fullName>
+        <externalId>false</externalId>
+        <label>Currency</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DOA_Category__c</fullName>
+        <externalId>false</externalId>
+        <label>DOA Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1.A.1 Capital Expenditures - Annual Capital Plan Request or Formal Approval of Annual Capital Plan Request</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.A.2.a Capital Expenditures - Unbudgeted CPR or SPR Covered by Budget Shift</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.A.2.b Capital Expenditures - Unbudgeted CPR or SPR Funded Partially or Fully from Corporate Reserve</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.A.3 Capital Expenditures - Increase or Scope Change to Previously Approved CPR or SPR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.A.4 Capital Expenditures - Transfer of Capital Budget across Groups for a Previously Approved CPR or SPR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.A.5 Capital Expenditures - Foreign Exchange Fluctuation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.A.8 Capital Expenditures - Advance Appropriations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.B Capital Expenditures - Capability and Performance Programs (CAPPrs)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.C Capital Expenditures - Bottles and Cases, Including Overages</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2. IT Investments and Website Presence</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3.A Real Property - Acquisitions and Sales or Other Disposals of Real Property</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3.B Real Property - Donations of Real Property</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3.C Real Property - Condemnations or Easements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4.A Leases - Operating Leases</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4.B Leases - Capital Leases</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5.A Inventory Adjustments and Disposals</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5.B Other Asset Impairments</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5.C Asset Transfers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5.D Asset Disposals (Tangible Assets excluding Real Property and Inventory)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.A Treasury - Banking Information Reports (BIR)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.B Treasury - External Borrowings and Lines of Credit (RFFs)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.C Treasury - Intercompany Loans</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.D Treasury - Loans Third Parties (Including CCFC Target Loan Programs)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.E.1 Treasury - Guarantees to Third Parties - General</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.E.2 Treasury - Guarantees Related to Tax Disputes or Other Matters Involving Governmental Bodies</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.F Treasury - Comfort Letters and Other Financial Security Instruments</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.G Treasury - Accommodation Purchases</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.H Treasury - Credit Terms/Policies or Incentives for Sales to Customers, Bottlers or Distributors</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.I.1 Treasury - Exemption from Bad Debt Reserve Requirements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.I.2 Treasury - Write-offs of Uncollectible Accounts Receivable from Bad Debt Reserve</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.J Treasury - Consignment Sales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.K Treasury - Dividends or Stock Splits</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.L Treasury - Derivative Instruments and Other Financial Instruments</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.M Treasury - Pricing Letters</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7.A M&amp;A - General</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7.B M&amp;A - Investment Transactions Involving Intangible Rights and Assets</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7.C M&amp;A - Merchandising and Other Licensing of TCCC Trademarks, Patents and Copyrights</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7.D M&amp;A - TCCC Corporate Structures</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8.A Legal Matters - Appointments or Changes of Board Members</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8.B Legal Matters - Powers of Attorney</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8.C Legal Matters - Settlement of Litigation, Employee Relations Issues and Tax Matters</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8.D Legal Matters - Transshipment Settlements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9.A Employee Related - Loans to Employees and Guarantees of Employee Liabilities</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9.B Employee Related - Employee Benefit, Pension and Compensation Plans and Programs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9.C Employee Related - Personal Benefits</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.A Consulting Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.B.1 Outside Professional Services - General</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.B.2 Outside Professional Services - Legal, Tax, M&amp;A, Accounting and Audit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.B.3 Outside Professional Services - Marketing &amp; Public Affairs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.C Outsourcing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.D Non-Employee Workers (NEWs)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.E Interns / Externs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.F Outside Services / Non-Core</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>11. Prepaid Amounts</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>12. Sponsorships, Marketing and Media Properties</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>13. Charitable Donations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>14. Political Contributions</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15.A Commercial Agreements - TCCC Authorization of Bottler and Other Production and Distribution Rights</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15.B Commercial Agreements - Bottler&apos;s Marketing Support Agreements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15.C Commercial Agreements - Supply, Purchase and Outsourcing Agreements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15.D Commercial Agreements - Customer Agreements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>16. Exceptional Transactions</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>17. LCOA Only - there is no DOA Category / Sub-Category for this RFA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>18. DOA Exemption</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8.E Legal Matters - Transactions involving Countries Subject to U.S. Foreign Trade Sanctions, Controls, Laws and Regulations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Group__c</fullName>
+        <externalId>false</externalId>
+        <label>Group #</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TrimmedDOACategory__c</fullName>
+        <externalId>false</externalId>
+        <formula>substitute(TEXT(DOA_Category__c ),&apos; &apos;,&apos;&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>TrimmedDOACategory</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>RFA COA Group old</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Group__c</columns>
+        <columns>Currency__c</columns>
+        <columns>DOA_Category__c</columns>
+        <columns>Amount__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>RFA COA Group Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>RFA COA Groups old</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

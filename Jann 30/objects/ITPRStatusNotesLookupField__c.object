@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>Id of Lookup field in ITSES Status Notes object.Used in ITPR VF Page</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>ITPR__c</fullName>
+        <externalId>false</externalId>
+        <label>ITPR</label>
+        <length>70</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>ITPR Status Notes Lookup Field</label>
+</CustomObject>

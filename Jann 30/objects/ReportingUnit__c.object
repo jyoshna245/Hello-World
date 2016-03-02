@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>RFA R1 - Stores all Reporting Units within the RFA Application to be referenced on a specific RFA.</description>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>ActiveInactive__c</fullName>
+        <externalId>false</externalId>
+        <label>Active/Inactive</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>NeedRecalculation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Need Recalculation</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Unit_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Reporting Unit Name</label>
+        <length>255</length>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Reporting Unit</label>
+    <listViews>
+        <fullName>AllActive</fullName>
+        <columns>NAME</columns>
+        <columns>Reporting_Unit_Name__c</columns>
+        <columns>ActiveInactive__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ActiveInactive__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </filters>
+        <label>All - Active</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Inactive</fullName>
+        <columns>NAME</columns>
+        <columns>Reporting_Unit_Name__c</columns>
+        <columns>ActiveInactive__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ActiveInactive__c</field>
+            <operation>equals</operation>
+            <value>Inactive</value>
+        </filters>
+        <label>All - Inactive</label>
+    </listViews>
+    <nameField>
+        <label>Reporting Unit Number</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <namedFilters>
+        <fullName>nf_01Id00000016kuSEAQ_00Nd0000005CLpnEAG</fullName>
+        <active>true</active>
+        <errorMessage>You may only select Active Reporting Units. Contact the appropriate Location Coordinator if you cannot find a particular Reporting Unit.</errorMessage>
+        <field>RFA__c.PrimaryReportingUnitNumber__c</field>
+        <filterItems>
+            <field>ReportingUnit__c.ActiveInactive__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </filterItems>
+        <infoMessage>To view list of all Reporting Units enter RU* in search bar and click Go. Click Show Filters below for additional filter and search options.</infoMessage>
+        <isOptional>false</isOptional>
+        <name>RFA_Primary Reporting Unit #</name>
+    </namedFilters>
+    <namedFilters>
+        <fullName>nf_01Id00000016kuSEAQ_00Nd0000005CQviEAG</fullName>
+        <active>true</active>
+        <errorMessage>You may only select Active Reporting Units. Contact the appropriate Location Coordinator if you cannot find a particular Reporting Unit.</errorMessage>
+        <field>RFA__c.SecondReportingUnitNumber__c</field>
+        <filterItems>
+            <field>ReportingUnit__c.ActiveInactive__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </filterItems>
+        <infoMessage>To view list of all Reporting Units enter RU* in search bar and click Go. Click Show Filters below for additional filter and search options.</infoMessage>
+        <isOptional>false</isOptional>
+        <name>RFA_Second Reporting Unit #</name>
+    </namedFilters>
+    <namedFilters>
+        <fullName>nf_01Id00000016kuSEAQ_00Nd0000005CQvsEAG</fullName>
+        <active>true</active>
+        <errorMessage>You may only select Active Reporting Units. Contact the appropriate Location Coordinator if you cannot find a particular Reporting Unit.</errorMessage>
+        <field>RFA__c.ThirdReportingUnitNumber__c</field>
+        <filterItems>
+            <field>ReportingUnit__c.ActiveInactive__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </filterItems>
+        <infoMessage>To view list of all Reporting Units enter RU* in search bar and click Go. Click Show Filters below for additional filter and search options.</infoMessage>
+        <isOptional>false</isOptional>
+        <name>RFA_Third Reporting Unit #</name>
+    </namedFilters>
+    <pluralLabel>Reporting Units</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Reporting_Unit_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ActiveInactive__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>UPDATEDBY_USER</customTabListAdditionalFields>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <lookupDialogsAdditionalFields>Reporting_Unit_Name__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ActiveInactive__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>UPDATEDBY_USER</lookupDialogsAdditionalFields>
+        <lookupFilterFields>NAME</lookupFilterFields>
+        <lookupFilterFields>Reporting_Unit_Name__c</lookupFilterFields>
+        <lookupFilterFields>ActiveInactive__c</lookupFilterFields>
+        <lookupFilterFields>UPDATEDBY_USER</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>Reporting_Unit_Name__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ActiveInactive__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>UPDATEDBY_USER</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Reporting_Unit_Name__c</searchFilterFields>
+        <searchFilterFields>ActiveInactive__c</searchFilterFields>
+        <searchFilterFields>UPDATEDBY_USER</searchFilterFields>
+        <searchResultsAdditionalFields>Reporting_Unit_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ActiveInactive__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>UPDATEDBY_USER</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Read</sharingModel>
+    <webLinks>
+        <fullName>Update_Sharing_for_Attached_RFAs</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Update Sharing for Attached RFAs</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/apex.js&quot;)} 
+
+var needRecalFlag={!ReportingUnit__c.NeedRecalculation__c};
+var activeFlag=&quot;{!ReportingUnit__c.ActiveInactive__c}&quot;;
+if(needRecalFlag==false || activeFlag==&apos;Inactive&apos;)
+{
+	alert(&apos;Reporting Unit has no contents for sharing recalculation or has inactive status. &apos;);
+}
+else if(needRecalFlag==true)
+{
+	var confirmationMsg=window.confirm(&quot;Are you sure you want to recalculate the sharing for this reporting unit?&quot;);
+	if(confirmationMsg)
+	{
+		var isLCFlag=sforce.apex.execute(&quot;RFA_WS07_CheckRFAUser&quot;,&quot;isRFAAdmin&quot;, {}); 
+		if(isLCFlag==&apos;true&apos;)
+		{
+			var loc=&quot;/apex/RFA_RF1_10_ReportingUnitRecalculation?id={!ReportingUnit__c.Id}&quot;;
+			window.parent.location.href = loc;
+		}
+		else
+		{
+			window.alert(&apos;You are not authorized person to perform this action.&apos;);
+		}
+	}
+	else
+	{
+		window.alert(&quot;No sharing recalculation will be done. &quot;);
+	}
+}</url>
+    </webLinks>
+</CustomObject>

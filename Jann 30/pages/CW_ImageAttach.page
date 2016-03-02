@@ -1,0 +1,73 @@
+<!--********************************************************************************** 
+ Author        :  Infosys
+ Date          :  Sep 22, 2015
+ Purpose       :  Page to upload images.
+*********************************************************************************** -->
+<apex:page controller="CW_ImageAttachController" >
+ <apex:form >
+  <script>
+    function returnBack(){
+      
+     
+      var url =  '/' + '{!$CurrentPage.parameters.id}';
+      window.location.href = url;
+    }
+    
+    function validFileName(ctlId){
+      var fileName = document.getElementById(ctlId).value.toLowerCase();
+      if( 
+        fileName.indexOf('.jpg', fileName.length - '.jpg'.length) > -1 ||
+        fileName.indexOf('.png', fileName.length - '.png'.length) > -1 ||
+        fileName.indexOf('.gif', fileName.length - '.gif'.length) > -1
+      ){
+        return true;
+      }else{
+        alert('Please select a valid image file(jpg/png/gif).');
+        return false;
+      }
+      
+    }
+  </script>
+     <!-- Message Block --> 
+   
+<apex:pagemessages escape="false" />     
+    
+<!-- Start page content -->
+<div class="bPageTitle">
+<div class="ptBody">
+<div class="content">
+<img src="/img/icon/trophy32.png" alt="Account" class="pageTitleIcon" title="Account" style="background-image: url('') !important;"/>
+<h1 class="pageType noSecondHeader">{!$Label.CW_Image_Upload_Header} {!parentName}</h1>
+</div>
+<div class="ptBreadcrumb"></div>
+</div>
+</div>
+<div class="genericPageBlockTable">
+<table>
+<tbody>
+<tr>
+<td>
+<strong>1.</strong></td>
+<td><strong>{!$Label.CW_Select_the_File}</strong></td>
+</tr>
+<tr><td>&nbsp;</td><td>Type the path of the file or click the Browse button to find the Image file.</td></tr>
+<tr><td>&nbsp;</td><td style="padding-bottom: 1em">
+<apex:inputFile value="{!fileContent}" filename="{!fileName}" id="fileAttachment" contentType="{!contentType}" accept="image/gif,image/jpeg,image/png|MIME_type"/>
+</td></tr>
+<tr><td><strong>2.</strong></td><td><strong>{!$Label.CW_Attach_File}</strong></td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td>
+<apex:commandButton action="{!uploadImage}" value="{!$Label.CW_Upload_Image}" />
+</td></tr>
+<tr>
+<td><strong>3.</strong>
+</td><td><strong>Click the Done button to return to the previous page.</strong></td>
+</tr>
+<tr><td>&nbsp;</td><td>( This will cancel an in-progress upload. )</td></tr>
+<tr><td>&nbsp;</td><td><input value=" {!$Label.CW_Done_Upload} " class="btn" name="cancel" title="Done" type="button" onClick="returnBack()"/></td></tr>
+</tbody>
+</table>
+</div>
+    
+ </apex:form>
+</apex:page>

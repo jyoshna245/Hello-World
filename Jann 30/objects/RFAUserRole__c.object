@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>RFA_VFP_EditPopupforApprovers</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>RFA_VFP13_New_Approver</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Agent1__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Agent 1</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Agent1</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Agent2__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Agent 2</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Agent2</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Agent3__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Agent 3</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Agent3</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AgentsAssigned__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISBLANK( Agent1__c) &amp;&amp;  ISBLANK( Agent2__c) &amp;&amp; ISBLANK( Agent3__c), &quot;No&quot;, &quot;Yes&quot;)</formula>
+        <label>Agents Assigned?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ApprovalComments__c</fullName>
+        <defaultValue>IF($RecordType.Name == &apos;Info Copy Only&apos;, &quot;Info Copy Only&quot;, &quot;&quot;)</defaultValue>
+        <externalId>false</externalId>
+        <label>Approval Comments</label>
+        <length>32768</length>
+        <trackHistory>true</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ApprovalOrder__c</fullName>
+        <defaultValue>IF( $RecordType.Name  = &quot;Approver&quot;, 1,0)</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>This field is used to sequence the order of approvals during circulation.  Notifications will be sent to approvers in order from the lowest to highest number.  Approvers with the same order number will receive notifications at the same time.</inlineHelpText>
+        <label>Approval Order</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ApprovalProcess__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Approval Process</label>
+        <referenceTo>ApprovalProcess__c</referenceTo>
+        <relationshipName>Approvers</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ApprovalRecievedDateTime__c</fullName>
+        <externalId>false</externalId>
+        <label>ApprovalRecieved DateTime</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>ApprovalRecommendation__c</fullName>
+        <externalId>false</externalId>
+        <label>Approval Recommendation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Unconditionally Approved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Conditionally Approved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No Longer Needed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ratification</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Awaiting Approval</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ApprovalRequestedOn__c</fullName>
+        <description>RFA R1 - Field to track when Approval is requested to the Approver</description>
+        <externalId>false</externalId>
+        <label>Approval Requested On</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>ApprovedBy__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Approved By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>RFA_User_Roles</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DoNotSendEmail__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Do Not Send E-mail</label>
+        <trackHistory>true</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>DuplicateRecord__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>To Identify if the POC or CoCreator are duplicate on RFA</description>
+        <externalId>false</externalId>
+        <label>DuplicateRecord</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <externalId>false</externalId>
+        <formula>UserName__r.Email</formula>
+        <label>Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Level__c</fullName>
+        <externalId>false</externalId>
+        <label>Level</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1. Key Operations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2. Business Unit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3. Group</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4. Corporate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5. Executive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6. Senior Executive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Manual_Automated__c</fullName>
+        <externalId>false</externalId>
+        <label>Manual/Automated</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NotifyUsers__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>NotifyUsers</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Notifyagent1firsttime__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Notification to identify if an e-mail notification has been sent to the agent 1 selected user.</description>
+        <externalId>false</externalId>
+        <label>Notifyagent1firsttime</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Notifyagent2firsttime__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Notification to identify if an e-mail notification has been sent to the agent 2 selected user.</description>
+        <externalId>false</externalId>
+        <label>Notifyagent2firsttime</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Notifyagent3firsttime__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Notification to identify if an e-mail notification has been sent to the agent 3 selected user.</description>
+        <externalId>false</externalId>
+        <label>Notifyagent3firsttime</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Notifyuserfirsttime__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Notifyuserfirsttime</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>RFAStage__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(RFA__r.Stage__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RFAStage</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RFA_Current_Level__c</fullName>
+        <description>Display current level of Parent RFA. If RFA Level is Capital Management Hold, Pending Board Review or Return to Sender, display RFA Previous Level value. Else, display RFA Level value.</description>
+        <externalId>false</externalId>
+        <formula>IF ( ISPICKVAL( RFA__r.Level__c , &quot;Capital Management Hold&quot;) ||  ISPICKVAL( RFA__r.Level__c , &quot;Pending Board Review&quot;) || ISPICKVAL( RFA__r.Level__c , &quot;Return To Sender&quot;), 
+RFA__r.PreviousLevel__c, TEXT(RFA__r.Level__c))</formula>
+        <label>RFA Current Level</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RFA_Level__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(RFA__r.Level__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RFA Level</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RFA__c</fullName>
+        <externalId>false</externalId>
+        <label>RFA</label>
+        <referenceTo>RFA__c</referenceTo>
+        <relationshipName>RFA_User_Roles</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>TECH_IsComplete__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(AND(NOT(ISPICKVAL( ApprovalRecommendation__c, &quot;Awaiting Approval&quot;)), NOT(ISPICKVAL(ApprovalRecommendation__c, &quot;&quot;))), &quot;true&quot;, &quot;false&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Complete</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TECH_TimeInAwaitingApproval__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL( ApprovalRecommendation__c, &apos;Awaiting Approval&apos;) , 
+(NOW() -  ApprovalRequestedOn__c) , 
+ ApprovalRecievedDateTime__c - ApprovalRequestedOn__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>TECH_TimeInAwaitingApproval</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>UserName__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>User Name</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>RFAUserRoles</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>isComplete__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>isComplete</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <label>RFA Approver/User</label>
+    <nameField>
+        <displayFormat>Details-{00000000}</displayFormat>
+        <label>Approval Details</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>RFA Approvers/Users</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>RUR_Approver</fullName>
+        <active>true</active>
+        <label>Approver</label>
+        <picklistValues>
+            <picklist>ApprovalRecommendation__c</picklist>
+            <values>
+                <fullName>Conditionally Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Longer Needed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ratification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unconditionally Approved</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Level__c</picklist>
+            <values>
+                <fullName>1%2E Key Operations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2%2E Business Unit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3%2E Group</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4%2E Corporate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5%2E Executive</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>6%2E Senior Executive</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>RUR_CoCreator</fullName>
+        <active>true</active>
+        <label>Co-Creator</label>
+        <picklistValues>
+            <picklist>ApprovalRecommendation__c</picklist>
+            <values>
+                <fullName>Conditionally Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Longer Needed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ratification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unconditionally Approved</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Level__c</picklist>
+            <values>
+                <fullName>3%2E Group</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>RUR_InfoCopyOnly</fullName>
+        <active>true</active>
+        <label>Info Copy Only</label>
+        <picklistValues>
+            <picklist>ApprovalRecommendation__c</picklist>
+            <values>
+                <fullName>Conditionally Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Longer Needed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ratification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unconditionally Approved</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Level__c</picklist>
+            <values>
+                <fullName>1%2E Key Operations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2%2E Business Unit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3%2E Group</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4%2E Corporate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5%2E Executive</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>6%2E Senior Executive</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>RUR_PrimaryPointofContact</fullName>
+        <active>true</active>
+        <label>Primary Point of Contact</label>
+        <picklistValues>
+            <picklist>ApprovalRecommendation__c</picklist>
+            <values>
+                <fullName>Conditionally Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Longer Needed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ratification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unconditionally Approved</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Level__c</picklist>
+            <values>
+                <fullName>3%2E Group</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <lookupDialogsAdditionalFields>UserName__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>UserName__c</lookupPhoneDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <validationRules>
+        <fullName>RUR_VR01_CommentsMandatoryCondApp</fullName>
+        <active>true</active>
+        <description>RFA R1 - Approval Comments is required when Approval Recommendation provided as Conditionally Approved or Rejected</description>
+        <errorConditionFormula>AND( $RecordType.DeveloperName = &apos;RUR_Approver&apos;,  OR(ISPICKVAL(ApprovalRecommendation__c, &apos;Conditionally Approved&apos;), ISPICKVAL(ApprovalRecommendation__c, &apos;Rejected&apos;) ),  ISBLANK(ApprovalComments__c) )</errorConditionFormula>
+        <errorDisplayField>ApprovalComments__c</errorDisplayField>
+        <errorMessage>Approval Comment is required when Approval Recommendation is selected as Conditionally Approved or Rejected.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RUR_VR02_UniqueAgentSelection</fullName>
+        <active>true</active>
+        <description>RFA R1 - Check for unique selection of agents in the system</description>
+        <errorConditionFormula>OR(
+AND(NOT(ISBLANK(Agent1__c)), OR(Agent1__c == Agent2__c, Agent1__c == Agent3__c)),
+AND(NOT(ISBLANK(Agent2__c)), OR(Agent2__c == Agent1__c, Agent2__c == Agent3__c)), 
+AND(NOT(ISBLANK(Agent3__c)), OR(Agent3__c == Agent1__c, Agent2__c == Agent3__c))
+)</errorConditionFormula>
+        <errorMessage>Same User can not be selected more than once as a Agent for the same Approver</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RUR_VR03_ApproverCannotBeAgent</fullName>
+        <active>true</active>
+        <description>RFA R1 - Validation rule to restrict users for selecting the Approver as agent for itself</description>
+        <errorConditionFormula>OR(UserName__c == Agent1__c, UserName__c == Agent2__c, UserName__c == Agent3__c)</errorConditionFormula>
+        <errorMessage>Same User can not be selected as Approver and Agent for the Same record</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RUR_VR04_NoUpdRecom_in_Circul_Validatio</fullName>
+        <active>true</active>
+        <description>RFA R1 - Do not allow Approval Recommendation and Approval Comments to be populated unless the Approval Process lookup field is populated.</description>
+        <errorConditionFormula>ApprovalProcess__c == &quot;&quot;  &amp;&amp;  ApprovalComments__c != &quot;Info Copy Only&quot; &amp;&amp;
+(NOT( ISBLANK( TEXT (ApprovalRecommendation__c ))) || NOT( ISBLANK(ApprovalComments__c )))</errorConditionFormula>
+        <errorMessage>The Approval Recommendation field and the Approval Comments field can only be populated once the approval record has been submitted to the Approver.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RUR_VR05_AppandAgent_in_Circul_Validatio</fullName>
+        <active>true</active>
+        <description>RFA R1 - Approver and Agent references cannot be changed if Approval Recommendation has been received from the Original Actor or its associated Agent</description>
+        <errorConditionFormula>NOT(ISPICKVAL( ApprovalRecommendation__c, &quot;Awaiting Approval&quot;)) &amp;&amp; 
+NOT(ISPICKVAL( ApprovalRecommendation__c, &quot;&quot;)) &amp;&amp;
+(ISCHANGED(UserName__c) || ISCHANGED(Agent1__c) || ISCHANGED(Agent2__c) || ISCHANGED(Agent3__c))</errorConditionFormula>
+        <errorMessage>Approver or Agent cannot be changed after Approval Recommendation has been received.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RUR_VR06_Unblank_Approval_Recommendation</fullName>
+        <active>true</active>
+        <description>User cannot reset the approval recommendation while the RFA is in Circulation</description>
+        <errorConditionFormula>AND( 
+ISBLANK(TEXT(ApprovalRecommendation__c)), 
+NOT(ISBLANK(PRIORVALUE(ApprovalRecommendation__c))), 
+ISPICKVAL( RFA__r.Stage__c, &quot;Circulation&quot;), 
+OR( 
+ISPICKVAL( ApprovalProcess__r.Status__c , &quot;In Progress&quot;), 
+ISPICKVAL( ApprovalProcess__r.Status__c, &quot;Completed&quot;) 
+) 
+)</errorConditionFormula>
+        <errorDisplayField>ApprovalRecommendation__c</errorDisplayField>
+        <errorMessage>Approval Recommendation must be populated while the RFA is in Circulation. Select a valid Approval Recommendation or Cancel to return to the previous page.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RUR_VR07_NoUpdApprover_in_Circulation</fullName>
+        <active>true</active>
+        <description>RFA R1 - Do not allow User Name to be updated unless the Approval Process lookup field is not populated.</description>
+        <errorConditionFormula>NOT( ISBLANK ( TEXT (ApprovalRecommendation__c) )) &amp;&amp; ISCHANGED(  UserName__c )</errorConditionFormula>
+        <errorDisplayField>UserName__c</errorDisplayField>
+        <errorMessage>The User Name field cannot be changed once the approval record has been submitted to the Approver.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RUR_VR09_Lock_RecordType</fullName>
+        <active>true</active>
+        <description>Cannot change record type value</description>
+        <errorConditionFormula>ISCHANGED( RecordTypeId )</errorConditionFormula>
+        <errorMessage>Cannot Change Record Type.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RUR_VR10_NoUpdAppRecomLow_in_Circulation</fullName>
+        <active>true</active>
+        <description>Do not allow lower level approval recommendation to be changed during next level circulation (for INC1454846 / CHG0071721)</description>
+        <errorConditionFormula>AND( 
+ISCHANGED(ApprovalRecommendation__c), 
+TEXT(ApprovalRecommendation__c) !=PRIORVALUE(ApprovalRecommendation__c), 
+TEXT(PRIORVALUE(ApprovalRecommendation__c))!=&apos;Awaiting Approval&apos;, 
+NOT(ISBLANK(PRIORVALUE(ApprovalRecommendation__c))), 
+RFA_Level__c!=TEXT(Level__c), 
+RFAStage__c=&apos;Circulation&apos; 
+)</errorConditionFormula>
+        <errorDisplayField>ApprovalRecommendation__c</errorDisplayField>
+        <errorMessage>The Lower Level Approval Recommendation field cannot be changed once the RFA is in next level Circulation</errorMessage>
+    </validationRules>
+</CustomObject>

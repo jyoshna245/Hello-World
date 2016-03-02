@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>AuthorProfile__c</fullName>
+        <externalId>false</externalId>
+        <label>Author Profile</label>
+        <referenceTo>GS1_AuthorProfile__c</referenceTo>
+        <relationshipLabel>Countries</relationshipLabel>
+        <relationshipName>Countries</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Country_Reader__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Country Reader Only</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <referenceTo>GS1_Country__c</referenceTo>
+        <relationshipLabel>Authors</relationshipLabel>
+        <relationshipName>Authors</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>UniqueKey__c</fullName>
+        <externalId>false</externalId>
+        <formula>AuthorProfile__r.Name +  &apos;~&apos; + Country__r.Code__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>UniqueKey</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>GS1 Country Author</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{000000000}</displayFormat>
+        <label>Ref #</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>GS1 Country Authors</pluralLabel>
+    <searchLayouts>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>AddAuthor</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Add Author</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+var junctionObjectPrefix = GS1.getObjectPrefix(&quot;GS1_CountryAuthor__c&quot;);
+var targetFieldFieldId = &quot;{! $Label.GS1_CountryAuthor_CountryFieldID}&quot;;
+var parentRecordId = &quot;{! GS1_Country__c.Id}&quot;;
+var parentRecordName = &quot;{! GS1_Country__c.Name}&quot;;
+
+if (junctionObjectPrefix != &apos;&apos;) {
+   window.location = &apos;/&apos; + junctionObjectPrefix + &apos;/e?retURL=%2F&apos; + parentRecordId + &apos;&amp;CF&apos; + targetFieldFieldId + &apos;=&apos; + parentRecordName + &apos;&amp;saveURL=%2F&apos; + parentRecordId ;
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>AddCountry</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Add Country</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)}  
+
+var junctionObjectPrefix = GS1.getObjectPrefix(&quot;GS1_CountryAuthor__c&quot;);
+var targetFieldFieldId = &quot;{! $Label.GS1_CountryAuthor_AuthorFieldID }&quot;;
+var parentRecordId = &quot;{! GS1_AuthorProfile__c.Id}&quot;;
+var parentRecordName = &quot;{! GS1_AuthorProfile__c.Name}&quot;;
+
+if (junctionObjectPrefix != &apos;&apos;) {
+   window.location = &apos;/&apos; + junctionObjectPrefix + &apos;/e?retURL=%2F&apos; + parentRecordId + &apos;&amp;CF&apos; + targetFieldFieldId + &apos;=&apos; + parentRecordName + &apos;&amp;saveURL=%2F&apos; + parentRecordId ;
+}</url>
+    </webLinks>
+</CustomObject>

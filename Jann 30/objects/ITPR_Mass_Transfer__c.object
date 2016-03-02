@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Mass_Transfer_To__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Mass Transfer To</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>ITPR_Mass_Transfers1</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Select_User__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Select User</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>ITPR_Mass_Transfers</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Transferred__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Transferred</label>
+        <type>Checkbox</type>
+    </fields>
+    <label>IT-SES Mass Transfer</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{00000}</displayFormat>
+        <label>ITPR Mass Transfer Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>IT-SES Mass Transfers</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>BusinessAdminProfileCheckFinance</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISPICKVAL(Owner:User.ITPR_Department__c, &apos;ITSES - Finance&apos;) ,NOT(ISPICKVAL(Select_User__r.ITPR_Department__c,&apos;ITSES - Finance&apos;)))</errorConditionFormula>
+        <errorDisplayField>Select_User__c</errorDisplayField>
+        <errorMessage>The selected user should be from ITPR - Finance.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>BusinessAdminProfileCheckLegal</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISPICKVAL(Owner:User.ITPR_Department__c, &apos;ITSES - Legal&apos;) ,NOT(ISPICKVAL(Select_User__r.ITPR_Department__c,&apos;ITSES - Legal&apos;)))</errorConditionFormula>
+        <errorDisplayField>Select_User__c</errorDisplayField>
+        <errorMessage>The selected user should be from ITPR - Legal.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>BusinessAdminProfileCheckProcurement</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISPICKVAL(Owner:User.ITPR_Department__c, &apos;ITSES - Procurement&apos;) ,NOT(ISPICKVAL(Select_User__r.ITPR_Department__c,&apos;ITSES - Procurement&apos;)))</errorConditionFormula>
+        <errorDisplayField>Select_User__c</errorDisplayField>
+        <errorMessage>The selected user should be from ITPR - Procurement.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>BusinessAdminProfileCheckVG</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISPICKVAL(Owner:User.ITPR_Department__c, &apos;ITSES - Vendor Governance&apos;) ,NOT(ISPICKVAL(Select_User__r.ITPR_Department__c,&apos;ITSES - Vendor Governance&apos;)))</errorConditionFormula>
+        <errorDisplayField>Select_User__c</errorDisplayField>
+        <errorMessage>The selected user should be from ITPR - Vendor Governance.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SameProfileValidate</fullName>
+        <active>true</active>
+        <errorConditionFormula>OR(AND(ISPICKVAL(Select_User__r.ITPR_Department__c, &apos;ITSES - Vendor Governance&apos;) ,NOT(ISPICKVAL(Mass_Transfer_To__r.ITPR_Department__c,&apos;ITSES - Vendor Governance&apos;))), 
+AND(ISPICKVAL(Select_User__r.ITPR_Department__c, &apos;ITSES - Finance&apos;) ,NOT(ISPICKVAL(Mass_Transfer_To__r.ITPR_Department__c,&apos;ITSES - Finance&apos;))),
+AND(ISPICKVAL(Select_User__r.ITPR_Department__c, &apos;ITSES - Legal&apos;) ,NOT(ISPICKVAL(Mass_Transfer_To__r.ITPR_Department__c,&apos;ITSES - Legal&apos;))),
+AND(ISPICKVAL(Select_User__r.ITPR_Department__c, &apos;ITSES - Procurement&apos;) ,NOT(ISPICKVAL(Mass_Transfer_To__r.ITPR_Department__c,&apos;ITSES - Procurement&apos;))))</errorConditionFormula>
+        <errorDisplayField>Mass_Transfer_To__c</errorDisplayField>
+        <errorMessage>You cannot transfer requests between two different profiles. The profile of the user entered in Mass Transferred To should be same as the user&apos;s chosen in Select User</errorMessage>
+    </validationRules>
+</CustomObject>

@@ -1,0 +1,296 @@
+<apex:page controller="MD_AddProduct" tabStyle="Opportunity">
+<apex:form rendered="{!showProduct}">
+<apex:actionFunction name="fetch" action="{!dynamicFetch}" reRender="pb,nb,nb1,cinemasec,oohsec,transec">
+<apex:param name="param" value="a" assignTo="{!passingValue}"/>
+</apex:actionFunction>
+
+
+
+<apex:actionRegion >
+<apex:pageBlock title="FIND A PRODUCT" id="pb"> 
+<apex:pageBlockSection columns="3" title="SEARCH CRITERIA">     
+<apex:pageBlockSection columns="1">
+<apex:outputLabel value="PRODUCT LOOK-UP" style="font-weight:600"/>
+
+<apex:inputField value="{!prod.Product_Category__c}"> 
+<apex:actionSupport event="onchange" rerender="pb,nb,nb1" action="{!renderFields}"/> 
+<!--<apex:actionSupport event="onchange" rerender="pb,nb" action="{!renderMedia}" rendered="{!asst.Product_Type__c='Media'}"/> -->
+</apex:inputField>
+
+<apex:inputField value="{!prod.Product_Type__c}" rendered="{!showField}" onChange="Retrieve(this.value)">
+<!--<apex:actionSupport event="onchange" rerender="pb,nb,nb1,cinemasec,oohsec,transec" action="{!renderMedia}"/> --->
+</apex:inputField>  
+</apex:pageBlockSection>
+
+<apex:pageBlockSection columns="1">
+<apex:outputLabel value="TIME REQUESTED" style="font-weight:600" rendered="{!showField}"/>
+<apex:inputField value="{!prod.Day_Part__c}" rendered="{!showField}" />
+<!--Kushal- Commented out per UAT session 10/13
+<apex:inputField value="{!prod.Start_Date__c}" rendered="{!showField}" /> 
+<apex:inputField value="{!prod.End_Date__c}" rendered="{!showField}" />
+-->
+</apex:pageBlockSection>
+</apex:pageBlockSection>
+</apex:pageBlock>
+</apex:actionRegion>
+<apex:pageBlock title="NARROW BY">
+<!--Auto Complete Start-->
+<apex:pageBlockSection columns="2" id="nb">
+<apex:outputLabel value="CHANNEL" style="font-weight:600" rendered="{!showField1}"/>
+<apex:outputLabel value="PROPERTY" style="font-weight:600" rendered="{!showField1}"/>
+<apex:inputField value="{!prod.Channel__c}" label="" rendered="{!showField1}"/>
+<!--<apex:inputField value="{!prod.Customer_Name__c}" label=""/>-->
+<apex:inputField value="{!prod.Property__c}" id="memNam1" label="" rendered="{!showField1}">
+<c:autoComplete_Property autocomplete_textbox="{!$Component.memNam1}" objectname="Product2"/>
+</apex:inputField>
+<!--
+<apex:inputField value="{!prod.Customer_Name__c}" id="memNam1" label="" rendered="{!showField1}">
+<c:autoComplete_CustName autocomplete_textbox="{!$Component.memNam1}" objectname="Product2"/>
+</apex:inputField>
+-->
+</apex:pageBlockSection>
+<apex:pageBlockSection columns="3" id="nb1">
+<apex:outputLabel value="STATES" style="font-weight:600" rendered="{!showField1}"/>
+<apex:outputLabel value="DMA" style="font-weight:600" rendered="{!showField1}"/>
+<apex:outputLabel value="ZIP" style="font-weight:600" rendered="{!showField1}"/>
+
+<apex:outputPanel rendered="{!showField1}">
+<c:MultiselectPicklist leftLabel="Available States"
+                leftOptions1="{!allContacts}"
+                rightLabel="Selected States"
+                rightOptions1="{!selectedContacts}"
+                size="14"
+                width="150px"/>
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!showField1}">
+<c:MultiselectPicklist leftLabel="Available DMA"
+                leftOptions1="{!allDMA}"
+                rightLabel="Selected DMA"
+                rightOptions1="{!selectedDMA}"
+                size="14"
+                width="150px"/>
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!showField1}">
+<c:MultiselectPicklist leftLabel="Available ZIP"
+                leftOptions1="{!allZIP}"
+                rightLabel="Selected ZIP"
+                rightOptions1="{!selectedZIP}"
+                size="14"
+                width="150px"/>
+</apex:outputPanel>
+</apex:pageBlockSection>
+<apex:pageBlockSection columns="3" id="cinemasec">
+<apex:outputLabel value="GENRE" style="font-weight:600" rendered="{!showField2}"/>
+<apex:outputLabel value="DMA" style="font-weight:600" rendered="{!showField2}"/>
+<apex:outputLabel value="ZIP" style="font-weight:600" rendered="{!showField2}"/>
+<apex:inputField value="{!prod.Genre__c}" label="" rendered="{!showField2}" style="font-weight:600" />
+<apex:outputPanel rendered="{!showField2}">
+<c:MultiselectPicklist leftLabel="Available DMA"
+                leftOptions1="{!allDMA}"
+                rightLabel="Selected DMA"
+                rightOptions1="{!selectedDMA}"
+                size="14"
+                width="150px"/>
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!showField2}">
+<c:MultiselectPicklist leftLabel="Available ZIP"
+                leftOptions1="{!allZIP}"
+                rightLabel="Selected ZIP"
+                rightOptions1="{!selectedZIP}"
+                size="14"
+                width="150px"/>
+</apex:outputPanel>
+</apex:pageBlockSection>
+
+<br/>
+<apex:pageBlockSection columns="3" id="oohsec">
+<apex:outputLabel value="STATE" style="font-weight:600" rendered="{!showField3}"/>
+<apex:outputLabel value="DMA" style="font-weight:600" rendered="{!showField3}"/>
+<apex:outputLabel value="ZIP" style="font-weight:600" rendered="{!showField3}"/>
+<apex:outputPanel rendered="{!showField3}">
+<c:MultiselectPicklist leftLabel="Available States"
+                leftOptions1="{!allContacts}"
+                rightLabel="Selected States"
+                rightOptions1="{!selectedContacts}"
+                size="14"
+                width="150px"/>
+</apex:outputPanel>
+
+
+<apex:outputPanel rendered="{!showField3}">
+<c:MultiselectPicklist leftLabel="Available DMA"
+                leftOptions1="{!allDMA}"
+                rightLabel="Selected DMA"
+                rightOptions1="{!selectedDMA}"
+                size="14"
+                width="150px"/>
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!showField3}">
+<c:MultiselectPicklist leftLabel="Available ZIP"
+                leftOptions1="{!allZIP}"
+                rightLabel="Selected ZIP"
+                rightOptions1="{!selectedZIP}"
+                size="14"
+                width="150px"/>
+</apex:outputPanel>
+
+</apex:pageBlockSection>
+<apex:pageBlockSection columns="3" id="transec">
+<apex:outputLabel value="STATE" style="font-weight:600" rendered="{!showField4}"/>
+<apex:outputPanel rendered="{!showField4}">
+<c:MultiselectPicklist leftLabel="Available States"
+                leftOptions1="{!allContacts}"
+                rightLabel="Selected States"
+                rightOptions1="{!selectedContacts}"
+                size="14"
+                width="150px"/>
+</apex:outputPanel>
+</apex:pageBlockSection>
+</apex:pageBlock>
+<apex:pageBlock >
+<apex:pageBlockSection columns="1">
+<apex:outputLabel value="SEARCH PRODUCT NAME:" style="font-weight:600"/>
+<apex:inputText value="{!asstName}" id="memNam">
+<c:autoCompleteName autocomplete_textbox="{!$Component.memNam}" objectname="Product2"/>
+</apex:inputText>
+</apex:pageBlockSection>
+</apex:pageBlock>
+<!--Auto Complete End-->
+<apex:pageBlock >
+<center>
+<apex:outputPanel >
+<apex:commandButton value="Go" action="{!fetchproducts}"
+                     reRender="AssetPanelId,OpptyAssetTable" status="statusC" onComplete="hideErrorMessage();"/>
+<apex:commandButton value="Select" action="{!selectProducts}"/><!--Priyanka-->  
+
+<!--<apex:commandButton value="Select All" onclick="selectAllCheckboxes(this,'inputId')" />-->
+
+<apex:actionStatus id="statusC" startText=" (Fetching Products...)"/>                       
+</apex:outputPanel>
+</center>
+<apex:pageBlock id="pagination" title="Product Details">
+<apex:pageBlockTable id="OpptyAssetTable" value="{!listWrap}" var="asset"
+                     title="Requested Products "> 
+                     
+  
+   <!--<apex:column>  
+    <apex:facet name="header">
+    <apex:outputLabel value="Select All"/> 
+    </apex:facet>     
+   </apex:column>
+   ------->
+   
+   <apex:column >  
+    <apex:facet name="header">
+    <apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')"/> 
+    </apex:facet>     
+   </apex:column>
+
+    <apex:column headerValue="Actions">
+    <apex:inputCheckbox value="{!asset.checkBox}"  id="inputId"/> <!--Priyanka-->
+    </apex:column>
+
+    <apex:column headerValue="Product Name" >
+    <apex:outputfield value="{!asset.prodInstance.Name}">
+    </apex:outputfield>
+    </apex:column>
+<!--
+    <apex:column headerValue="Measurement" >
+    <apex:outputfield value="{!asset.prodInstance.Measurement__c}">
+    </apex:outputfield>
+    </apex:column>
+-->
+   
+    <apex:column headerValue="Channel" >
+    <apex:outputfield value="{!asset.prodInstance.Channel__c}">
+    </apex:outputfield>
+    </apex:column>
+
+    <apex:column headerValue="Property" >
+    <apex:outputfield value="{!asset.prodInstance.Property__c}">
+    </apex:outputfield>
+    </apex:column>
+
+    <apex:column headerValue="DMA" >
+    <apex:outputfield value="{!asset.prodInstance.DMA__c}">
+    </apex:outputfield>
+    </apex:column>
+
+    <apex:column headerValue="Day Part" >
+    <apex:outputfield value="{!asset.prodInstance.Day_Part__c}">
+    </apex:outputfield>
+    </apex:column>  
+    
+    <apex:column headerValue="Genre" >
+    <apex:outputfield value="{!asset.prodInstance.Genre__c}" style="width:60px">
+    </apex:outputfield>
+    </apex:column>      
+<!--    
+    <apex:column headerValue="Description" >
+    <apex:outputfield value="{!asset.prodInstance.Description}">
+    </apex:outputfield>
+    </apex:column>  
+    
+    
+    <apex:column headerValue="Internal Cost" width="4px">   
+    <apex:outputField value="{!asset.prodInstance.Internal_Cost__c}" style="width:60px" id="icost">
+    </apex:outputField>
+    </apex:column>
+    
+    
+    <apex:column headerValue="Value" width="4px">  
+    <apex:outputField value="{!asset.prodInstance.Fair_Market_Value_Price__c}" style="width:60px" id="icost1">
+    </apex:outputField>    
+    </apex:column> 
+-->    
+ 
+</apex:pageBlockTable>
+
+
+<apex:pageblockButtons >
+            <!--<apex:commandButton value="<<" rerender="pagination" action="{!beginning}" disabled="{!prev}"/>--->
+            <apex:commandButton value="<" rerender="pagination" action="{!previous}" disabled="{!prev}" status="statusC"/>
+            <apex:commandButton value=">" rerender="pagination" action="{!next}" disabled="{!nxt}" status="statusC" />
+            <!--<apex:commandButton value=">>" rerender="pagination" action="{!end}" disabled="{!nxt}"/>------>
+        </apex:pageblockButtons>
+</apex:pageBlock>    
+<apex:pageBlockButtons location="bottom">
+<apex:commandButton value="Select" action="{!selectProducts}"/><!--Priyanka-->
+<!--<apex:commandButton value="Cancel" action="{!cancel}"/>-->
+<apex:commandButton value="Cancel" onclick="history.go(-1); return false;"/>
+
+</apex:pageBlockButtons>
+
+</apex:pageBlock>
+</apex:form>
+
+
+<apex:include pageName="MD_Multilineitem" rendered="{!showLineItem}"/>
+
+
+  <script type="text/javascript">
+        function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");                  
+            for(var i=0; i<inputCheckBox.length; i++){          
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){                                     
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+    </script>
+    
+    
+<script>
+function Retrieve(a){
+fetch(a);
+}
+</script>
+   
+    
+    
+    
+</apex:page>

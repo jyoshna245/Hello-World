@@ -1,0 +1,16 @@
+<apex:page tabStyle="GS1_EAN__c" controller="GS1_EAN_CodeGenCtrl">
+    <apex:sectionHeader title="Compute Check Digit"/>
+    <apex:pageMessages ></apex:pageMessages>
+    <apex:form >
+        <apex:pageBlock title="Compute Check Digit Parameters" >
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Compute Check Digit" action="{! computeCheckDigit}"/>
+                <apex:commandButton value="Done" action="{! goBack}" reRender="output" immediate="true"/>                
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1" collapsible="false">
+                <apex:inputText label="Type here your barcode (12=long / 7=short)" value="{! startNum}" required="true" />
+                <apex:outputText label="Check Digit =>" id="output" value="{! lastDigit}" style="color:RED;font-weight:bold;"/>                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

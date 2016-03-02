@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Freed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Freed</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Property_1__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (LEN(TRIM(Name))=8, &apos;Short&apos;, IF(LEN(TRIM(Name))=13, &apos;Long&apos;, &apos;Invalid barcode!&apos;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Short or Long</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_2__c</fullName>
+        <externalId>false</externalId>
+        <label>CU/DU or Pallet</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CU/DU</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pallet</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Property_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Promo or Normal</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Promo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Normal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Free</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Allocated</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <label>GS1 Barcode</label>
+    <listViews>
+        <fullName>Allocated_Barcodes</fullName>
+        <columns>NAME</columns>
+        <columns>Property_2__c</columns>
+        <columns>Property_3__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Allocated</value>
+        </filters>
+        <label>Allocated Barcodes</label>
+    </listViews>
+    <listViews>
+        <fullName>Freed_Barcodes</fullName>
+        <columns>NAME</columns>
+        <columns>Property_2__c</columns>
+        <columns>Property_3__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Free</value>
+        </filters>
+        <filters>
+            <field>Freed__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>Freed Barcodes</label>
+    </listViews>
+    <listViews>
+        <fullName>X1_CU_DU_Normal_Long</fullName>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Property_2__c</field>
+            <operation>equals</operation>
+            <value>CU/DU</value>
+        </filters>
+        <filters>
+            <field>Property_3__c</field>
+            <operation>equals</operation>
+            <value>Normal</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Free</value>
+        </filters>
+        <filters>
+            <field>Property_1__c</field>
+            <operation>equals</operation>
+            <value>Long</value>
+        </filters>
+        <label>1 - CU/DU - Normal Long</label>
+    </listViews>
+    <listViews>
+        <fullName>X2_CU_DU_Promo_Long</fullName>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Property_2__c</field>
+            <operation>equals</operation>
+            <value>CU/DU</value>
+        </filters>
+        <filters>
+            <field>Property_3__c</field>
+            <operation>equals</operation>
+            <value>Promo</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Free</value>
+        </filters>
+        <filters>
+            <field>Property_1__c</field>
+            <operation>equals</operation>
+            <value>Long</value>
+        </filters>
+        <label>2 - CU/DU - Promo Long</label>
+    </listViews>
+    <listViews>
+        <fullName>X3_Pallet_Normal_Long</fullName>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Property_2__c</field>
+            <operation>equals</operation>
+            <value>Pallet</value>
+        </filters>
+        <filters>
+            <field>Property_3__c</field>
+            <operation>equals</operation>
+            <value>Normal</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Free</value>
+        </filters>
+        <filters>
+            <field>Property_1__c</field>
+            <operation>equals</operation>
+            <value>Long</value>
+        </filters>
+        <label>3 - Pallet - Normal Long</label>
+    </listViews>
+    <listViews>
+        <fullName>X4_Pallet_Promo_Long</fullName>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Property_2__c</field>
+            <operation>equals</operation>
+            <value>Pallet</value>
+        </filters>
+        <filters>
+            <field>Property_3__c</field>
+            <operation>equals</operation>
+            <value>Promo</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Free</value>
+        </filters>
+        <filters>
+            <field>Property_1__c</field>
+            <operation>equals</operation>
+            <value>Long</value>
+        </filters>
+        <label>4 - Pallet - Promo Long</label>
+    </listViews>
+    <listViews>
+        <fullName>X5_CU_DU_Normal_Short</fullName>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Property_2__c</field>
+            <operation>equals</operation>
+            <value>CU/DU</value>
+        </filters>
+        <filters>
+            <field>Property_3__c</field>
+            <operation>equals</operation>
+            <value>Normal</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Free</value>
+        </filters>
+        <filters>
+            <field>Property_1__c</field>
+            <operation>equals</operation>
+            <value>Short</value>
+        </filters>
+        <label>5 - CU/DU - Normal Short</label>
+    </listViews>
+    <listViews>
+        <fullName>X6_CU_DU_Promo_Short</fullName>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Property_2__c</field>
+            <operation>equals</operation>
+            <value>CU/DU</value>
+        </filters>
+        <filters>
+            <field>Property_3__c</field>
+            <operation>equals</operation>
+            <value>Promo</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Free</value>
+        </filters>
+        <filters>
+            <field>Property_1__c</field>
+            <operation>equals</operation>
+            <value>Short</value>
+        </filters>
+        <label>6 - CU/DU - Promo Short</label>
+    </listViews>
+    <nameField>
+        <label>Barcode</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>GS1 Barcodes</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Property_2__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Property_3__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
+        <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <listViewButtons>Add_EAN_Range</listViewButtons>
+        <listViewButtons>Compute_Check_Digit</listViewButtons>
+        <lookupDialogsAdditionalFields>Property_2__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Property_3__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Property_2__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Property_3__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Require_all_fields</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISPICKVAL(Property_2__c,&quot;&quot;)||
+ISPICKVAL(Property_3__c,&quot;&quot;)</errorConditionFormula>
+        <errorMessage>All fields are required: Short or Long, CU/DU or Pallet, Promo or No-Promo</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Add_EAN_Range</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Add Barcode Range</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+
+location = &apos;/apex/GS1_EANGeneratorPage&apos;</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Compute_Check_Digit</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Compute Check-Digit</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+location = &apos;/apex/GS1_EANCCDigitPage&apos;;</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Free_this_Barcode</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Free this Barcode</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+sforce.connection.sessionId = &apos;{!$Api.Session_ID}&apos;;
+
+if (&apos;{!GS1_EAN__c.Status__c}&apos; == &apos;Allocated&apos;) {
+     Utils.Dialog.confirm(&apos;This will free the currently opened barcode if all products are withdrawn and &lt;b&gt;EVEN IF&lt;/b&gt; one or more related products has not been withdrawn past the allowable period.\n\nDo you wish to continue?&apos;, &apos;Warning&apos;, 
+function() {
+     var ret = GS1.freeBarcode(&apos;{! GS1_EAN__c.Id}&apos;);
+     ret = JSON.parse(ret);
+     if (ret.status == &apos;ok&apos;) {
+        location.reload();
+     } else {
+        Utils.Dialog.alert(ret.message, &apos;Error&apos;);
+     }
+   }, true);
+} else {
+   Utils.Dialog.alert(&apos;This action can be used only for allocated barcode.&apos;);
+}</url>
+    </webLinks>
+</CustomObject>

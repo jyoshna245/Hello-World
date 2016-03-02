@@ -1,0 +1,51 @@
+<apex:page standardController="User" extensions="RFA_VFC12_EditAgentsController" showHeader="false" sidebar="false">
+
+<script type="text/javascript">
+
+    function window_Close(hasError) 
+    {
+        if (hasError == false)
+        {
+            window.opener.location.href = "/{!$CurrentPage.parameters.id}?noredirect=1";
+            window.close();
+        }
+    }
+            
+</script>
+
+    <body>
+        <center>
+        <apex:panelGrid columns="1" width="100%">
+        <apex:form >
+        
+        
+        
+        <apex:pageBlock title="User Agent Edit">
+
+        <apex:pageBlockButtons >
+            <apex:commandButton action="{!updateUserAgents}" value="Save" onComplete="{window_Close({!hasError});}" reRender="pageMessage"/>
+            <apex:commandButton value="Cancel" onClick="{self.close();}"/>
+        </apex:pageBlockButtons>
+        
+        <apex:pageMessages id="pageMessage">
+            </apex:pageMessages>
+        
+        <apex:pageBlockSection title="General Information" collapsible="false" columns="1">
+                <apex:outputField value="{!userObj.Name}" id="name"/>
+                <apex:outputField value="{!userObj.Email}" id="email"/>
+        </apex:pageBlockSection>   
+        <apex:pageBlockSection title="RFA Agent Details" collapsible="false" columns="1">
+            <apex:inputField value="{!userObj.RFA_Agent_1__c}" id="agent1"/>
+            <apex:inputField value="{!userObj.RFA_Agent_2__c}" id="agent2"/>
+            <apex:inputField value="{!userObj.RFA_Agent_3__c}" id="agent3"/>
+        </apex:pageBlockSection>    
+        
+
+        
+        </apex:pageBlock>
+        </apex:form>
+        </apex:panelGrid>
+        
+        </center>
+    </body>
+</apex:page>

@@ -1,0 +1,91 @@
+<apex:page controller="sample">
+    
+    
+    <apex:form >
+    
+    <apex:pageBlock id="Block" >
+           
+        	<apex:pageBlockSection id="Columns">                
+            <apex:pageblockSectionItem >
+                <apex:outputLabel value="Business Unit category" />
+            </apex:pageblockSectionItem>        
+            <apex:pageblockSectionItem > 
+                
+                 <apex:selectList size="1" value="{!selectedRec}" >
+                    <apex:selectOptions value="{!BusRecordTypes}" />
+                   <apex:actionSupport event="onchange"  reRender="a,Block"  /> 
+                </apex:selectList> 
+                 
+            </apex:pageblockSectionItem>
+                
+                <!--
+                <apex:selectList size="4" multiselect="true" value="{!BusRecTypes}" >
+                    <apex:selectOptions value="{!BusRecordTypes}" />
+                   <apex:actionSupport event="onselect"  reRender="a,Block"  /> 
+                </apex:selectList>  
+				-->
+                
+                <!--
+                <c:RFAmultiselectcomponent width="15"  size="5" leftLabel="Available Organizations"  rightLabel="Selected Organizations" leftOptions1="{!BusRecordTypes}" rightOptions1="{!selectedBusRecordTypes}">
+                 
+                
+                
+                </c:RFAmultiselectcomponent>
+			-->
+                    
+                
+                
+                
+                
+            <apex:pageblockSectionItem >
+                <apex:outputLabel value="Business Units"/>
+            </apex:pageblockSectionItem>            
+            <apex:pageblockSectionItem id="a">
+                <apex:selectList size="1" value="{!selectedUnit}" id="a1">
+                    <apex:selectOptions value="{!BusinessUnits}"/>
+                    <apex:actionSupport event="onchange"  reRender="b,Block"  />
+                </apex:selectList>
+            </apex:pageblockSectionItem>    
+                
+             <apex:pageblockSectionItem >
+                    <apex:outputLabel value="Major/Minor Category"/>
+            </apex:pageblockSectionItem>
+            <apex:pageblockSectionItem id="b">
+                <apex:selectList value="{!selectedCategory}"  size="1"  id="b1"  >
+                 <apex:selectOptions value="{!Categories}"/>
+                    <apex:actionSupport event="onchange"  reRender="c,Block"  />
+             </apex:selectList> 
+            </apex:pageblockSectionItem>    
+   
+             
+             <apex:pageblockSectionItem >
+                    <apex:outputLabel value="Profit Centers"/>
+            </apex:pageblockSectionItem>
+            <apex:pageblockSectionItem id="c">
+                <apex:selectList value="{!selectedPc}"  size="1"  id="c1"  >
+                 <apex:selectOptions value="{!Profitcenters}"/>
+                    <apex:actionSupport event="onchange"  reRender="user,Block"  />
+             </apex:selectList> 
+            </apex:pageblockSectionItem>     
+                
+           <apex:inputField value="{!Approvers.UserName__c}"  id="user" rendered="{!Profitcenters!=null}" />     
+        </apex:pageBlockSection>        
+         <apex:pageBlockButtons >
+        <apex:commandButton id="view" value="Search Approver" action="{!viewApprovers}" reRender="approversTable,Block" />
+        </apex:pageBlockButtons>
+    
+           
+       </apex:pageBlock> 
+         <apex:pageBlock id="groupsdisplay">
+        
+         <apex:pageBlockTable id="approversTable" value="{!coaGroups}" var="Grp" style="width:700px;"  rendered="true" >
+                <apex:column headerValue="Select User" >
+                    
+                 <apex:outputLabel value="{!Grp.name}"></apex:outputLabel>
+                    
+                </apex:column>
+                 
+        </apex:pageBlockTable>
+     </apex:pageBlock>
+    </apex:form>  
+</apex:page>

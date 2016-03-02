@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Used to select max 5 users who will get read-only access to all IT-SES records of the logged-in user or user selected in requestor field.</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Additional_Access_1_Department__c</fullName>
+        <externalId>false</externalId>
+        <formula>If( ISPICKVAL(Viewer1__r.ITPR_Department__c,&apos;ITSES - Requestor&apos;),&apos;ITSES - Requestor&apos;,
+If( ISPICKVAL(Viewer1__r.ITPR_Department__c,&apos;ITSES - Legal&apos;),&apos;ITSES - Legal&apos;,
+If( ISPICKVAL(Viewer1__r.ITPR_Department__c,&apos;ITSES - Finance&apos;),&apos;ITSES - Finance&apos;,
+If( ISPICKVAL(Viewer1__r.ITPR_Department__c,&apos;ITSES - Procurement&apos;),&apos;ITSES - Procurement&apos;,
+If( ISPICKVAL(Viewer1__r.ITPR_Department__c,&apos;ITSES - Vendor Governance&apos;),&apos;ITSES - Vendor Governance&apos;,
+&apos;&apos;)
+)
+)
+)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Additional Access 1 Department</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Additional_Access_2_Department__c</fullName>
+        <externalId>false</externalId>
+        <formula>If( ISPICKVAL(Viewer2__r.ITPR_Department__c,&apos;ITSES - Requestor&apos;),&apos;ITSES - Requestor&apos;, 
+If( ISPICKVAL(Viewer2__r.ITPR_Department__c,&apos;ITSES - Legal&apos;),&apos;ITSES - Legal&apos;, 
+If( ISPICKVAL(Viewer2__r.ITPR_Department__c,&apos;ITSES - Finance&apos;),&apos;ITSES - Finance&apos;, 
+If( ISPICKVAL(Viewer2__r.ITPR_Department__c,&apos;ITSES - Procurement&apos;),&apos;ITSES - Procurement&apos;, 
+If( ISPICKVAL(Viewer2__r.ITPR_Department__c,&apos;ITSES - Vendor Governance&apos;),&apos;ITSES - Vendor Governance&apos;, 
+&apos;&apos;) 
+) 
+) 
+) 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Additional Access 2 Department</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Additional_Access_3_Department__c</fullName>
+        <externalId>false</externalId>
+        <formula>If( ISPICKVAL(Viewer3__r.ITPR_Department__c,&apos;ITSES - Requestor&apos;),&apos;ITSES - Requestor&apos;, 
+If( ISPICKVAL(Viewer3__r.ITPR_Department__c,&apos;ITSES - Legal&apos;),&apos;ITSES - Legal&apos;, 
+If( ISPICKVAL(Viewer3__r.ITPR_Department__c,&apos;ITSES - Finance&apos;),&apos;ITSES - Finance&apos;, 
+If( ISPICKVAL(Viewer3__r.ITPR_Department__c,&apos;ITSES - Procurement&apos;),&apos;ITSES - Procurement&apos;, 
+If( ISPICKVAL(Viewer3__r.ITPR_Department__c,&apos;ITSES - Vendor Governance&apos;),&apos;ITSES - Vendor Governance&apos;, 
+&apos;&apos;) 
+) 
+) 
+) 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Additional Access 3 Department</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Additional_Access_4_Department__c</fullName>
+        <externalId>false</externalId>
+        <formula>If( ISPICKVAL(Viewer4__r.ITPR_Department__c,&apos;ITSES - Requestor&apos;),&apos;ITSES - Requestor&apos;, 
+If( ISPICKVAL(Viewer4__r.ITPR_Department__c,&apos;ITSES - Legal&apos;),&apos;ITSES - Legal&apos;, 
+If( ISPICKVAL(Viewer4__r.ITPR_Department__c,&apos;ITSES - Finance&apos;),&apos;ITSES - Finance&apos;, 
+If( ISPICKVAL(Viewer4__r.ITPR_Department__c,&apos;ITSES - Procurement&apos;),&apos;ITSES - Procurement&apos;, 
+If( ISPICKVAL(Viewer4__r.ITPR_Department__c,&apos;ITSES - Vendor Governance&apos;),&apos;ITSES - Vendor Governance&apos;, 
+&apos;&apos;) 
+) 
+) 
+) 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Additional Access 4 Department</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Additional_Access_5_Department__c</fullName>
+        <externalId>false</externalId>
+        <formula>If( ISPICKVAL(Viewer5__r.ITPR_Department__c,&apos;ITSES - Requestor&apos;),&apos;ITSES - Requestor&apos;, 
+If( ISPICKVAL(Viewer5__r.ITPR_Department__c,&apos;ITSES - Legal&apos;),&apos;ITSES - Legal&apos;, 
+If( ISPICKVAL(Viewer5__r.ITPR_Department__c,&apos;ITSES - Finance&apos;),&apos;ITSES - Finance&apos;, 
+If( ISPICKVAL(Viewer5__r.ITPR_Department__c,&apos;ITSES - Procurement&apos;),&apos;ITSES - Procurement&apos;, 
+If( ISPICKVAL(Viewer5__r.ITPR_Department__c,&apos;ITSES - Vendor Governance&apos;),&apos;ITSES - Vendor Governance&apos;, 
+&apos;&apos;) 
+) 
+) 
+) 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Additional Access 5 Department</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>From_User__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>User whose records would be shared with other users. Would be visible to only ITPR business admin users. For requestor/Assignee  users it be auto-filled with their id.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please select the user whose IT-SES records need to be shared.</inlineHelpText>
+        <label>From User</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Departmental_Super_Users_Requestor</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Type_of_Access_1__c</fullName>
+        <description>After selecting the user to know which type of user can allow to use</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please select a value</inlineHelpText>
+        <label>Type of Access 1</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Read Only</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read/Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type_of_Access_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of Access 2</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Read Only</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read/Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type_of_Access_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of Access 3</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Read Only</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read/Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type_of_Access_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of Access 4</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Read Only</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read_Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type_of_Access_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of Access 5</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Read Only</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read/Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Viewer1__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>This user will have full read-only access to all requests created by the requestor</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Add a user here to have the type of access you select for each user, for all of your requests</inlineHelpText>
+        <label>Additional Access 1</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Departmental_Super_Users_Viewer1</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Viewer2__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>This user will have full read-only access to all requests created by the requestor</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Add a user here to have the type of access you select for each user, for all of your requests</inlineHelpText>
+        <label>Additional Access 2</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Departmental_Super_Users_Viewer2</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Viewer3__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>This user will have full read-only access to all requests created by the requestor</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Add a user here to have the type of access you select for each user, for all of your requests</inlineHelpText>
+        <label>Additional Access 3</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Departmental_Super_Users_Viewer3</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Viewer4__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>This user will have full read-only access to all requests created by the requestor</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Add a user here to have the type of access you select for each user, for all of your requests</inlineHelpText>
+        <label>Additional Access 4</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Departmental_Super_Users_Viewer4</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Viewer5__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>This user will have full read-only access to all requests created by the requestor</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Add a user here to have the type of access you select for each user, for all of your requests</inlineHelpText>
+        <label>Additional Access 5</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Departmental_Super_Users_Viewer5</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <label>Departmental Super User</label>
+    <nameField>
+        <displayFormat>DSU-{00000}</displayFormat>
+        <label>DepartmentalSuperUser ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Departmental Super Users</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Viewer1__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Viewer2__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Viewer3__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Viewer4__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Viewer5__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>From_User__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>From_User__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>From_User__c</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Viewer1__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Viewer2__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Viewer3__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Viewer4__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Viewer5__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>From_User__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+</CustomObject>

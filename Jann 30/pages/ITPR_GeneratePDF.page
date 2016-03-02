@@ -1,0 +1,59 @@
+<apex:page standardController="ITPR__c" standardStylesheets="true"  showHeader="false" sidebar="false" renderAs="pdf">
+    <head>
+<style>
+@page{
+margin:0.01in;
+}
+</style>
+</head> 
+
+<apex:stylesheet value="{URLFOR($Resource.Stylesheets,'Stylesheets/extended.css')}" />
+<apex:stylesheet value="{URLFOR($Resource.Stylesheets,'Stylesheets/common.css')}" />
+
+<html>
+<head>
+<style>
+        @page {
+            size:A4 Landscape;
+            margin: 1mm;
+            @top-center {
+                content: "Sample";
+            }
+            @bottom-center {
+                content: "Page " counter(page) " of " counter(pages);
+            }
+        }
+        .page-break {
+            display:block;
+            page-break-after:always;
+        }
+        body {font-family: Arial,Helvetica,sans-serif;}
+.pdf
+    {
+        font-size:11px;
+    }
+.actionlink
+    {
+    display : none;
+    }
+.btn
+    {
+    display:none; !important
+    }
+.actionColumn    
+    {
+    display:none; !important 
+    }
+ </style>
+</head>
+ <img src="{!$Resource.ITSES_Logo}" width="240" height="60"/>
+<table class="pdf">
+<tr>
+<td>
+    <apex:detail id="ITPRDetails" subject="{!ITPR__c.id}" relatedList="true"  />
+</td>
+</tr>
+</table>
+</html>
+    
+</apex:page>

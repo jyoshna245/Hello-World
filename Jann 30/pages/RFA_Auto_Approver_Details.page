@@ -1,0 +1,132 @@
+<apex:page controller="RFA_Auto_Approver_Details_controller">
+    
+    <apex:form >    
+        <!-- <apex:messages style="color:red"></apex:messages>  -->
+    <apex:pageBlock id="Block">            
+        <apex:messages style="color:red"></apex:messages> 
+            <apex:pageBlockSection columns="2">
+            <apex:pageblockSectionItem >
+                <apex:outputLabel value="Organization"/>
+                                <apex:selectList size="1" value="{!selectedRec}" >
+                    <apex:selectOptions value="{!BusRecordTypes}" />
+                    <apex:actionSupport event="onchange"  reRender="a,Block"  />
+                </apex:selectList>   
+            </apex:pageblockSectionItem> 
+                
+            <apex:pageblockSectionItem id="a">
+                <apex:outputLabel value="Business Units"/>
+                <apex:selectList size="1" value="{!selectedUnit}" id="a1" >
+                    <apex:selectOptions value="{!BusinessUnits}"/>
+                    <apex:actionSupport event="onchange"  reRender="b,Block"  />
+                </apex:selectList>
+            </apex:pageblockSectionItem>   
+                
+          <!-- <apex:pageblockSectionItem id="b">
+                <apex:outputLabel value="Major/Minor Category"/>
+                <apex:selectList value="{!selectedCategory}"  size="1"  id="b1" >
+                 <apex:selectOptions value="{!Categories}"/>
+                    <apex:actionSupport event="onchange"  reRender="c,Block"  />
+             </apex:selectList> 
+            </apex:pageblockSectionItem>  -->            
+            <apex:pageblockSectionItem id="b">
+                <apex:outputLabel value="Profit Centers"/>
+                <apex:selectList value="{!selectedPc}"  size="1"  id="b1"  >
+                 <apex:selectOptions value="{!Profitcenters}"/>
+                    <apex:actionSupport event="onchange"  reRender="c,Block"  />
+             </apex:selectList> 
+            </apex:pageblockSectionItem> 
+                
+            <apex:pageblockSectionItem id="c">
+                <apex:outputLabel value="DOA Category"/>
+                <apex:selectList value="{!selectedDOA}"  size="1"  id="c1"  >
+                 <apex:selectOptions value="{!DOACategories}"/> 
+                    <apex:actionSupport event="onchange"  reRender="d,Block" />                   
+             </apex:selectList> 
+            </apex:pageblockSectionItem> 
+                
+            <apex:pageblockSectionItem id="d">
+                <apex:outputLabel value="Amount"/>
+                <apex:selectList value="{!selectedAmount}"  size="1"  id="d1"  >
+                 <apex:selectOptions value="{!GroupAmounts}"/>
+             </apex:selectList> 
+            </apex:pageblockSectionItem> 
+                
+        </apex:pageBlockSection>   
+        
+         <apex:pageBlockButtons >
+             <!-- reRender="approversTable,Block" -->
+        <apex:commandButton value="Search Approver" action="{!viewApprovers}"  />
+        </apex:pageBlockButtons>
+    </apex:pageBlock>         
+    </apex:form>
+    <apex:form >   
+         <apex:variable var="rowNum" value="{!0}"  />
+    <apex:pageBlock id="topTable" rendered="{!showuserssection}">   
+         <apex:variable var="rowNum" value="{!0}"  />     
+        <apex:outputLabel value="Available Groups :" /> &nbsp;&nbsp;
+        <apex:selectList value="{!selectedGroupNames}" size="1" multiselect="false" onchange="SelectUsers()"   >
+            <apex:selectOptions value="{!GroupNames}"/>
+           <!-- <apex:actionSupport event="Onchange" reRender="topTable"/> -->
+        </apex:selectList>  
+            <apex:actionFunction name="getselectedgroupusers" action="{!SelectedgroupUsers}" reRender="topTable"/> <br/><br/><br/> 
+        
+       <apex:pageMessage severity="Warning" summary="No User is available for the selected Group" rendered="{!ShowMessage}" strength="2"></apex:pageMessage>                
+      <apex:pageblockTable value="{!RFAApprovers}" var="grpusers" style="width:100%;" id="PBTable"  rendered="{!showtable}"  >          
+         <!-- <apex:param value="{!rowNum+1}" />   -->
+          <apex:column headerValue="Action" >                      
+                        <apex:commandLink Value="Remove" action="{!Deleterecord}" >
+                       <!--   <apex:param name="DeleteId" assignTo="{!tobeDeleted}" value="{!grpusers.Id}" />-->
+                               <apex:param value="{!rowNum}"  name="index"/>
+                        </apex:commandLink>
+            			<apex:variable var="rowNum" value="{!rowNum+1}"/>
+                    </apex:column>
+        <apex:column headerValue="User Name" styleClass="width15px">
+                      <apex:outputField value="{!grpusers.UserName__c}">
+                            <apex:inlineEditSupport event="ondblclick" />
+                        </apex:outputField> 
+          </apex:column>
+          <apex:column headerValue="Level" styleClass="width15px">
+                      <apex:outputField value="{!grpusers.Level__c}">
+                            <apex:inlineEditSupport event="ondblclick" />
+                        </apex:outputField> 
+          </apex:column>
+          <apex:column headerValue="User Type" styleClass="width15px">
+                      <apex:outputField value="{!grpusers.UserRole__c}">
+                            <apex:inlineEditSupport event="ondblclick" />
+                        </apex:outputField> 
+          </apex:column>
+          <apex:column headerValue="GroupName" styleClass="width15px">
+                      <apex:outputField value="{!grpusers.RFA_COA_Group__r.Name}">
+                          <!--  <apex:inlineEditSupport event="ondblclick" /> -->
+                        </apex:outputField> 
+          </apex:column>
+      </apex:pageblockTable>  
+         
+        <apex:panelGrid columns="4">
+               <apex:commandButton value="<<" action="{!first}"  disabled="{!fst}"  />
+               <apex:commandButton value="< Previous" action="{!previous}" disabled="{!prv}"/>
+            
+               <apex:commandButton value="Next >" action="{!next}"  disabled="{!nxt}"/>
+            <!--  disabled="{!fst}"  disabled="{!prv}"  disabled="{!nxt}"   disabled="{!lst}"-->
+               <apex:commandButton value=">>" action="{!last}"  disabled="{!lst}"/>
+            
+           </apex:panelGrid>
+         
+        
+        <apex:pageBlockButtons >
+
+            <apex:commandButton value="Add User" action="{!AddUsers}"  />
+            <apex:commandButton value="Update" action="{!updateApprovers}"  />
+          <!--  <apex:commandButton value="Cancel" action="{!cancelApprovers}"  />-->
+       
+        </apex:pageBlockButtons>   
+    </apex:pageBlock>
+    
+    </apex:form>
+    <script>
+    function SelectUsers()
+    {
+       getselectedgroupusers(); 
+    }
+    </script>
+</apex:page>

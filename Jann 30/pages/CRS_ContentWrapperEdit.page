@@ -1,0 +1,16 @@
+<apex:page standardController="CRS_ContentWrapper__c" extensions="CRS_ContentWrapperEditController"> 
+<apex:pageMessages />
+<apex:form >
+<apex:pageBlock >
+    <apex:pageBlockButtons >
+        <apex:commandButton value="{!$Label.CRS_Save}" action="{!doSave}"/>
+        <apex:commandButton value="{!$Label.CRS_Cancel}" action="{!cancel}"/>
+    </apex:pageBlockButtons>
+    <apex:pageBlockSection title="{!$Label.CRS_ContentWrapperInformation}" columns="1" collapsible="false">
+        <apex:outputField value="{!CRS_ContentWrapper__c.CRS__c}" />
+        <apex:outputField value="{!CRS_ContentWrapper__c.Filename__c}" />
+        <apex:inputField value="{!CRS_ContentWrapper__c.Document_Type__c}" />
+    </apex:pageBlockSection>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

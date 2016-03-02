@@ -1,0 +1,121 @@
+<apex:page standardController="RFA__c" showHeader="false"  sidebar="false" extensions="RFA_VC_DeleteNotesAndAttachments" id="theMainPage">
+
+<script type="text/javascript">
+
+    
+     
+     if(window.opener==null)
+     {
+      alert('Sorry ! You are not allowed to open this page directly in Browser.');
+      window.location='{!defaultURL}';
+     } 
+ 
+      function window_Close() 
+            {
+            try{
+                var elms = document.getElementsByTagName('input'); 
+                var haschecked = false; 
+                    for(var i = 0; i<elms.length; i++)
+                            {
+                                     
+                                    if(elms[i].type =='checkbox' && elms[i].checked == true)
+                                        {
+                                            haschecked = true; 
+                                            break; 
+                                        } 
+                            }
+                if(haschecked)
+                { 
+                    if(window.opener &&  window.opener.parentReload){
+                      
+                      confirmOK=window.confirm('Are you sure ?');
+                      if(confirmOK) 
+                        {
+                          deleteAttachmentJs();
+                          
+                        }
+                      else
+                        {
+                          return null;
+                        }
+                    }
+                else
+                    {
+                      window.close();
+                    }
+                
+                }
+                else
+                {
+                    alert('Please select Attachment/Note to delete.');
+                    return null;
+                }
+                }
+                catch(e){
+                            window.opener.parentReload();
+                           
+                        }
+                        
+                        return false;
+            }
+            
+       function cancel_ParentRefresh()
+            {
+                window.opener.parentReload();
+            }
+</script>
+
+<apex:form >
+<apex:actionFunction action="{!deleteAttachment}" name="deleteAttachmentJs" reRender="thePage" onComplete="window.opener.parentReload();" />
+<apex:pageBlock title="Notes and Attachments" id="thePage">
+
+<apex:pageBlockButtons location="Top">
+<apex:commandButton value="Delete"  onClick="window_Close(); return false;" />
+<apex:commandButton value="Close" onClick="cancel_ParentRefresh()" />
+
+</apex:pageBlockButtons>
+<apex:outputPanel rendered="{!ListCount==0}">
+No Attachments and Notes found !
+</apex:outputPanel>
+<apex:pageBlockTable value="{!AttachmentList}" var="n" align="center"  rendered="{!ListCount>0}">
+    <apex:column >
+        
+        <apex:inputCheckbox value="{!n.selected}" />
+    </apex:column> 
+    
+    <apex:column value="{!n.type}" headerValue="Type"/>
+   
+    <apex:column >
+    <apex:facet name="header">Title</apex:facet>
+    <apex:outputField value="{!n.att.name}" rendered="{!n.type=='Attachment'}"/>
+    <apex:outputField value="{!n.nt.title}" rendered="{!n.type=='Note'}"/>
+   </apex:column>
+   
+      <apex:column >
+    <apex:facet name="header">Last Modified</apex:facet>
+    <apex:outputField value="{!n.att.LastModifieddate}" rendered="{!n.type=='Attachment'}"/>
+    <apex:outputField value="{!n.nt.LastModifieddate}" rendered="{!n.type=='Note'}"/>
+   </apex:column>
+   
+    <apex:column >
+    <apex:facet name="header">Created By</apex:facet>
+    <apex:outputField value="{!n.att.createdById}" rendered="{!n.type=='Attachment'}"/>
+    <apex:outputField value="{!n.nt.createdById}" rendered="{!n.type=='Note'}"/>
+    </apex:column>
+    
+    <apex:column >
+    <apex:facet name="header">View File</apex:facet>
+   <apex:outputlink value="{!n.fileURL}" target="_blank" rendered="{!n.type=='Attachment'}"> View </apex:outputlink>
+   </apex:column>
+    
+   
+   
+   
+    
+    
+    
+    
+</apex:pageBlockTable>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

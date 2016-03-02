@@ -1,0 +1,28 @@
+<apex:page standardController="CRS_Review__c" recordSetVar="CRSReviewList" extensions="CRS_ExportToExelController"
+            sidebar="false" showHeader="false" cache="true" contentType="application/vnd.ms-excel">
+    <apex:pageBlock title="{!$CurrentPage.parameters.selectedView} View">
+        <apex:pageBlockTable value="{!CRSReviewList}" var="val" style="background-color: #EC1C2D; color: white;">
+            <apex:column headerValue="Review Tracking #" style="background-color: #F6F6F6; color: black;">
+                   <apex:outputLink value="{!baseLink}{!val.id}">{!val.Name}</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Date Initiated" style="background-color: #F6F6F6; color: black; text-align: left;">
+                    <apex:outputField value="{!val.Date_Initiated__c}"/>
+            </apex:column>
+            <apex:column headerValue="Country" style="background-color: #F6F6F6; color: black;">
+                    <apex:outputField value="{!val.CRS_Country_Names__c}"/>
+            </apex:column>
+            <apex:column headerValue="Product" style="background-color: #F6F6F6; color: black;">
+                    <apex:outputField value="{!val.CRS_Product_Name__c}"/>
+            </apex:column>
+            <apex:column headerValue="Document Title" style="background-color: #F6F6F6; color: black;">
+                    <apex:outputText value="{!val.CRS_Document_Title__c}"/>
+            </apex:column>
+            <apex:column headerValue="Review Status" style="background-color: #F6F6F6; color: black;">
+                    <apex:outputText value="{!val.Review_Status__c}"/>
+            </apex:column>
+            <apex:column headerValue="MTR Day Count" style="background-color: #F6F6F6; color: black; text-align: left;">
+                    <apex:outputText value="{!val.MTR_Day_Count__c}"/>
+            </apex:column>                       
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,61 @@
+<apex:page controller="MD_AddProduct">
+<apex:sectionHeader title="SampleProduct" subtitle="Add Products to"/>
+<apex:form >
+<apex:pageBlock >
+<apex:pageBlockButtons >
+<apex:commandButton value="Save" action="{!saveOppLineItem}"/>
+<!--<apex:commandButton value="Save & More" action="{!saveOpplineItemMore}"/>--->
+<!--<apex:commandButton value="Cancel" action="{!cancelLineItem}"/>--->
+<apex:commandButton value="Cancel" onclick="history.go(-1); return false;"/>
+</apex:pageBlockButtons>
+
+<apex:pageBlock mode="maindetail">
+<!--<apex:pageBlockSection >-->
+<apex:pageBlockTable value="{!listWrapLI}" var="oppitem" >
+
+<apex:column headerValue="Product">
+<apex:outputText value="{!oppitem.prodName}"/>
+</apex:column>
+
+<apex:column headerValue="Quantity">
+<apex:inputField value="{!oppitem.oppLineItem.Quantity}" required="false"/>
+</apex:column>
+
+<apex:column headerValue="Measurement">
+<apex:outputText value="{!oppitem.Measurement}"/>
+</apex:column>
+
+<apex:column headerValue="Sales Price">
+<apex:inputField value="{!oppitem.oppLineItem.UnitPrice}" required="true"/>
+</apex:column>
+<!--
+<apex:column headerValue="Date">
+<apex:inputField value="{!oppitem.oppLineItem.ServiceDate}"/>
+</apex:column>
+-->
+<apex:column headerValue="Line Description">
+<apex:inputField value="{!oppitem.oppLineItem.Description}"/>
+</apex:column>
+
+<!--
+<apex:column headerValue="Discount">
+<apex:inputField value="{!oppitem.oppLineItem.Discount}"/>
+</apex:column>
+-->
+<apex:column headerValue="List Price">
+<apex:outputField value="{!oppitem.oppLineItem.UnitPrice}"/>
+</apex:column>
+<apex:column headerValue="Product Code">
+<apex:outputField value="{!oppitem.oppLineItem.ProductCode}"/>
+</apex:column>
+<apex:column headerValue="Total Price">
+<apex:outputField value="{!oppitem.oppLineItem.TotalPrice}"/>
+</apex:column>
+</apex:pageBlockTable>
+
+<!--</apex:pageBlockSection>--->
+
+</apex:pageBlock>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

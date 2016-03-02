@@ -1,0 +1,15 @@
+<apex:page standardController="RFA__c"  >
+  <!-- Begin Default Content REMOVE THIS -->
+  <script>
+     function callActionMethod(var param){
+    
+    alert('hello');
+     alert(param);
+     
+   
+    }
+    </script>
+<apex:form id="ExecutiveForm">
+<apex:commandLink id="ExecutiveLink"  onclick="callActionMethod( '{!RFA__c.ExecutiveSummaryGuideline__c}' );"   value="Executive Summary Guideline" />
+  </apex:form>
+</apex:page>

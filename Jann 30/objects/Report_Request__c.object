@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Conga_URL_String__c</fullName>
+        <externalId>false</externalId>
+        <label>Conga URL String</label>
+        <length>2500</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>OFN__c</fullName>
+        <externalId>false</externalId>
+        <label>Output Filename</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Report_Header__c</fullName>
+        <externalId>false</externalId>
+        <label>Report Header</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Report_Subtitle__c</fullName>
+        <externalId>false</externalId>
+        <label>Report Subtitle</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reporting_Period_2_End__c</fullName>
+        <externalId>false</externalId>
+        <label>Reporting Period 2 End</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Period_2_Start__c</fullName>
+        <externalId>false</externalId>
+        <label>Reporting Period 2 Start</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Period_End__c</fullName>
+        <externalId>false</externalId>
+        <label>Reporting Period End</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Period_Start__c</fullName>
+        <externalId>false</externalId>
+        <label>Reporting Period Start</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <label>Report Request</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Conga_URL_String__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{000000}</displayFormat>
+        <label>Report Request Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Report Requests</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <webLinks>
+        <fullName>Generate_Report</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Generate Report</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>var reportLinkUrl = &apos;https://composer.congamerge.com?SessionId={!API.Session_ID}&amp;ServerUrl={!API.Partner_Server_URL_210}&amp;id={!Report_Request__c.Id}&amp;QueryStringField=Conga_URL_String__c&amp;OFN={!Report_Request__c.OFN__c}&amp;DS7=3&amp;BML={!Report_Request__c.Report_Header__c}&apos;;
+var reportLinkTitle = &apos;Ethics &amp; Compliance Report Generation&apos;;
+var reportLinkOptions = &apos;height=150,width=300,menubar=no,resizable=no,scrollbars=no,status=no,titlebar=no,toolbar=no&apos;;
+window.open(reportLinkUrl,reportLinkTitle,reportLinkOptions);</url>
+    </webLinks>
+</CustomObject>

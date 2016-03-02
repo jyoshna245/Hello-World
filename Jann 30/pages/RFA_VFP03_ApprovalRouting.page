@@ -1,0 +1,120 @@
+<apex:page standardController="RFA__c" extensions="RFA_VFC02_ApprovalRoutingController" sidebar="false" showHeader="false">
+    
+    <script type="text/javascript">
+       //**********************http://pro-thoughts.blogspot.com/2006/10/incorrect-behavior-of-windowonblur.html******//
+      //********************** FIX FOR IE WINDOW.ONBLUR FUNCTION ***************************************************//
+            var active_element;
+            var bIsMSIE;
+            
+            function initiateSelfClosing() {
+            if(navigator.appName == "Microsoft Internet Explorer") {
+                active_element = document.activeElement;
+                document.onfocusout = closeWnd;
+                bIsMSIE = true;
+            }
+              else { window.onblur = closeWnd; }
+            }
+            
+            function closeWnd() {
+            if (window.opener != null) {
+                if (bIsMSIE && (active_element != document.activeElement)) {
+                  active_element = document.activeElement;
+                }
+                else {
+                  window.close();
+                }
+              }
+            }
+            
+            function window_Close(hasError) 
+            {                 
+                  if(hasError == false)
+                  {
+                      window.close();
+                    window.opener.parentReload();             
+                  }
+                  
+            }
+            
+            window.onload = initiateSelfClosing();
+            
+        
+        
+    </script>
+    
+        <apex:form >
+                <apex:pageMessages id="pageMessage">
+                </apex:pageMessages>
+                <apex:outputText value="{!RFA__c.Stage__c}" rendered="false"/>
+                <apex:outputText value="{!RFA__c.Level__c}" rendered="false"/>
+                
+                
+            <!-- <apex:actionFunction name="sequenceApprover" action="{!sequenceApprover}" rerender="tablePanel"/>     -->
+            <apex:pageBlock title="Approval Routing for {!RFA__c.Name}" >
+                <apex:pageBlockButtons >                  
+                      <!-- <apex:commandButton value="Submit for Approval" action="{!submitForApproval}" disabled="{!activeAppProcess}" onComplete="window_Close()"/> -->
+                      <apex:commandButton value="Submit for Approval" action="{!submitForApproval}" disabled="{!activeAppProcess}" onComplete="window_Close({!hasError});" reRender="pageMessage"/>
+                      
+                      <!-- <apex:commandButton value="Save" action="{!save}"/> -->
+                      
+                      <apex:commandButton value="Cancel" onClick="{self.close();}"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection title="RFA Detail" columns="2" collapsible="false">
+                    <apex:pageBlockSectionItem >
+                          <apex:outputlabel value="{!$ObjectType.RFA__c.fields.RequestTitle__c.Label}"/>
+                          <apex:outputText value="{!RFA__c.RequestTitle__c}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                          <apex:outputlabel value="{!$ObjectType.RFA__c.fields.Name.Label}"/>
+                          <apex:outputText value="{!RFA__c.Name}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                          <apex:outputlabel value="Request Type"/>
+                          <apex:outputText value="{!RFA__c.RecordType.Name}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                          <apex:outputlabel value="{!$ObjectType.RFA__c.fields.ProfitCenterName__c.Label}"/>
+                          <apex:outputText value="{!RFA__c.ProfitCenterName__c}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                </apex:pageBlockSection>    
+                    
+                  <apex:pageBlockSection title="Approval Process" columns="1" collapsible="false">
+                     
+                     <apex:pageBlockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.ApprovalProcess__c.fields.ApprovalProcessLevel__c.Label}"/>
+                            <apex:outputText value="{!processInstance.ApprovalProcessLevel__c}"/>
+                      </apex:pageBlockSectionItem>
+                      
+                      <apex:pageBlockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.ApprovalProcess__c.fields.Status__c.Label}"/>
+                            <apex:outputText value="{!processInstance.Status__c}"/>
+                      </apex:pageBlockSectionItem>
+                  </apex:pageBlockSection>  
+                          
+                <apex:actionRegion >
+                  <apex:outputPanel id="tablePanel">
+                 <apex:pageBlockTable id="orderingTable" value="{!sequenceList}" var="app" rendered="{!IF(approverSize > 0, true, false)}">
+                         <apex:column headerValue="Approver Order">
+                              <center>
+                                    <!-- apex:inputText value="{!app.sequence}" size="4"/ -->
+                                    <!-- apex:inputText value="{!app.sequence}" size="4"/ -->    
+                                    <apex:inputText value="{!app.strSequence}" size="4"/>                            
+                              </center>
+                               
+                         </apex:column>
+                         
+                        
+                         <apex:column value="{!app.approver.UserName__c}" headerValue="Approver"/>
+                         <apex:column value="{!app.level}" headerValue="Level"/>
+                         <apex:column value="{!app.approver.ApprovalRecommendation__c}" headerValue="Approval Recommendation"/>
+                         <!-- <apex:column value="{!app.approver.TECH_IsComplete__c}" headerValue="Is Complete?"/> --> 
+                 </apex:pageBlockTable>
+                </apex:outputPanel>
+             </apex:actionRegion>
+            </apex:pageBlock>
+        </apex:form> 
+</apex:page>

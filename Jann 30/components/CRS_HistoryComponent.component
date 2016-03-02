@@ -1,0 +1,15 @@
+<apex:component controller="CRS_HistoryComponentController">    
+<!-- Attribute Definition -->   
+<apex:attribute name="objectId" description="Object for which history need to be displayed" type="String" required="true" assignTo="{!strObjectId}" />
+<apex:attribute name="myObjectName" description="Object for which history need to be displayed" type="SObject" required="true" assignTo="{!myObject}" />   
+<apex:attribute name="recordLimit" description="Number of lines of history to display" type="Integer" required="false" assignTo="{!intRecordLimit}" />      
+  <!-- Object History Related List -->   
+   <apex:pageBlock title="{!strObjectLabel} History">       
+    <apex:pageBlockTable value="{!ObjectHistory}" var="History" >            
+        <apex:column headerValue="Modified Date"  value="{!History.strCreationDate}"/>           
+        <apex:column headerValue="Modified By">                
+            <apex:outputLink value="/{!History.idUser}"> {!History.strCreatedBy} </apex:outputLink>            
+        </apex:column>            
+    </apex:pageBlockTable>    
+   </apex:pageBlock>
+</apex:component>

@@ -1,0 +1,270 @@
+<apex:page contentType="text/javascript">
+//<script>
+
+function BetterLookup() {
+    var dialogBoxName = 'BetterLookup-{!$Api.Session_ID}';
+    var initialized;
+    var sfBox;
+    var dialogHeight = 500;
+    var dialogWidth = 700;
+    var sfKeyUp;    
+    var manualMode = false;
+    var targetObject = null;
+    
+    this.openLookup = function(p1,p2,p3,p4, tObject) {
+        manualMode = true;
+        targetObject = tObject;
+        openLookupCustom (p1,p2,p3,p4);
+    }
+    
+    this.initialize = function() {
+        
+        var eventMethod = window.addEventListener ? 'addEventListener' : 'attachEvent';
+        var eventer = window[eventMethod];
+        var messageEvent = eventMethod == 'attachEvent' ? 'onmessage' : 'message';    
+        eventer(messageEvent,function(e) {processCommand(e);},false);
+        
+        var previousOnload = self.onload;
+        self.onload = function() { 
+            if (previousOnload) { 
+                previousOnload();     
+            }       
+                                   
+            if (isValidObject()) {
+                initializeLookup();
+            }
+        }
+    }
+
+    var processCommand = function(e) {
+        if (e.data == 'closeDialog') {
+            closeDialogBox();
+            return;
+        }
+        
+        var chunks = e.data.split('|');
+        if (chunks[0]=='lookupPick') {
+            if (chunks.length == 4) {
+                if (!manualMode) {
+                    self.lookupPick('editPage',chunks[1] + '_lkid',chunks[1],'',chunks[2],chunks[3],'','');
+                } else {
+                    if (targetObject) {
+                        targetObject.value = chunks[3];
+                        closeDialogBox();
+                    }
+                }
+            }
+        }
+        
+    }
+
+    var initializeLookup = function() {
+        var salesforceLookup = self.openLookup;
+        self.openLookup = function(p1,p2,p3,p4) {
+            manualMode = false;
+            if (isValidObject()) {
+                openLookupCustom(p1,p2,p3,p4);
+            } else {
+                salesforceLookup(p1,p2,p3,p4);
+            }
+        }
+        
+        var salesforceLookupPick = self.lookupPick;
+        self.lookupPick = function(p1,p2,p3,p4,p5,p6,p7,p8) {
+            salesforceLookupPick(p1,p2,p3,p4,p5,p6,p7,p8);
+            closeDialogBox();
+        }
+    }
+
+      
+    var openLookupCustom = function(p1,p2,p3,p4) {
+
+        var luObjId = getParamValue(p1, 'lktp');
+        var luCurVal = getParamValue(p4, 'lksrch');
+        var luCurFld = getParamValue(p1,'lkfield');
+        var luCurObjId = getParamValue(p1,'lkent');
+        var luFilter = getParamValue(p1, 'dplp');
+        var luFieldId = getParamValue(p1, 'lknm');
+        
+        if (!luObjId) luObjId='';
+        if (!luCurVal) luCurVal='';
+        if (!luCurFld) luCurFld='';
+        if (!luCurObjId) luCurObjId='';
+        if (!luFilter) luFilter='';
+        if (!luFieldId) luFieldId='';    
+        
+        if (luCurObjId=='') {
+            var baseUrl = location.protocol + '//' + location.host + '';
+            var objectId = location.href.substring(baseUrl.length,baseUrl.length+5);
+            objectId = objectId.split('/')[1];
+            if (objectId) {
+                if (objectId.length == 3) {
+                    luCurObjId = objectId;                  
+                }
+            }
+        }        
+        
+        luObjId = 'ObjectPrefix=' + luObjId;
+        luCurVal = 'CurrentValue=' + encodeURIComponent(luCurVal);
+        luCurFld = 'TargetField=' + luCurFld;
+        luCurObjId = 'CurrentObjectId=' + luCurObjId;
+        luFilter = 'FilterValues=' + encodeURIComponent(luFilter);
+        luFieldId = 'CurrentField=' + luFieldId;
+         
+        var url = p1 + p4;
+        url = '/apex/GS1_CustomLookupPage?' + luObjId;
+        url += '&' + luCurVal;
+        url += '&' + luCurFld;
+        url += '&' + luCurObjId;
+        url += '&' + luFilter;
+        url += '&' + luFieldId;
+        url += '&' + 'dlgHeight=' + dialogHeight;
+        url += '&' + 'dlgWidth=' + dialogWidth;
+        
+        if (!sfKeyUp) sfKeyUp = document.onkeyup;
+            
+        initializeLookupDialog();
+        
+        var p = sfBox.getContentElement();
+        var ifr = document.createElement('iframe');        
+        ifr.src = url;
+        ifr.style.width = '100%';        
+        ifr.style.height = dialogHeight + 'px';
+        ifr.frameBorder = '0';
+        ifr.id = dialogBoxName + 'LookupFrame';
+        
+        var onloadCode = function() {
+            var dlgTitle = 'Lookup';
+            
+            dlgTitle = getLookupFieldLabel(p1,document);
+            if (dlgTitle) {
+                dlgTitle =  dlgTitle.replace('*','');
+                sfBox.setTitle('Lookup: ' + dlgTitle);
+            } else {
+                sfBox.setTitle('Lookup');
+            }
+        }
+        
+        if (document.all) {
+            ifr.attachEvent('onload', onloadCode);
+        } else {
+            ifr.onload = onloadCode;
+        } 
+        
+        p.appendChild(ifr);     
+        
+        sfBox.setWidth(dialogWidth);
+        sfBox.getContentElement().parentNode.className = '';
+        sfBox.setTitle('Loading data. Please wait...');
+        sfBox.show();   
+    }
+
+    var getLookupFieldLabel  = function(p1,doc) {
+        var name = getParamValue(p1,'lknm');
+        var labels = doc.getElementsByTagName('label');
+        for (var i=0; i< labels.length; i++) {
+            if (labels[i].htmlFor===name) {
+                return labels[i].innerText || labels[i].textContent;
+            }
+        }
+    }
+
+
+    var getParamValue  = function(u,pName) {
+        if (pName = (new RegExp('[?&]' + encodeURIComponent(pName) + '=([^&]*)')).exec(u)) { 
+            return decodeURIComponent(pName[1]); 
+        }  
+    }
+
+    var initializeLookupDialog = function() {
+        if (!sfBox) {
+            sfBox = new SimpleDialog(dialogBoxName, true);
+            sfBox.displayX = true;
+            sfBox.createDialog();    
+            var xbtn = document.getElementById(dialogBoxName + 'X');
+            if (xbtn) {
+                xbtn.onclick = function() {
+                    closeDialogBox();
+                }
+            }
+        } else {
+            var nodeList = sfBox.getContentElement().childNodes;
+            while (nodeList.length > 0) {
+                sfBox.getContentElement().removeChild(nodeList[0]);            
+            }
+        }
+    }
+        
+    var closeDialogBox = function() {
+        deepCloseDialog = false;
+        if (sfBox) {
+            sfBox.hide();
+            
+            if (deepCloseDialog) {
+                var node = document.getElementById(dialogBoxName);
+                if (node) {             
+                    node.parentNode.removeChild(node);
+                    sfBox = null;
+                }
+            }
+        }    
+    }    
+     
+    var isValidObject = function() {
+        if (typeof lookupDialogValidObjectPrefixes === 'undefined') return false;
+        if (lookupDialogValidObjectPrefixes === undefined) return false;
+        if (!lookupDialogValidObjectPrefixes) return false;
+    
+        var url = location.protocol + '//' + location.host + '/';
+        for (var i=0; i<lookupDialogValidObjectPrefixes.length; i++) {
+            var testURL = url + lookupDialogValidObjectPrefixes[i];
+            if (location.href.indexOf(testURL)==0) {
+                return true;
+            }
+        }
+     }
+    
+    var GEBCN = function(className, doc) {
+        if (doc == null) doc = document;
+        if(doc.getElementsByClassName)
+            return document.getElementsByClassName(className);  
+    
+        className = className.replace(/ *$/, '');
+    
+        if(doc.querySelectorAll)
+            return document.querySelectorAll((' ' + className).replace(/ +/g, '.'));
+    
+        return function(className, doc) {
+            var foundList = []; 
+            var elems = null;
+            var cname = className.toUpperCase();
+            
+            if (doc.all) { //if IE
+                elems = doc.all;
+            } else {
+                elems = doc.getElementsByTagName("*");
+            }
+         
+            var count = elems.length;
+            for (var i = 0; i < count; i++) {
+                if (elems[i].className != '') {
+                    var classes = elems[i].className.split(' ');
+                    for (var j=0; j < classes.length; j++) {
+                        if (classes[j].toUpperCase() == cname) {
+                            foundList[foundList.length] = elems[i];
+                        }
+                    }
+                }
+            }
+         
+            if (foundList.length > 0) return foundList;
+            else return null;   
+        }
+    }       
+}
+
+dlg = new BetterLookup();
+dlg.initialize();
+
+//</script>
+</apex:page>

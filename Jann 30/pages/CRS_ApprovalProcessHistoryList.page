@@ -1,0 +1,67 @@
+<apex:page StandardController="CRS__c" extensions="CRS_ApprovalHistoryController" sidebar="true" tabStyle="CRS__c">
+ <script type="text/javascript">
+function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML; 
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+}
+
+   var url = location.href;
+   var match = url.match(/inline=1/);
+   if (match != null) { 
+      var newUrl = url.replace(/inline=1/, ''); 
+      window.top.location=newUrl;
+   }
+
+</script>
+
+<apex:form >
+      <table width="100%">  
+      <tr> 
+          <td style="text-align: left;Padding:5px;">
+                <a href="/{!recordId}" style="cursor:pointer;color:#005C99; text-align:left; text-decoration: none;" > &lt;&lt; {!crsTrackingNumber }</a> 
+          </td>
+           <td style="text-align: right;Padding:5px; padding-right:15px;">
+                <a onclick="printDiv('printableArea')" href="" style="cursor:pointer;color:#005C99; text-align:right;">Print</a>
+          </td>
+      </tr>
+      </table> 
+  <div id="printableArea">
+    <apex:pageBlock >
+    <div style="wodth:100%;">
+    <div style="width:70%; float:left; font-size:125%;padding-bottom:5px; font-weight:bold;">Approval History For Tracking Number - {!crsTrackingNumber }</div>
+    <div style="width:30%; float:right;text-align:right; font-size:100%;font-weight:bold;">{!myDate}</div>
+    </div>
+        <table width="100%" style="border:1px solid #E2E2E2;" cellspacing="0" cellpadding="4px">
+            <tr>
+                <th style="border-bottom:1px solid #E2E2E2; border-right:1px solid #D7D7D7;"> Date </th>
+                <th style="border-bottom:1px solid #E2E2E2; border-right:1px solid #D7D7D7;"> Status </th>
+                <th style="border-bottom:1px solid #E2E2E2; border-right:1px solid #D7D7D7;"> Assign To </th>
+                <th style="border-bottom:1px solid #E2E2E2; border-right:1px solid #D7D7D7;"> Actual Approver </th>
+                <th style="border-bottom:1px solid #E2E2E2;"> Comments </th>
+            </tr>
+          <apex:repeat value="{!Results}" var="r" id="repeat">
+            <apex:repeat value="{!r.StepsAndWorkitems}" var="st">                           
+                    <tr style="width:100%; background:#fff;">
+                        <td width="15%" style="border-bottom:1px solid #E2E2E2;"><apex:outputField value="{!st.SystemModStamp}"/>  </td>
+                        <td width="10%" style="border-bottom:1px solid #E2E2E2;">
+                            <apex:outputText value="Abandoned" rendered="{!crsstatus = 'Abandoned' && st.StepStatus ='Rejected'}"/> 
+                            <apex:outputField value="{!st.StepStatus}" rendered="{!NOT(crsstatus = 'Abandoned' && st.StepStatus ='Rejected')}" />
+                         </td>
+                        <td width="18%" style="border-bottom:1px solid #E2E2E2;"><apex:outputField value="{!st.OriginalActorId}"/> </td>
+                        <td width="18%" style="border-bottom:1px solid #E2E2E2;"><apex:outputField value="{!st.ActorId}"/></td>
+                        <td width="39%" style="border-bottom:1px solid #E2E2E2;"><apex:outputField styleClass="myClass" value="{!st.Comments}"/></td>
+                    </tr>
+          
+            </apex:repeat>
+          </apex:repeat> 
+        </table>
+  </apex:pageBlock>
+  </div>
+ </apex:form>
+</apex:page>

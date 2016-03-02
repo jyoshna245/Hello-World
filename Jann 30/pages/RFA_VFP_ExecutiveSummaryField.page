@@ -1,0 +1,27 @@
+<apex:page standardController="RFA__c" >
+    <apex:includeScript value="/soap/ajax/15.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/15.0/apex.js"/>
+    <script language="JavaScript">
+    
+    function open_new_window() { 
+    try
+    {  
+     var rfalist1= sforce.connection.query('SELECT ExecutiveSummaryGuideline__c FROM RFA__c WHERE Id = \'{!RFA__c.Id}\' ');
+     alert(rfalist1.records.ExecutiveSummaryGuideline__c);        
+    }
+    catch (error)
+    {
+        alert(error.faultstring);
+    }
+    }  
+    </script> 
+     &nbsp; &nbsp; <apex:outputlabel value="Executive Summary GuideLine" style="font-size:11px;font-weight:bold;"></apex:outputlabel>  &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <!-- <a href="#" onclick="open_new_window()" > Link To Executive Summary Guidelines</a><br></br>-->
+    
+        <a href="/015?fcf=00ld0000001FNSo" target="_blank"> Link To Executive Summary Guidelines</a><br></br>
+        <apex:form >
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;<apex:outputText value="Executive Summary *" style="font-weight:600;font-size:11px;">&nbsp;&nbsp;&nbsp;&nbsp; </apex:outputText><br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputTextArea value="{!RFA__c.ExecutiveSummary__c}" html-maxlength="10" rows="90" cols="100"/>
+        </apeX:form>
+    </apex:page>

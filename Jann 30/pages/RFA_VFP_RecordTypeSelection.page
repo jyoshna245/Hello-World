@@ -1,0 +1,15 @@
+<apex:page standardController="RecordType" extensions="RFA_VFC_recordTypeSelectionController">
+    <apex:form >
+    <apex:PageBlock > 
+        <div align="center"> 
+        <apex:OutputLabel >Select Record Type :</apex:OutputLabel>  &nbsp; &nbsp;    
+         <apex:selectList value="{!selectedrecrdtype}" size="1">
+             <apex:selectOptions value="{!RecordTypes}" >
+             </apex:selectOptions>
+        </apex:selectList> <br/><br/>
+        <apex:commandButton value="Continue" action="{!OpenRFAVFP}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+        <apex:commandButton value="cancel" action="{!Cancel}"/>
+            </div>
+    </apex:PageBlock>
+    </apex:form>
+</apex:page>

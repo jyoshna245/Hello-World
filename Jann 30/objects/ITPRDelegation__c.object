@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Change_Existing_Requests__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Change Existing Requests</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Delegate_To__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Delegate To</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>ITPR_Delegation</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Reset__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Undo Delegation</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <label>IT-SES Delegation</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Delegate_To__c</columns>
+        <columns>Reset__c</columns>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{00000}</displayFormat>
+        <label>Delegation Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>IT-SES Delegation</pluralLabel>
+    <recordTypes>
+        <fullName>Delegation_Locked</fullName>
+        <active>true</active>
+        <label>Delegation Locked</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Not_read_Only</fullName>
+        <active>true</active>
+        <label>Not read Only</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>ReadOnly</fullName>
+        <active>true</active>
+        <label>ReadOnly</label>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>ITPR_Delegation_Date_Difference</fullName>
+        <active>true</active>
+        <errorConditionFormula>If(End_Date__c - Start_Date__c &gt;90,True,False)</errorConditionFormula>
+        <errorDisplayField>End_Date__c</errorDisplayField>
+        <errorMessage>End Date should not be greater than 90 days from Start Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ITPR_Delegation_Date_Validations</fullName>
+        <active>false</active>
+        <errorConditionFormula>OR(Start_Date__c  &lt;  TODAY(),End_Date__c  &lt;  TODAY() )</errorConditionFormula>
+        <errorMessage>Ensure that Start date and End Date are Greater than today</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ITPR_End_Date_Validation</fullName>
+        <active>true</active>
+        <errorConditionFormula>End_Date__c &lt; Start_Date__c</errorConditionFormula>
+        <errorMessage>End Date should be Greater or equal to Start Date</errorMessage>
+    </validationRules>
+</CustomObject>

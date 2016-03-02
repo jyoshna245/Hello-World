@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>This custom setting is used for adding the capital expenditure data.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>AssetCategory__c</fullName>
+        <externalId>false</externalId>
+        <label>Asset Category</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>InvestmentObjective__c</fullName>
+        <externalId>false</externalId>
+        <label>Investment Objective</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RecordTypeId__c</fullName>
+        <externalId>false</externalId>
+        <label>Record Type ID</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Record_Type_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Record Type Name</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>RFA_CapitalExpenditure</label>
+</CustomObject>

@@ -1,0 +1,273 @@
+<apex:page standardController="Opportunity" extensions="CW_OpportunityDetailController">
+<apex:pagemessages />
+<apex:form >
+<apex:pageBlock >
+<apex:pageBlockButtons >
+<!--<apex:commandButton action="{!save}" value="Save"/>
+<apex:commandButton action="{!cancel}" value="Cancel"/> 
+<apex:commandButton action="{!edit}" value="Edit" id="editButton" />
+<apex:commandButton action="{!URLFOR($Action.Opportunity.delete,Opportunity.id,[retURL='/006/o'])}" value="Delete" id="deleteButton" />
+-->
+<apex:commandButton action="{!generateQuoteReport}" value="Generate Quote Report" id="qouteButton" rendered="{!oppIns.StageName == 'Proposal/Price Quote'}"/>
+<!--<apex:commandButton action="{!generateQuote}" value="Generate Quote" id="quote" rendered="{!showQuoteButton}" />-->
+
+</apex:pageBlockButtons>
+<!--
+<apex:pageBlockSection title="Opportunity Information" collapsible="false" columns="2">
+<apex:outputField value="{!opportunity.ownerId}" />
+<apex:outputField value="{!opportunity.CloseDate}" />
+<apex:outputField value="{!opportunity.Name}" />
+<apex:outputField value="{!opportunity.StageName}" />
+<apex:outputField value="{!opportunity.AccountId}" />
+<apex:outputField value="{!opportunity.Probability}"  />
+</apex:pageBlockSection>
+--->
+
+<apex:pageBlockSection title="Opportunity Information" collapsible="false" columns="2">
+<apex:outputField value="{!oppIns.ownerId}" />
+<apex:outputField value="{!oppIns.CloseDate}" />
+<apex:outputField value="{!oppIns.Name}" />
+<apex:outputField value="{!oppIns.StageName}" />
+<apex:outputField value="{!oppIns.AccountId}" />
+<apex:outputField value="{!oppIns.Probability}"  />
+<apex:outputField value="{!oppIns.Funding_Source__c}"  />
+</apex:pageBlockSection>
+
+
+
+
+<apex:pageBlockSection title="MEDIA" collapsible="false" columns="1">
+<apex:pageBlockTable id="OpptyAssetTable" value="{!listProd}" var="asset"
+                     title="Requested Assests">
+  
+    
+
+    <apex:column headerValue="PROD NAME" >
+    <apex:outputfield value="{!asset.Name}">
+    </apex:outputfield>
+    </apex:column>
+
+    <apex:column headerValue="DMA" >
+    <apex:outputfield value="{!asset.DMA__c}">
+    </apex:outputfield>
+    </apex:column>
+    
+    <apex:column headerValue="QUANTITY" >
+    <apex:outputfield value="{!asset.QUANTITY}">
+    </apex:outputfield>
+    </apex:column>
+   
+    <apex:column headerValue="EST. IMPRESSIONS" >
+    <apex:outputfield value="{!asset.Est_Impressions__c}">
+    </apex:outputfield>
+    </apex:column>
+
+    <apex:column headerValue="DEL. COST" >
+    <apex:outputfield value="{!asset.Delivery_Cost_2__c}">
+    </apex:outputfield>
+    </apex:column>
+    
+    <apex:column headerValue="COST" >
+    <apex:outputfield value="{!asset.UnitPrice}">
+    </apex:outputfield>
+    </apex:column>
+    
+    <apex:column headerValue="VALUE" >
+    <apex:outputfield value="{!asset.ListPrice}">
+    </apex:outputfield>
+    </apex:column>    
+    
+</apex:pageBlockTable> 
+</apex:pageBlockSection>
+
+
+<apex:pageBlockSection title="SUBTOTAL" collapsible="false" columns="1">
+
+<table border="3" align="right" width="400px" bordercolor="red">
+  <tr>
+    <th>EST. IMPRESSIONS</th>
+    <th>DEL. COST</th>
+    <th>COST</th>
+    <th>VALUE</th>
+  </tr>
+
+<tr>
+    <td>{!mediaESTImpressionsString}</td>
+    <td>{!mediaDelCostString}</td>
+    <td>{!mediaCostString}</td>
+    <td>{!mediaValueString}</td>
+  </tr>
+</table>
+</apex:pageBlockSection>
+
+
+<apex:pageBlockSection title="ENABLING CAPABILITIES" collapsible="false" columns="1">
+
+<apex:pageBlockTable id="OpptyAssetTable" value="{!listECProd}" var="asset"
+                     title="Requested Assests">
+  
+    
+    <apex:column headerValue="PROD NAME" >
+    <apex:outputfield value="{!asset.Name}">
+    </apex:outputfield>
+    </apex:column>
+
+    <apex:column headerValue="DMA" >
+    <apex:outputfield value="{!asset.DMA__c}">
+    </apex:outputfield>
+    </apex:column>
+    
+    <apex:column headerValue="QUANTITY" >
+    <apex:outputfield value="{!asset.QUANTITY}">
+    </apex:outputfield>
+    </apex:column>
+   
+    <apex:column headerValue="EST. IMPRESSIONS" >
+    <apex:outputfield value="{!asset.Est_Impressions__c}">
+    </apex:outputfield>
+    </apex:column>
+
+    <apex:column headerValue="DEL. COST" >
+    <apex:outputfield value="{!asset.Delivery_Cost_2__c}">
+    </apex:outputfield>
+    </apex:column>
+    
+    <apex:column headerValue="COST" >
+    <apex:outputfield value="{!asset.UnitPrice}">
+    </apex:outputfield>
+    </apex:column>
+    
+    <apex:column headerValue="VALUE" >
+    <apex:outputfield value="{!asset.ListPrice}">
+    </apex:outputfield>
+    </apex:column>    
+    
+</apex:pageBlockTable>
+
+</apex:pageBlockSection>
+
+
+<apex:pageBlockSection title="SUBTOTAL" collapsible="false" columns="1">
+<table border="3" align="right" width="400px" bordercolor="green">
+  <tr>
+    <th>EST. IMPRESSIONS</th>
+    <th>DEL. COST</th>
+    <th>COST</th>
+    <th>VALUE</th>
+  </tr>
+
+<tr>
+    <td>{!eCESTImpressionsString}</td>
+    <td>{!eCDelCostString}</td>
+    <td>{!eCCostString}</td>
+    <td>{!eCValueString}</td>
+  </tr>
+</table>
+</apex:pageBlockSection>
+
+
+<apex:pageBlockSection title="DATA" collapsible="false" columns="1">
+<apex:pageBlockTable id="OpptyAssetTable" value="{!listDataProd}" var="asset"
+                     title="Requested Assests" >
+  
+  
+    <apex:column headerValue="PROD NAME" >
+    <apex:outputfield value="{!asset.Name}">
+    </apex:outputfield>
+    </apex:column>
+
+    <apex:column headerValue="DMA" >
+    <apex:outputfield value="{!asset.DMA__c}">
+    </apex:outputfield>
+    </apex:column>
+    
+    <apex:column headerValue="QUANTITY" >
+    <apex:outputfield value="{!asset.QUANTITY}">
+    </apex:outputfield>
+    </apex:column>
+   
+    <apex:column headerValue="EST. IMPRESSIONS" >
+    <apex:outputfield value="{!asset.Est_Impressions__c}">
+    </apex:outputfield>
+    </apex:column>
+
+    <apex:column headerValue="DEL. COST" >
+    <apex:outputfield value="{!asset.Delivery_Cost_2__c}">
+    </apex:outputfield>
+    </apex:column>
+    
+    <apex:column headerValue="COST" >
+    <apex:outputfield value="{!asset.UnitPrice}">
+    </apex:outputfield>
+    </apex:column>
+    
+    <apex:column headerValue="VALUE" >
+    <apex:outputfield value="{!asset.ListPrice}">
+    </apex:outputfield>
+    </apex:column>        
+    
+</apex:pageBlockTable>
+</apex:pageBlockSection>
+
+
+
+<apex:pageBlockSection title="SUBTOTAL" collapsible="false" columns="1">
+<table border="3" align="right" width="400px" bordercolor="yellow">
+  <tr>
+    <th>EST. IMPRESSIONS</th>
+    <th>DEL. COST</th>
+    <th>COST</th>
+    <th>VALUE</th>
+  </tr>
+
+<tr>
+    <td>{!dataESTImpressionsString}</td>
+    <td>{!dataDelCostString}</td>
+    <td>{!dataCostString}</td>
+    <td>{!dataValueString}</td>
+  </tr>
+</table>
+</apex:pageBlockSection>
+
+
+
+<apex:pageBlockSection title="GRAND TOTAL" collapsible="false" columns="1">
+<table border="3" align="right" width="400px">
+
+  
+  <tr>
+    <th>EST. IMPRESSIONS</th>
+    <th>DEL. COST</th>
+    <th>COST</th>
+    <th>VALUE</th>
+  </tr>
+
+<tr>
+    <td>{!totalESTImpressionsString}</td>
+    <td>{!totalDelCostString}</td>
+    <td>{!totalCostString}</td>
+    <td>{!totalValueString}</td>
+  </tr>
+
+</table>
+</apex:pageBlockSection>
+
+
+
+
+<apex:pageBlock title="GENERATE" >
+
+<apex:pageBlockButtons location="BOTTOM" >
+
+<apex:commandButton value="TEAM REPORT" />
+<apex:commandButton value="INTERNAL REPORT" />
+<apex:commandButton value="CLIENT REPORT" />
+
+</apex:pageblockButtons>
+
+</apex:pageBlock>
+
+
+</apex:pageBlock>
+</apex:form>
+</apex:page>

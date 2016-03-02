@@ -1,0 +1,65 @@
+<apex:page standardController="RFA__c" extensions="RFApdfController"  contentType="application/pdf#Report.pdf" standardStylesheets="true"  showHeader="false" sidebar="false" renderAs="pdf">
+
+<apex:stylesheet value="{URLFOR($Resource.Stylesheets,'Stylesheets/extended.css')}" />
+<apex:stylesheet value="{URLFOR($Resource.Stylesheets,'Stylesheets/common.css')}" />
+
+<html>
+<head>
+<style> 
+@page 
+{
+  size:A4 Landscape;
+  margin: 1mm;
+}
+body {font-family: Arial,Helvetica,sans-serif;}
+.pdf
+    {
+        font-size:11px;
+    }
+.actionlink
+    {
+    display : none;
+    }
+.btn
+    {
+    display:none; !important
+    }
+.actionColumn    
+    {
+    display:none; !important 
+    }
+    #investmentTable td{padding:2px; white-space:normal;margin:0px;}
+    #investmentTable th {padding:2px;margin:0px;white-space:pre-line;}
+   <!--#investmentTable{width:100%} -->
+</style>
+</head>
+ <img src="{!$Resource.coke_RFA_logo}" width="240" height="60"/>
+<table class="pdf">
+<tr>
+<td>
+    <apex:detail id="rfaDetails" subject="{!RFA__c.id}" relatedList="false"  />
+</td>
+</tr>
+</table>
+</html>
+    <apex:outputpanel rendered="{!If(RFA__c.RecordType.Name=$Label.RFA_CL050,true,IF(RFA__c.RecordType.Name=$Label.RFA_CL051,true,false))}" layout="none">
+    <div style="border: 1px solid #D4DADC;border-color:#ECECEC;border-collapse: separate;border-spacing: 2px;border-style:inset;    display: table-row;vertical-align: inherit;border-color: inherit; text-align: right;font-weight: bold;white-space: nowrap;border-style:inset;border: 1px solid #D4DADC;border-color:#ECECEC;">
+        <c:RFA_C04_Capital_Expenditure RecordRFAIds="{!RFA__c.ID}" rendered="{!If(RFA__c.RecordType.Name=$Label.RFA_CL050,true,IF(RFA__c.RecordType.Name=$Label.RFA_CL051,true,false))}"  />
+    </div>
+    </apex:outputpanel><br/>
+    <div>
+      <apex:outputPanel rendered="{!RFA__c.recordType.name !='Policy Exemption Request'}">   <!-- added not to display this section if request is PE - Roy Castillo Oct 16, 2013 -->
+      <apex:relatedList list="Three_Year_Cash_Spend__r" /><br/><br/>
+      </apex:outputPanel>
+     </div>
+     <div>
+       <apex:relatedList list="RFA_User_Roles__r" pageSize="100" />  
+      </div> 
+      <div>
+       <apex:relatedList list="NotesAndAttachments" pageSize="100" /> 
+      </div> 
+      <div>
+       <c:RFA_C08_RFAHistory subject="{!RFA__c.ID}"></c:RFA_C08_RFAHistory> 
+      </div> 
+      
+</apex:page>

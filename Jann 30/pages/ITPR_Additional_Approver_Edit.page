@@ -1,0 +1,19 @@
+<apex:page standardController="ITPR__c" extensions="ITPR" showheader="true" rendered="true" >
+<apex:form id="addApprover" >
+        <apex:pageMessages id="showmsg"></apex:pageMessages>
+        <!-- Additional Approver Info Section-->  
+
+        <apex:pageBlock >
+        <apex:pageblockbuttons >
+                <apex:commandbutton action="{!saveApprovers}" value="Save" />
+         </apex:pageblockbuttons>
+        <apex:pageBlockSection title="Additional Approvers" columns="1" collapsible="false" id="AdditionalapproverSection" >
+            <apex:inputField value="{!ITPR__c.Additional_Approver_1__c}" id="Addapp1Int" rendered="{!(ITPR__c.Do_you_want_additional_approver__c == true)}" />
+            <apex:inputField value="{!ITPR__c.Additional_Approver_2__c}" id="Addapp2Int" rendered="{!(ITPR__c.Do_you_want_additional_approver__c == true)}"/>
+            <apex:inputField value="{!ITPR__c.Additional_Approver_3__c}" id="Addapp3Int" rendered="{!(ITPR__c.Do_you_want_additional_approver__c == true)}"/>
+        </apex:pageBlockSection>
+
+
+</apex:pageBlock>
+</apex:form>
+</apex:page>

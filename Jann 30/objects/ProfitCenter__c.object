@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>RFA R1 - Stores the Profit Center Hierarchy within the RFA Application. Profit Centers will also be referenced on specific RFAs.</description>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>AbbrGroupName__c</fullName>
+        <externalId>false</externalId>
+        <label>Abbr Group Name</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActiveInactive__c</fullName>
+        <externalId>false</externalId>
+        <label>Active/Inactive</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Business_Unit_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Business Unit Name</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GroupName__c</fullName>
+        <externalId>false</externalId>
+        <label>Group Name</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>KeyOperationName__c</fullName>
+        <externalId>false</externalId>
+        <label>Key Operation Name</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MinLevel__c</fullName>
+        <externalId>false</externalId>
+        <label>Min Level</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1. Key Operations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2. Business Unit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3. Group</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4. Corporate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5. Executive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6. Senior Executive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>NeedRecalculation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This field is used for recalculation of sharing model</description>
+        <externalId>false</externalId>
+        <label>Need Recalculation</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Organization__c</fullName>
+        <externalId>false</externalId>
+        <formula>RFA_Business_Units__r.RecordType.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Organization</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ProfitCenterName__c</fullName>
+        <externalId>false</externalId>
+        <label>Profit Center Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Profit_Center_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Profit Center Type_old</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CCNA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CCR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RFA_Business_Units__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>RFA Business Units</label>
+        <referenceTo>RFA_Business_Unit__c</referenceTo>
+        <relationshipLabel>Profit Centers</relationshipLabel>
+        <relationshipName>Profit_Centers</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <label>Profit Center</label>
+    <listViews>
+        <fullName>All_Active</fullName>
+        <columns>NAME</columns>
+        <columns>ProfitCenterName__c</columns>
+        <columns>GroupName__c</columns>
+        <columns>AbbrGroupName__c</columns>
+        <columns>Business_Unit_Name__c</columns>
+        <columns>KeyOperationName__c</columns>
+        <columns>NeedRecalculation__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ActiveInactive__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </filters>
+        <label>All - Active</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Inactive</fullName>
+        <columns>NAME</columns>
+        <columns>ProfitCenterName__c</columns>
+        <columns>GroupName__c</columns>
+        <columns>Profit_Center_Type__c</columns>
+        <columns>AbbrGroupName__c</columns>
+        <columns>Business_Unit_Name__c</columns>
+        <columns>KeyOperationName__c</columns>
+        <columns>ActiveInactive__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ActiveInactive__c</field>
+            <operation>equals</operation>
+            <value>Inactive</value>
+        </filters>
+        <label>All - Inactive</label>
+    </listViews>
+    <nameField>
+        <label>Profit Center Number</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <namedFilters>
+        <fullName>nf_01Id00000016kuSEAQ_00Nd000000594cmEAA</fullName>
+        <active>true</active>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <errorMessage>You may only select Active Profit Centers and the Profit Center must have a Location Coordinator assigned to it. Contact the appropriate Location Coordinator if you cannot find a particular Profit Center.</errorMessage>
+        <field>RFA__c.ProfitCenterNumber__c</field>
+        <filterItems>
+            <field>ProfitCenter__c.ActiveInactive__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </filterItems>
+        <filterItems>
+            <field>ProfitCenter__c.MinLevel__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </filterItems>
+        <infoMessage>To search for a Profit Center (PC) enter any known information included in the PC #  (eg). if your PC # starts with CN enter &quot;CN*&quot; and click Go.  Click Show Filters below for additional filter and search. Or go to the PC tab to look up your PC #.</infoMessage>
+        <isOptional>false</isOptional>
+        <name>RFA_Profit Center</name>
+    </namedFilters>
+    <pluralLabel>Profit Centers</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Corporate_CCNA</fullName>
+        <active>true</active>
+        <description>Profit Center for CCNA</description>
+        <label>Corporate (CCNA)</label>
+        <picklistValues>
+            <picklist>ActiveInactive__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>MinLevel__c</picklist>
+            <values>
+                <fullName>1%2E Key Operations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2%2E Business Unit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3%2E Group</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4%2E Corporate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5%2E Executive</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>6%2E Senior Executive</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Profit_Center_Type__c</picklist>
+            <values>
+                <fullName>CCNA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CCR</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>ProfitCenterName__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>KeyOperationName__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Business_Unit_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>GroupName__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>AbbrGroupName__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ActiveInactive__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>UPDATEDBY_USER</customTabListAdditionalFields>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <lookupDialogsAdditionalFields>ProfitCenterName__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>KeyOperationName__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Business_Unit_Name__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>AbbrGroupName__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>GroupName__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ActiveInactive__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>UPDATEDBY_USER</lookupDialogsAdditionalFields>
+        <lookupFilterFields>NAME</lookupFilterFields>
+        <lookupFilterFields>ProfitCenterName__c</lookupFilterFields>
+        <lookupFilterFields>KeyOperationName__c</lookupFilterFields>
+        <lookupFilterFields>Business_Unit_Name__c</lookupFilterFields>
+        <lookupFilterFields>AbbrGroupName__c</lookupFilterFields>
+        <lookupFilterFields>ActiveInactive__c</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>ProfitCenterName__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>KeyOperationName__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Business_Unit_Name__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>AbbrGroupName__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>GroupName__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ActiveInactive__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>UPDATEDBY_USER</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>ProfitCenterName__c</searchFilterFields>
+        <searchFilterFields>KeyOperationName__c</searchFilterFields>
+        <searchFilterFields>Business_Unit_Name__c</searchFilterFields>
+        <searchFilterFields>AbbrGroupName__c</searchFilterFields>
+        <searchFilterFields>GroupName__c</searchFilterFields>
+        <searchFilterFields>ActiveInactive__c</searchFilterFields>
+        <searchResultsAdditionalFields>ProfitCenterName__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>KeyOperationName__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Business_Unit_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>AbbrGroupName__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>GroupName__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ActiveInactive__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>UPDATEDBY_USER</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Read</sharingModel>
+    <webLinks>
+        <fullName>Update_Sharing_for_Attached_RFAs</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Update Sharing for Attached RFAs</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/apex.js&quot;)} 
+
+var needRecalFlag={!ProfitCenter__c.NeedRecalculation__c};
+var activeFlag=&quot;{! ProfitCenter__c.ActiveInactive__c }&quot;;
+if(needRecalFlag==false || activeFlag==&apos;Inactive&apos;)
+{
+	alert(&apos;Profit center has no contents for sharing recalculation or has inactive status. &apos;);
+}
+else if(needRecalFlag==true)
+{
+	var confirmationMsg=window.confirm(&quot;Are you sure you want to recalculate the sharing for this profit center? &quot;);
+	if(confirmationMsg)
+	{
+        var pdif=&quot;{!ProfitCenter__c.Id}&quot;;
+		var isLCFlag=sforce.apex.execute(&quot;RFA_WS06_CheckLC&quot;,&quot;isLocationCoorinator&quot;, {pfId:pdif}); 
+	
+        if(isLCFlag==&apos;true&apos;)
+		{
+			
+			var loc=&quot;/apex/RFA_VFP10_ProfitCenterRecalculation?id={!ProfitCenter__c.Id}&quot;;
+			window.parent.location.href = loc;
+		}
+		else
+		{
+			
+			window.alert(&apos;You are not authorized person to perform this action.&apos;);
+		}
+	}
+	else
+	{
+		window.alert(&quot;No sharing recalculation will be done. &quot;);
+	}
+}</url>
+    </webLinks>
+</CustomObject>

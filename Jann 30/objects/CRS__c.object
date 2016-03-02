@@ -1,0 +1,2925 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <content>CRS_CRSEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <content>CRS_CRSDelete</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>CRS_CRSEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>CRS_CRSEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Active__c</fullName>
+        <externalId>false</externalId>
+        <label>Active</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Additional_Submission_Required__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional Submission Required</label>
+        <picklist>
+            <picklistValues>
+                <fullName>YES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Approval_Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Approval Comments</label>
+        <length>131072</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Archive_Date__c</fullName>
+        <description>DATE((Year(Date_Closed__c + 1825)), 12, 31)</description>
+        <externalId>false</externalId>
+        <formula>DATE((Year(Date_Closed__c + 1825)), 12, 31)</formula>
+        <inlineHelpText>Last day of the year when the CRS record should be considered for Archive status</inlineHelpText>
+        <label>Archive Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Audit_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Audit Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Audit Selected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit Accepted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>BBN__c</fullName>
+        <defaultValue>&quot;BBN Not Available&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>BBN</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CRS_BU_Legal_Approver_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>BU Legal Approver</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_BU_Legal_Approver__c</fullName>
+        <externalId>false</externalId>
+        <label>BU Legal Approver</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_BU_PAC_Approver_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>BU PAC Approver</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_BU_PAC_Approver__c</fullName>
+        <description>CRS BU PAC Approver</description>
+        <externalId>false</externalId>
+        <label>BU PAC Approver</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Beverage_Category__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Beverage Category</label>
+        <referenceTo>CRS_Beverage_Category__c</referenceTo>
+        <relationshipLabel>CRS for Beverage Category</relationshipLabel>
+        <relationshipName>CRS</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CRS_Brand__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Brand</label>
+        <referenceTo>CRS_Brand__c</referenceTo>
+        <relationshipLabel>CRS for Brand</relationshipLabel>
+        <relationshipName>CRS</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CRS_Business_Unit__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Business Unit</label>
+        <referenceTo>CRS_Business_Unit__c</referenceTo>
+        <relationshipLabel>CRS for Business Unit</relationshipLabel>
+        <relationshipName>CRS</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CRS_Corp_Food_Law_Approver_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>Corporate Food Law Approver</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Corp_Food_Law_Approver__c</fullName>
+        <externalId>false</externalId>
+        <label>Corporate Food Law Approver</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Corp_Formula_Governance_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>CRS Corporate Formula Governance</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Corp_Formula_Governance__c</fullName>
+        <externalId>false</externalId>
+        <label>CRS Corporate Formula Governance</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Corp_SRA_Approver_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>Corporate SRA Approver</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Corp_SRA_Approver__c</fullName>
+        <externalId>false</externalId>
+        <label>Corporate SRA Approver</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Corporate_PAC_Approver_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>Corporate PAC Approver</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Corporate_PAC_Approver__c</fullName>
+        <externalId>false</externalId>
+        <label>Corporate PAC Approver</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Corporate_SRA_Approver_Message__c</fullName>
+        <externalId>false</externalId>
+        <label>Notification Comment</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Country_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <length>32768</length>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Document_Title__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Document Title for Brochures, Web Copy, etc</inlineHelpText>
+        <label>Document Title (not used)</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>CRS_Field_SRA_Approver_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>Field SRA Approver</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Field_SRA_Approver__c</fullName>
+        <externalId>false</externalId>
+        <label>Field SRA Approver</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Flavor_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>Flavor</label>
+        <length>32768</length>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Group__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Group</label>
+        <referenceTo>CRS_Group__c</referenceTo>
+        <relationshipLabel>CRS for Group</relationshipLabel>
+        <relationshipName>CRS</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CRS_Media_Type_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>Media Type</label>
+        <length>32768</length>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Package_Type_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>Package Type</label>
+        <length>32768</length>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Prior_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>CRS Prior Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CRS_Product_Name__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Product Name</label>
+        <referenceTo>CRS_CRS_Product__c</referenceTo>
+        <relationshipLabel>CRS for Products</relationshipLabel>
+        <relationshipName>CRS</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CRS_REVIEW_MIGRATION__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Temporary field for data migration</inlineHelpText>
+        <label>CRS_REVIEW_MIGRATION</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CRS_Review__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CRS Review</label>
+        <referenceTo>CRS_Review__c</referenceTo>
+        <relationshipLabel>CRS</relationshipLabel>
+        <relationshipName>CRS</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CRS_STATUS_MIGRATION__c</fullName>
+        <description>Temporary field for data migration</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Temporary field for data migration</inlineHelpText>
+        <label>CRS_STATUS_MIGRATION</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CRS_Title__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Short title for the submission</inlineHelpText>
+        <label>CRS Title</label>
+        <length>40</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CRS_Type_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>CRS Type</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_VP_Chief_Scientific_Regulatory_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>VP-Chief Scientific &amp; Regulatory</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_VP_Chief_Scientific_Regulatory__c</fullName>
+        <externalId>false</externalId>
+        <label>VP-Chief Scientific &amp; Regulatory</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_VP_Science_Division_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>VP-Science Division</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_VP_Science_Division__c</fullName>
+        <externalId>false</externalId>
+        <label>VP-Science Division</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Claim_Owner_and_Email_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Claim Owner and Email Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Conditional_Approval_Required__c</fullName>
+        <externalId>false</externalId>
+        <label>Approve Conditional</label>
+        <picklist>
+            <picklistValues>
+                <fullName>YES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Current_Reviewer_s__c</fullName>
+        <externalId>false</externalId>
+        <label>Current Reviewer(s)</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Date_Closed__c</fullName>
+        <description>Date when CRS record is Approved, Rejected, Disapproved or Abandoned</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date when CRS record is Approved, Rejected, Disapproved or Abandoned</inlineHelpText>
+        <label>Date Closed</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Date_Initiated__c</fullName>
+        <defaultValue>today()</defaultValue>
+        <externalId>false</externalId>
+        <label>Date Initiated</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Days_In_Process_After_BU_Approval__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Total # of business days the submission spent in “In Process” status AFTER entering “Under Review” status.</description>
+        <externalId>false</externalId>
+        <label>Days In Process After BU Approval</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Disapproved_Reason__c</fullName>
+        <description>Dependent text field when CRS Status = Disapproved, need to explain why</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Dependent text field when CRS Status = Disapproved, need to explain why</inlineHelpText>
+        <label>Disapproved Reason</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DontSend_StatusChange_Notification__c</fullName>
+        <externalId>false</externalId>
+        <label>Don&apos;t Send &quot;Status Change&quot; Notification</label>
+        <length>150</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Individual_CRSSum__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Individual_CRS_01__c  &lt;&gt; &quot;&quot;, Individual_CRS_01__c &amp; BR(),&quot;&quot;) +
+IF(Individual_CRS_02__c  &lt;&gt; &quot;&quot;, Individual_CRS_02__c &amp; BR(),&quot;&quot;) +
+IF(Individual_CRS_03__c  &lt;&gt; &quot;&quot;, Individual_CRS_03__c &amp; BR(),&quot;&quot;) +
+IF(Individual_CRS_04__c  &lt;&gt; &quot;&quot;, Individual_CRS_04__c &amp; BR(),&quot;&quot;) +
+IF(Individual_CRS_05__c  &lt;&gt; &quot;&quot;, Individual_CRS_05__c &amp; BR(),&quot;&quot;) +
+IF(Individual_CRS_06__c  &lt;&gt; &quot;&quot;, Individual_CRS_06__c &amp; BR(),&quot;&quot;) +
+IF(Individual_CRS_07__c  &lt;&gt; &quot;&quot;, Individual_CRS_07__c &amp; BR(),&quot;&quot;) +
+IF(Individual_CRS_08__c  &lt;&gt; &quot;&quot;, Individual_CRS_08__c &amp; BR(),&quot;&quot;) +
+IF(Individual_CRS_09__c  &lt;&gt; &quot;&quot;, Individual_CRS_09__c &amp; BR(),&quot;&quot;) +
+IF(Individual_CRS_10__c  &lt;&gt; &quot;&quot;, Individual_CRS_10__c &amp; BR(),&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Individual CRS</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Individual_CRS_01__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Individual CRS To Be Approved for Labels, Advertising, etc</inlineHelpText>
+        <label>Individual CRS 01</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Individual_CRS_02__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Individual CRS To Be Approved for Labels, Advertising, etc</inlineHelpText>
+        <label>Individual CRS 02</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Individual_CRS_03__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Individual CRS To Be Approved for Labels, Advertising, etc</inlineHelpText>
+        <label>Individual CRS 03</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Individual_CRS_04__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Individual CRS To Be Approved for Labels, Advertising, etc</inlineHelpText>
+        <label>Individual CRS 04</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Individual_CRS_05__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Individual CRS To Be Approved for Labels, Advertising, etc</inlineHelpText>
+        <label>Individual CRS 05</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Individual_CRS_06__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Individual CRS To Be Approved for Labels, Advertising, etc</inlineHelpText>
+        <label>Individual CRS 06</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Individual_CRS_07__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Individual CRS To Be Approved for Labels, Advertising, etc</inlineHelpText>
+        <label>Individual CRS 07</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Individual_CRS_08__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Individual CRS To Be Approved for Labels, Advertising, etc</inlineHelpText>
+        <label>Individual CRS 08</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Individual_CRS_09__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Individual CRS To Be Approved for Labels, Advertising, etc</inlineHelpText>
+        <label>Individual CRS 09</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Individual_CRS_10__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Individual CRS To Be Approved for Labels, Advertising, etc</inlineHelpText>
+        <label>Individual CRS 10</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Initiated_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Initiated For</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>CRS</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Internal_Status2__c</fullName>
+        <description>The field keeps status for Approval process. 
+NotStarted means Approvals wasn&apos;t started or is recalled - it is a sign that &apos;Submit for Approval&apos; button can be shown. 
+RuNext means next step of Approval Process should be started immediately.
+Wait means wait response about next step or wait for approve/reject decision.</description>
+        <externalId>false</externalId>
+        <label>Internal Status2</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NotStarted</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RunNext</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wait</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wait2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Internal_Status__c</fullName>
+        <description>The field keeps information about last approved step. It is used as entry criteria for next approval process.</description>
+        <externalId>false</externalId>
+        <label>Internal Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>BU Legal Approver</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Field SRA Approver</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Corp Formula Govern Approver</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Corporate Food Law Approver</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Corporate SRA Approver</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VP-Chief Sc and Reg Officer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VP-Science Division</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wait</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Corporate PAC Approver</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BU PAC Approver</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Key_Stakeholder_and_Email_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Key Stakeholder and Email Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MTR_Day_Count__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of business days CRS has been in &quot;Under Review&quot; status</inlineHelpText>
+        <label>Days Under Review</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Package_Size__c</fullName>
+        <defaultValue>&quot;Package Size Not Available&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>Package Size</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Process_Flow__c</fullName>
+        <externalId>false</externalId>
+        <label>Process Flow</label>
+        <length>80</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RAG_Status__c</fullName>
+        <description>This field is a ‘traffic light’ field with colors red, amber &amp; green.</description>
+        <externalId>false</externalId>
+        <formula>IF(  MTR_Day_Count__c  &gt; 10,IMAGE(&quot;resource/CRS_Red&quot;, &quot;Red&quot;,16,16),
+ IF( MTR_Day_Count__c  &gt; 5,IMAGE(&quot;resource/CRS_Amber&quot;,&quot;Amber&quot;,16,16),
+  IF( MTR_Day_Count__c  &gt; 0,IMAGE(&quot;resource/CRS_Green&quot;, &quot;Green&quot;,16,16),
+         IMAGE(&quot;resource/CRS_Green&quot;, &quot;Green&quot;,16,16)
+)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RAG Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Send_Corp_Form_Gov__c</fullName>
+        <externalId>false</externalId>
+        <label>Send Corporate Formula Governance</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Send_Corporate_PAC__c</fullName>
+        <externalId>false</externalId>
+        <label>Send Corporate PAC</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Send_VP_Chief__c</fullName>
+        <externalId>false</externalId>
+        <label>Send VP-Chief Scientific &amp; Regulatory</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Send_VP_Science__c</fullName>
+        <externalId>false</externalId>
+        <label>Send VP Science</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>CRS Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New Submission</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Process</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Disapproved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Abandoned</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Under Review</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Conditionally Approved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approved-Obsolete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Total_CRS__c</fullName>
+        <description>How many CRS to be Approved text fields have input values in them (Individual CRS 01 - Individual CRS 10)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How many &apos;CRS to be Approved&apos; text fields have input values in them (Individual CRS 01 - Individual CRS 10)</inlineHelpText>
+        <label>Total CRS</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Days_Since_Initiated__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Total # of business days from the date the submission was created until today’s system date. It should stop counting the day it gets approved/rejected the first time. If it gets reactivated, the system would add to the existing count</description>
+        <externalId>false</externalId>
+        <label>Total Days Since Initiated</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Page_Count__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Page Count</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>UnderReviewApprovalValidationCheck__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>UnderReviewApprovalValidationCheck</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>isReactivated__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>isReactivated</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <label>CRS</label>
+    <listViews>
+        <fullName>ASEAN_BU_by_Year</fullName>
+        <columns>NAME</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>Initiated_By__c</columns>
+        <columns>CRS_BU_Legal_Approver_Names__c</columns>
+        <columns>CRS_Field_SRA_Approver_Names__c</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>Date_Closed__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Business_Unit__c</field>
+            <operation>equals</operation>
+            <value>ASEAN Business Unit</value>
+        </filters>
+        <label>ASEAN BU by Year</label>
+    </listViews>
+    <listViews>
+        <fullName>All_CRS</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>Date_Closed__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>BBN__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>Process_Flow__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <columns>CRS_Group__c</columns>
+        <columns>CRS_Business_Unit__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.CRS_submission</value>
+        </filters>
+        <label>All CRS</label>
+    </listViews>
+    <listViews>
+        <fullName>All_CRS_Abandoned</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Abandoned</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.CRS_submission</value>
+        </filters>
+        <label>All CRS (Abandoned)</label>
+        <sharedTo>
+            <role>CRS_Only</role>
+            <role>CRS_gvwCRS</role>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_CRS_Completed</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <columns>CRS_Type_Names__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Approved,Rejected</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.CRS_submission</value>
+        </filters>
+        <label>All CRS (Approved/Rejected)</label>
+        <sharedTo>
+            <role>CRS_Only</role>
+            <role>CRS_gvwCRS</role>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_CRS_Draft</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <columns>Initiated_By__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Draft</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.CRS_submission</value>
+        </filters>
+        <label>All CRS (Draft)</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_CRS_In_Process</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Title__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Rejected</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.CRS_submission</value>
+        </filters>
+        <label>All CRS (In Process)</label>
+        <sharedTo>
+            <role>CRS_Only</role>
+            <role>CRS_gvwCRS</role>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_CRS_New_Submissions</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>New Submission</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.CRS_submission</value>
+        </filters>
+        <label>All CRS (New Submissions)</label>
+        <sharedTo>
+            <role>CRS_Only</role>
+            <role>CRS_gvwCRS</role>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_CRS_Under_Review</fullName>
+        <columns>NAME</columns>
+        <columns>CRS_Review__c</columns>
+        <columns>CRS_Title__c</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Under Review</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.CRS_submission</value>
+        </filters>
+        <label>All CRS (Under Review)</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>CRS_Corporate_Level</group>
+            <group>CRS_Review_Only</group>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_gvwCRS</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.glaceau_vitaminwater_CRS</value>
+        </filters>
+        <label>All gvwCRS</label>
+        <sharedTo>
+            <role>CRS_gvwCRS</role>
+            <role>Top_Level</role>
+            <role>gvwCRS_Only</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_gvwCRS_Abandoned</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Abandoned</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.glaceau_vitaminwater_CRS</value>
+        </filters>
+        <label>All gvwCRS (Abandoned)</label>
+        <sharedTo>
+            <role>CRS_gvwCRS</role>
+            <role>Top_Level</role>
+            <role>gvwCRS_Only</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_gvwCRS_Completed</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Approved,Rejected</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.glaceau_vitaminwater_CRS</value>
+        </filters>
+        <label>All gvwCRS (Approved/Rejected)</label>
+        <sharedTo>
+            <role>CRS_gvwCRS</role>
+            <role>Top_Level</role>
+            <role>gvwCRS_Only</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_gvwCRS_In_Process</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>In Process</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.glaceau_vitaminwater_CRS</value>
+        </filters>
+        <label>All gvwCRS (In Process)</label>
+        <sharedTo>
+            <role>CRS_gvwCRS</role>
+            <role>Top_Level</role>
+            <role>gvwCRS_Only</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_gvwCRS_New_Submissions</fullName>
+        <columns>Date_Initiated__c</columns>
+        <columns>NAME</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>New Submission</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.glaceau_vitaminwater_CRS</value>
+        </filters>
+        <label>All gvwCRS (New Submissions)</label>
+        <sharedTo>
+            <role>CRS_gvwCRS</role>
+            <role>Top_Level</role>
+            <role>gvwCRS_Only</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_gvwCRS_Under_Review</fullName>
+        <columns>NAME</columns>
+        <columns>CRS_Review__c</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Under Review</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.glaceau_vitaminwater_CRS</value>
+        </filters>
+        <label>All gvwCRS (Under Review)</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>CRS_Review_Only</group>
+            <group>gvwCRS_Corporate_Level</group>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>CRS_gvwCRS_UnderRev_and_InProc</fullName>
+        <columns>NAME</columns>
+        <columns>CRS_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>CRS_Type_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>Date_Initiated__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>In Process,Under Review</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.CRS_submission,CRS__c.glaceau_vitaminwater_CRS</value>
+        </filters>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <label>CRS + gvwCRS - UnderRev and InProc</label>
+        <sharedTo>
+            <group>CAR_Corporate_Formula_Governance</group>
+            <role>CRS_Only</role>
+            <role>CRS_gvwCRS</role>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Coca_Cola_Life_Claims_for_Hande</fullName>
+        <columns>NAME</columns>
+        <columns>Active__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Brand__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Business_Unit__c</columns>
+        <columns>CRS_Group__c</columns>
+        <columns>Status__c</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>Date_Closed__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Product_Name__c</field>
+            <operation>contains</operation>
+            <value>life</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </filters>
+        <label>Coca-Cola Life Claims</label>
+        <sharedTo>
+            <group>CAR_Corporate_Food_Law_Approver</group>
+            <group>CAR_Corporate_Formula_Governance</group>
+            <group>CAR_Corporate_SRA_Approver</group>
+            <group>CRS_Corporate_Level</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Completed_CRS_gvwCRS_2012</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Process_Flow__c</columns>
+        <columns>Total_CRS__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Date_Initiated__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>1/1/2013</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Rejected,Approved,Abandoned,In Process,Under Review</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.CRS_submission,CRS__c.glaceau_vitaminwater_CRS</value>
+        </filters>
+        <filters>
+            <field>Process_Flow__c</field>
+            <operation>contains</operation>
+            <value>Notification,Full Review</value>
+        </filters>
+        <label>Completed CRS/gvwCRS 2013 (Corp + Field)</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>EU_Demo</fullName>
+        <columns>NAME</columns>
+        <columns>CRS_Brand__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Type_Names__c</columns>
+        <columns>Date_Closed__c</columns>
+        <columns>CRS_Business_Unit__c</columns>
+        <columns>Status__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Individual_CRSSum__c</columns>
+        <columns>Individual_CRS_01__c</columns>
+        <columns>Individual_CRS_02__c</columns>
+        <columns>Individual_CRS_03__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Date_Initiated__c</field>
+            <operation>greaterThan</operation>
+            <value>1/1/2013</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Approved,In Process,Rejected,Abandoned,Under Review</value>
+        </filters>
+        <filters>
+            <field>CRS_Group__c</field>
+            <operation>equals</operation>
+            <value>Europe</value>
+        </filters>
+        <label>EU Demo</label>
+    </listViews>
+    <listViews>
+        <fullName>EU_Digital_Messaging</fullName>
+        <booleanFilter>(1 OR 2) AND 3 AND 4</booleanFilter>
+        <columns>NAME</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Date_Closed__c</columns>
+        <columns>CRS_Group__c</columns>
+        <columns>CRS_Business_Unit__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Initiated_By__c</field>
+            <operation>equals</operation>
+            <value>Thalia Constantinidou</value>
+        </filters>
+        <filters>
+            <field>Initiated_By__c</field>
+            <operation>equals</operation>
+            <value>Joanna Skinner</value>
+        </filters>
+        <filters>
+            <field>CRS_Document_Title__c</field>
+            <operation>contains</operation>
+            <value>Digital</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </filters>
+        <label>EU Digital Messaging</label>
+        <sharedTo>
+            <role>CRS_gvwCRS</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>FGD_reviews</fullName>
+        <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Title__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>Process_Flow__c</columns>
+        <columns>Status__c</columns>
+        <columns>CRS_Business_Unit__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>contains</operation>
+            <value>In Process,Under Review</value>
+        </filters>
+        <filters>
+            <field>Send_Corp_Form_Gov__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Process_Flow__c</field>
+            <operation>contains</operation>
+            <value>Full Review Coke Branded Product</value>
+        </filters>
+        <label>FGD reviews</label>
+        <sharedTo>
+            <group>CAR_Corporate_Formula_Governance</group>
+            <group>CRS_Corporate_Level</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>FGD_reviews1</fullName>
+        <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+        <columns>NAME</columns>
+        <columns>CRS_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>CRS_Media_Type_Names__c</columns>
+        <columns>CRS_Type_Names__c</columns>
+        <columns>Process_Flow__c</columns>
+        <columns>CRS_Business_Unit__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>contains</operation>
+            <value>In Process,Under Review</value>
+        </filters>
+        <filters>
+            <field>Send_Corporate_PAC__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Process_Flow__c</field>
+            <operation>contains</operation>
+            <value>Full Review Non-Coke Branded Product</value>
+        </filters>
+        <label>PAC reviews</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>CRS_Corporate_Level</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>For_Corporate_SRA</fullName>
+        <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <columns>Process_Flow__c</columns>
+        <columns>Internal_Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Internal_Status__c</field>
+            <operation>equals</operation>
+            <value>Field SRA Approver</value>
+        </filters>
+        <filters>
+            <field>Internal_Status2__c</field>
+            <operation>equals</operation>
+            <value>Wait2</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>In Process</value>
+        </filters>
+        <label>For Corporate SRA</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>CRS_Corporate_Level</group>
+            <group>Manila_Support_Team</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Heather_s_submissions</fullName>
+        <columns>NAME</columns>
+        <columns>CRS_Title__c</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>Status__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Draft,New Submission,In Process,Under Review</value>
+        </filters>
+        <filters>
+            <field>CREATEDBY_USER</field>
+            <operation>equals</operation>
+            <value>Heather Sachs</value>
+        </filters>
+        <label>Heather&apos;s submissions</label>
+        <sharedTo>
+            <role>CRS_gvwCRS</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Honest</fullName>
+        <columns>NAME</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>Status__c</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Product_Name__c</field>
+            <operation>contains</operation>
+            <value>Honest</value>
+        </filters>
+        <filters>
+            <field>Individual_CRSSum__c</field>
+            <operation>contains</operation>
+            <value>GMO</value>
+        </filters>
+        <label>Honest</label>
+    </listViews>
+    <listViews>
+        <fullName>Manila_Support</fullName>
+        <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <columns>Process_Flow__c</columns>
+        <columns>Internal_Status__c</columns>
+        <columns>Internal_Status2__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>Internal_Status__c</field>
+            <operation>equals</operation>
+            <value>Field SRA Approver</value>
+        </filters>
+        <filters>
+            <field>Internal_Status2__c</field>
+            <operation>equals</operation>
+            <value>Wait2</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>In Process</value>
+        </filters>
+        <label>Manila Support</label>
+        <sharedTo>
+            <group>Manila_Support_Team</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>My_CRS</fullName>
+        <columns>NAME</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>Status__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.CRS_submission,CRS__c.glaceau_vitaminwater_CRS</value>
+        </filters>
+        <label>My CRS - version 1</label>
+        <sharedTo>
+            <role>CRS_Only</role>
+            <role>CRS_gvwCRS</role>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>My_CRS_version_2</fullName>
+        <columns>NAME</columns>
+        <columns>CRS_Title__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>Status__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <columns>Current_Reviewer_s__c</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.CRS_submission,CRS__c.glaceau_vitaminwater_CRS</value>
+        </filters>
+        <label>My CRS - version 2</label>
+        <sharedTo>
+            <role>CRS_Only</role>
+            <role>CRS_gvwCRS</role>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>My_gvwCRS</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.glaceau_vitaminwater_CRS</value>
+        </filters>
+        <label>My gvwCRS</label>
+        <sharedTo>
+            <role>CRS_gvwCRS</role>
+            <role>Top_Level</role>
+            <role>gvwCRS_Only</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Natural_Claims</fullName>
+        <booleanFilter>1 AND 2 AND 3 AND (4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10)</booleanFilter>
+        <columns>NAME</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>CRS_Beverage_Category__c</columns>
+        <columns>CRS_Brand__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>Status__c</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>Individual_CRSSum__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Group__c</field>
+            <operation>contains</operation>
+            <value>north america</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>In Process,Rejected,Approved,Abandoned,Under Review</value>
+        </filters>
+        <filters>
+            <field>Date_Initiated__c</field>
+            <operation>greaterThan</operation>
+            <value>12/31/2012</value>
+        </filters>
+        <filters>
+            <field>Individual_CRSSum__c</field>
+            <operation>contains</operation>
+            <value>natural</value>
+        </filters>
+        <filters>
+            <field>CRS_Document_Title__c</field>
+            <operation>contains</operation>
+            <value>natural</value>
+        </filters>
+        <filters>
+            <field>Individual_CRS_01__c</field>
+            <operation>contains</operation>
+            <value>natural</value>
+        </filters>
+        <filters>
+            <field>Individual_CRS_02__c</field>
+            <operation>contains</operation>
+            <value>natural</value>
+        </filters>
+        <filters>
+            <field>CRS_Beverage_Category__c</field>
+            <operation>contains</operation>
+            <value>natural</value>
+        </filters>
+        <filters>
+            <field>CRS_Brand__c</field>
+            <operation>contains</operation>
+            <value>natural</value>
+        </filters>
+        <filters>
+            <field>CRS_Product_Name__c</field>
+            <operation>contains</operation>
+            <value>natural</value>
+        </filters>
+        <label>Natural Claims for North America</label>
+    </listViews>
+    <listViews>
+        <fullName>Notification_CRS</fullName>
+        <columns>NAME</columns>
+        <columns>Process_Flow__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Type_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>Status__c</columns>
+        <columns>Date_Closed__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Process_Flow__c</field>
+            <operation>equals</operation>
+            <value>Notification</value>
+        </filters>
+        <filters>
+            <field>Date_Initiated__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>5/1/2011</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </filters>
+        <label>Notification CRS</label>
+        <sharedTo>
+            <group>CRS_Corporate_Level</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Odwalla</fullName>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Individual_CRSSum__c</columns>
+        <columns>Individual_CRS_01__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Product_Name__c</field>
+            <operation>contains</operation>
+            <value>Odwalla</value>
+        </filters>
+        <filters>
+            <field>Individual_CRSSum__c</field>
+            <operation>contains</operation>
+            <value>GMO</value>
+        </filters>
+        <label>Odwalla</label>
+    </listViews>
+    <listViews>
+        <fullName>Old_CRS_Archived</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <columns>Process_Flow__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>No</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.CRS_submission</value>
+        </filters>
+        <label>Old CRS (Archived)</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>CRS_Corporate_Level</group>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Old_gvwCRS_Archived</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Status__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>No</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS__c.glaceau_vitaminwater_CRS</value>
+        </filters>
+        <label>Old gvwCRS (Archived)</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>gvwCRS_Corporate_Level</group>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Panagiota_s_List</fullName>
+        <columns>NAME</columns>
+        <columns>BBN__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Brand__c</columns>
+        <columns>Status__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Active__c</columns>
+        <columns>CRS_Business_Unit__c</columns>
+        <columns>Date_Closed__c</columns>
+        <columns>CRS_Group__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Group__c</field>
+            <operation>contains</operation>
+            <value>europe</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Draft,New Submission,In Process,Under Review</value>
+        </filters>
+        <filters>
+            <field>Date_Initiated__c</field>
+            <operation>greaterThan</operation>
+            <value>5/9/2014</value>
+        </filters>
+        <label>Panagiota&apos;s List</label>
+    </listViews>
+    <listViews>
+        <fullName>Product_Attribute_CRS</fullName>
+        <columns>NAME</columns>
+        <columns>CRS_Business_Unit__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Type_Names__c</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>Process_Flow__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>contains</operation>
+            <value>Draft,New Submission,In Process</value>
+        </filters>
+        <label>Open Submissions by CRS Type</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Report_for_Amos</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Business_Unit__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>CRS_Group__c</columns>
+        <columns>Individual_CRSSum__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <columns>Date_Closed__c</columns>
+        <columns>Total_Page_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>contains</operation>
+            <value>In Process,Approved</value>
+        </filters>
+        <filters>
+            <field>Date_Initiated__c</field>
+            <operation>greaterThan</operation>
+            <value>1/1/2013</value>
+        </filters>
+        <label>Report for Amos</label>
+    </listViews>
+    <listViews>
+        <fullName>Taiwan</fullName>
+        <columns>NAME</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>Status__c</columns>
+        <columns>CRS_Type_Names__c</columns>
+        <columns>Date_Closed__c</columns>
+        <columns>Individual_CRSSum__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Business_Unit__c</field>
+            <operation>equals</operation>
+            <value>Greater China &amp; Korea Business Unit</value>
+        </filters>
+        <label>Taiwan</label>
+    </listViews>
+    <listViews>
+        <fullName>Zero_claims</fullName>
+        <columns>NAME</columns>
+        <columns>CRS_Type_Names__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>Individual_CRSSum__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Product_Name__c</field>
+            <operation>contains</operation>
+            <value>zero</value>
+        </filters>
+        <filters>
+            <field>Individual_CRSSum__c</field>
+            <operation>contains</operation>
+            <value>zero</value>
+        </filters>
+        <label>&quot;Zero&quot; claims</label>
+    </listViews>
+    <nameField>
+        <label>Tracking #</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>CRS</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>CRS_submission</fullName>
+        <active>true</active>
+        <description>Regular CRS submission</description>
+        <label>CRS submission</label>
+        <picklistValues>
+            <picklist>Active__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Additional_Submission_Required__c</picklist>
+            <values>
+                <fullName>NO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>YES</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Audit_Status__c</picklist>
+            <values>
+                <fullName>Audit Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Audit Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Audit Selected</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditional_Approval_Required__c</picklist>
+            <values>
+                <fullName>NO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>YES</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Internal_Status2__c</picklist>
+            <values>
+                <fullName>NotStarted</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>RunNext</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wait</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wait2</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Internal_Status__c</picklist>
+            <values>
+                <fullName>BU Legal Approver</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>BU PAC Approver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Corp Formula Govern Approver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Corporate Food Law Approver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Corporate PAC Approver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Corporate SRA Approver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Field SRA Approver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VP-Chief Sc and Reg Officer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VP-Science Division</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wait</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_Corp_Form_Gov__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_Corporate_PAC__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_VP_Chief__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_VP_Science__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Abandoned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approved-Obsolete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Conditionally Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disapproved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>In Process</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Submission</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Under Review</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>glaceau_vitaminwater_CRS</fullName>
+        <active>true</active>
+        <description>Applies to glaceau vitaminwater CRS ONLY. CRS for glaceau smartwater goes through the regular CRS submission.</description>
+        <label>glaceau vitaminwater CRS</label>
+        <picklistValues>
+            <picklist>Active__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Additional_Submission_Required__c</picklist>
+            <values>
+                <fullName>NO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>YES</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Audit_Status__c</picklist>
+            <values>
+                <fullName>Audit Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Audit Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Audit Selected</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Conditional_Approval_Required__c</picklist>
+            <values>
+                <fullName>NO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>YES</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Internal_Status2__c</picklist>
+            <values>
+                <fullName>NotStarted</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>RunNext</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wait</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wait2</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Internal_Status__c</picklist>
+            <values>
+                <fullName>BU Legal Approver</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>BU PAC Approver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Corp Formula Govern Approver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Corporate Food Law Approver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Corporate PAC Approver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Corporate SRA Approver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Field SRA Approver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VP-Chief Sc and Reg Officer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VP-Science Division</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wait</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_Corp_Form_Gov__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_Corporate_PAC__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_VP_Chief__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Send_VP_Science__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Abandoned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approved-Obsolete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Conditionally Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disapproved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>In Process</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Submission</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Under Review</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Date_Initiated__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CRS_Country_Names__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CRS_Product_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CRS_Document_Title__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
+        <listViewButtons>Export_To_Excel</listViewButtons>
+        <lookupDialogsAdditionalFields>CRS_Brand__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CRS_Product_Name__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CRS_Country_Names__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Date_Initiated__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Process_Flow__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Status__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CRS_Beverage_Category__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CRS_Group__c</lookupDialogsAdditionalFields>
+        <lookupFilterFields>NAME</lookupFilterFields>
+        <lookupFilterFields>CRS_Brand__c</lookupFilterFields>
+        <lookupFilterFields>CRS_Product_Name__c</lookupFilterFields>
+        <lookupFilterFields>Date_Initiated__c</lookupFilterFields>
+        <lookupFilterFields>Status__c</lookupFilterFields>
+        <lookupFilterFields>CRS_Beverage_Category__c</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>CRS_Brand__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CRS_Product_Name__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CRS_Country_Names__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Date_Initiated__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Process_Flow__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Status__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CRS_Beverage_Category__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CRS_Group__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Date_Initiated__c</searchFilterFields>
+        <searchFilterFields>CRS_Product_Name__c</searchFilterFields>
+        <searchFilterFields>CRS_Document_Title__c</searchFilterFields>
+        <searchFilterFields>Status__c</searchFilterFields>
+        <searchResultsAdditionalFields>Date_Initiated__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CRS_Country_Names__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CRS_Product_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CRS_Document_Title__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>RequiredBBN</fullName>
+        <active>true</active>
+        <errorConditionFormula>(TEXT( Status__c ) !=&quot;Draft&quot; &amp;&amp; TEXT( Status__c ) != &quot;Abandoned&quot; &amp;&amp; TEXT( Status__c ) != &quot;Disapproved&quot;)  &amp;&amp; (      BBN__c  == &quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>BBN__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequiredBU</fullName>
+        <active>true</active>
+        <errorConditionFormula>(TEXT( Status__c ) !=&quot;Draft&quot; &amp;&amp; TEXT( Status__c ) != &quot;Abandoned&quot; &amp;&amp; TEXT( Status__c ) != &quot;Disapproved&quot;)  &amp;&amp; ( CRS_Business_Unit__c == &quot;&quot;)</errorConditionFormula>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequiredBeverageCategory</fullName>
+        <active>true</active>
+        <errorConditionFormula>(TEXT( Status__c ) !=&quot;Draft&quot; &amp;&amp; TEXT( Status__c ) != &quot;Abandoned&quot; &amp;&amp; TEXT( Status__c ) != &quot;Disapproved&quot;)  &amp;&amp; (    CRS_Beverage_Category__c  == &quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>CRS_Beverage_Category__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequiredBrand</fullName>
+        <active>true</active>
+        <errorConditionFormula>(TEXT( Status__c ) !=&quot;Draft&quot; &amp;&amp; TEXT( Status__c ) != &quot;Abandoned&quot; &amp;&amp; TEXT( Status__c ) != &quot;Disapproved&quot;)  &amp;&amp; (  CRS_Brand__c  == &quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>CRS_Brand__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequiredCRSType</fullName>
+        <active>true</active>
+        <errorConditionFormula>(TEXT( Status__c ) !=&quot;Draft&quot; &amp;&amp; TEXT( Status__c ) != &quot;Abandoned&quot; &amp;&amp; TEXT( Status__c ) != &quot;Disapproved&quot;)  &amp;&amp; ( CRS_Type_Names__c == &quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>CRS_Type_Names__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequiredCountry</fullName>
+        <active>true</active>
+        <errorConditionFormula>(TEXT( Status__c ) !=&quot;Draft&quot; &amp;&amp; TEXT( Status__c ) != &quot;Abandoned&quot; &amp;&amp; TEXT( Status__c ) != &quot;Disapproved&quot;)  &amp;&amp; ( CRS_Country_Names__c == &quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>CRS_Country_Names__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequiredFlavor</fullName>
+        <active>true</active>
+        <errorConditionFormula>(TEXT( Status__c ) !=&quot;Draft&quot; &amp;&amp; TEXT( Status__c ) != &quot;Abandoned&quot; &amp;&amp; TEXT( Status__c ) != &quot;Disapproved&quot;)  &amp;&amp; (  CRS_Flavor_Names__c  == &quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>CRS_Flavor_Names__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequiredGroup</fullName>
+        <active>true</active>
+        <errorConditionFormula>(TEXT( Status__c ) !=&quot;Draft&quot; &amp;&amp; TEXT( Status__c ) != &quot;Abandoned&quot; &amp;&amp; TEXT( Status__c ) != &quot;Disapproved&quot;)  &amp;&amp; ( CRS_Group__c  == &quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>CRS_Group__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequiredMediaType</fullName>
+        <active>true</active>
+        <errorConditionFormula>(TEXT( Status__c ) !=&quot;Draft&quot; &amp;&amp; TEXT( Status__c ) != &quot;Abandoned&quot; &amp;&amp; TEXT( Status__c ) != &quot;Disapproved&quot;)  &amp;&amp; (  CRS_Media_Type_Names__c  == &quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>CRS_Media_Type_Names__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequiredPackageSize</fullName>
+        <active>true</active>
+        <errorConditionFormula>(TEXT( Status__c ) !=&quot;Draft&quot; &amp;&amp; TEXT( Status__c ) != &quot;Abandoned&quot; &amp;&amp; TEXT( Status__c ) != &quot;Disapproved&quot;)  &amp;&amp; ( Package_Size__c == &quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>Package_Size__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequiredPackageType</fullName>
+        <active>true</active>
+        <errorConditionFormula>(TEXT( Status__c ) !=&quot;Draft&quot; &amp;&amp; TEXT( Status__c ) != &quot;Abandoned&quot; &amp;&amp; TEXT( Status__c ) != &quot;Disapproved&quot;)  &amp;&amp; (     CRS_Package_Type_Names__c  == &quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>CRS_Package_Type_Names__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequiredProductName</fullName>
+        <active>true</active>
+        <errorConditionFormula>(TEXT( Status__c ) !=&quot;Draft&quot; &amp;&amp; TEXT( Status__c ) != &quot;Abandoned&quot; &amp;&amp; TEXT( Status__c ) != &quot;Disapproved&quot;)  &amp;&amp; ( CRS_Product_Name__c == &quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>CRS_Product_Name__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Abandon</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Abandon</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/26.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/26.0/apex.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/resource/1346411944000/jQuery&quot;)} 
+
+if(confirm(&apos;Warning: Once Abandoned is chosen, CRS Status cannot be changed back to another value.&apos;)){
+var result1 = sforce.apex.execute(&quot;CRS_Approval&quot;,&quot;abandon&quot;, {crsId: &apos;{!CRS__c.Id}&apos;}); 
+if (result1[0].indexOf(&apos;error&apos;) != -1){
+var errMsg = result1[0].substr(6);
+$(&apos;.pbError&apos;).html(&apos;Error: Cannot Abandon CRS. &lt;br&gt;&apos;+errMsg).show();
+}else{
+location.reload(true);
+}
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Disapprove</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Disapprove</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/26.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/26.0/apex.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/resource/1346411944000/jQuery&quot;)} 
+
+if(confirm(&apos;Warning: Once Disapproved is chosen, CRS Status cannot be changed back to another value.&apos;)){ 
+var result1 = sforce.apex.execute(&quot;CRS_Approval&quot;,&quot;disapprov&quot;, {crsId: &apos;{!CRS__c.Id}&apos;}); 
+if (result1[0].indexOf(&apos;error&apos;) != -1){ 
+var errMsg = result1[0].substr(6); 
+$(&apos;.pbError&apos;).html(&apos;Error: Cannot Disapprove CRS. &lt;br&gt;&apos;+errMsg).show(); 
+}else{ 
+location.reload(true); 
+} 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Export_To_Excel</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Export To Excel</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>var locationOfcurrentPage = location.href;   
+var locationOfcurrentPage = locationOfcurrentPage.substring(locationOfcurrentPage.lastIndexOf(&apos;=&apos;)+1 , locationOfcurrentPage.length) ;  
+var selectedListViewId = locationOfcurrentPage+&apos;_listSelect&apos;; 
+var selectView = document.getElementById(selectedListViewId);
+var selectedView = selectView .options[selectView .selectedIndex].text;
+alert(&quot;This action will only export the following fields:&quot;+&apos;\n&apos;+&quot;1. Tracking #&quot;+&apos;\n&apos;+&quot;2. Date Initiated&quot;+&apos;\n&apos;+&quot;3. Date closed&quot;+&apos;\n&apos;+&quot;4. Country&quot;+&apos;\n&apos;+&quot;5. BBN&quot;+&apos;\n&apos;+&quot;6. Product Name&quot;+&apos;\n&apos;+&quot;7. Document Title&quot;+&apos;\n&apos;+&quot;8. CRS Status&quot;+&apos;\n&apos;+
+&quot;9. MTR Day Count&quot;+&apos;\n&apos;+&quot;10. Group&quot;+&apos;\n&apos;+&quot;11. Business Unit&quot;+&apos;\n&apos;+&quot;12. Total Page Count&quot;);
+window.open(&apos;/apex/CRS_ViewExportToExcel?selectedView=&apos; + selectedView);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Help_FAQ</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Help FAQ</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/sfc/#search?searchWorkspaceIds=%5B%22058d0000000Y0Sz%22%5D&amp;shepherdToken=352ED5H3FXBJ1oCjZXW8.RVlLNQiS0P_ucbPtQI65AuO.OJA8wWcr1tu1G7Mu47kjEUAU7JQretd5b7HeVjjF0nR311TZbOEdKiiNK1vzsnoA3nnmYdHKkJeMnFisviYI3pnOw%3D%3D&amp;searchPageNum=0&amp;resultsListType=s&amp;masterWorkspaceId=058d0000000Y0Sz</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Move_to_Review</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Move to Review</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&apos;/soap/ajax/26.0/connection.js&apos;)} 
+{!REQUIRESCRIPT(&apos;/soap/ajax/26.0/apex.js&apos;)}
+{!REQUIRESCRIPT(&apos;/resource/1346411944000/jQuery&apos;)} 
+
+if(confirm(&apos;Review process will disable CRS object and create a new CRS Review process for discussion.&apos;)){
+var result1 = sforce.apex.execute(&apos;CRS_CRSReview&apos;,&apos;moveToReview&apos;, {crsId: &apos;{!CRS__c.Id}&apos;});
+
+if (result1[0].indexOf(&apos;error:&apos;)!=-1){
+  var errMsg = result1[0].substr(6);
+  $(&apos;.pbError&apos;).html(&apos;Error: &apos;+errMsg).show(); 
+} else if (result1[0]){
+    window.location=&apos;/&apos;+result1 ;
+} else {
+      $(&apos;.pbError&apos;).html(&apos;Internal Server Error&apos;).show();
+}
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Submit_for_Approval</fullName>
+        <availability>online</availability>
+        <description>Create temporary queue, assign selected BU Legal users into queue and start Approval</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Submit for Approval</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/26.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/26.0/apex.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/resource/1346411944000/jQuery&quot;)} 
+
+var result1 = sforce.apex.execute(&quot;CRS_Approval&quot;,&quot;prepareForApproval&quot;, {crsId: &apos;{!CRS__c.Id}&apos;}); 
+if (result1[0].indexOf(&apos;error&apos;) != -1){
+  var errMsg = result1[0].substr(6);
+  $(&apos;.pbError&apos;).html(&apos;Error: Cannot start Approval Process. &lt;br&gt;&apos;+errMsg).show();
+}else{
+  var result2 = sforce.apex.execute(&quot;CRS_Approval&quot;,&quot;submitForApproval&quot;, {crsId: &apos;{!CRS__c.Id}&apos;, groupId: result1});
+  if (result2[0].indexOf(&apos;error&apos;) != -1){
+    var errMsg = result2[0].substr(6);
+    $(&apos;.pbError&apos;).html(&apos;Error: Cannot start Approval Process. &lt;br&gt;&apos;+errMsg).show();
+  } else {
+    location.reload(true);
+  }
+}</url>
+    </webLinks>
+</CustomObject>

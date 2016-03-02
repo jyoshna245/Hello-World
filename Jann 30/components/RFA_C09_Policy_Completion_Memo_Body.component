@@ -1,0 +1,83 @@
+<apex:component access="Global">
+    <apex:attribute name="rfaObj" type="RFA__c" description="RFa object for populating email body."/>
+    
+    <!-- if you see this code <apex:outputPanel rendered="{!rfaObj.recordType.name !='Policy Exemption Request'}"> -->
+    <!-- this is for Policy Exemption Request Type to add fields and hide fields not needed for Policy Exemption -->
+    <!-- by Roy Castillo Aug 28, 2013 -->
+    
+    <style type="text/css">
+            .div
+            {
+                max-width:600px;                
+            }
+        
+        </style>
+            <div style = " font-size:14px;">
+                <p>
+                
+                    <center>
+                      <apex:image url="{!$Label.RFA_CL129}"/>
+                     <!-- <apex:image url="{!$Label.RFA_CL146}"/> -->
+                    </center>
+                    <center><apex:outputText value="Atlanta, Georgia" style="font-weight:bold"/></center>
+                </p>
+                <BR/>
+
+                              
+                <p><apex:outputText style="font-weight:bold" value="TO:"/>&nbsp;<apex:outputText value="{!rfaObj.ToEmailAddressCM__c}"/><br/></p>
+                <p><apex:outputText style="font-weight:bold" value="CC:"/>&nbsp;<apex:outputText value="{!rfaObj.CCEmailAddressCM__c}"/><br/></p>
+                <p><apex:outputText style="font-weight:bold" value="SUBJECT:"/>&nbsp;<apex:outputText value="Final Approval Status - {!rfaObj.ControlNumber__c}: {!rfaObj.RequestTitle__c}"/><br/></p>
+
+                <p><apex:outputText style="font-weight:bold" value="REQUEST TYPE:"/>&nbsp;<apex:outputText value="{!rfaObj.RecordType.name}"/><br/></p>
+                <p><apex:outputText style="font-weight:bold" value="POLICY CATEGORY:"/>&nbsp;<apex:outputText value="{!rfaObj.Policy_Category__c}"/><br/></p> 
+                    
+          
+                <p><apex:outputText style="font-weight:bold" value="APPROVAL STATUS OF REQUEST:"/>&nbsp;<apex:outputText value="{!rfaObj.Theapprovalstatusofyourrequestis__c}"/><br/></p>
+                
+                <p><apex:outputText style="font-weight:bold" value="EFFECTIVE DATE:"/>&nbsp;
+                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">    
+                 <apex:param value="{!Today()}" />
+                </apex:outputText><br/></p>
+
+                
+                
+                <apex:outputPanel rendered="{!if(ISBLANK(rfaObj.Expiration_Date__c),False,True)}">
+               <p><apex:outputText style="font-weight:bold" value="EXPIRATION DATE:"/>&nbsp;
+                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">    
+                 <apex:param value="{!rfaObj.Expiration_Date__c}" />
+                </apex:outputText><br/></p>
+                 </apex:outputPanel>
+                
+                <!-- hide exp date comments if request is NON PE - RLC Jan 21, 2014 -->
+                <p><apex:outputText style="font-weight:bold" value="COMMENTS/CONDITIONS:"/><br/></p> 
+                
+                <apex:outputPanel rendered="{!rfaObj.recordType.name ='Policy Exemption Request'}"> 
+                 <apex:outputPanel rendered="{!if(ISBLANK(rfaObj.Comments_aboutr__c),False,True)}">
+                 <p><apex:outputText value="Expiration Date Comments - "/>&nbsp;<apex:outputText value="{!rfaObj.Comments_aboutr__c}"/><br/></p>
+                 </apex:outputPanel>
+                 </apex:outputPanel>
+                 <!-- end of - hide exp date comments if request is NON PE - RLC Jan 21, 2014 -->
+
+                    
+                <p><apex:outputField value="{!rfaObj.CommentsConditions__c}"/><br/></p>
+                <p><apex:outputText style="font-weight:bold" value="REQUEST TITLE:"/>&nbsp;<apex:outputText value="{!rfaObj.RequestTitle__c}"/><br/></p>
+                
+                <p><apex:outputText style="font-weight:bold" value="REQUEST SUMMARY:"/>&nbsp;<apex:outputField value="{!rfaObj.Request_Summary__c}"/><br/></p>
+
+                
+                <p><apex:outputText style="font-weight:bold" value="PRIMARY REPORTING UNIT:"/>&nbsp;<apex:outputText value="{!rfaObj.PrimaryReportingUnitNumberName__c}"/><br/></p>
+                <apex:outputPanel rendered="{!rfaObj.SecondReportingUnitNumber__c !=''}">
+                <p><apex:outputText style="font-weight:bold" value="SECOND REPORTING UNIT:"/>&nbsp;<apex:outputText value="{!rfaObj.SecondReportingUnitNumberName__c}"/><br/></p>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!rfaObj.ThirdReportingUnitNumber__c !=''}">
+                <p><apex:outputText style="font-weight:bold" value="THIRD REPORTING UNIT:"/>&nbsp;<apex:outputText value="{!rfaObj.ThirdReportingUnitNumberName__c }"/><br/></p>
+                </apex:outputPanel>
+                <p><apex:outputText style="font-weight:bold" value="CONTROL NUMBER:"/>&nbsp;<apex:outputText value="{!rfaObj.ControlNumber__c}"/><br/></p> 
+                <p><apex:outputText style="font-weight:bold" value="LOCAL REFERENCE NUMBER:"/>&nbsp;<apex:outputText value="{!rfaObj.LocalReferenceNumber__c}"/><br/></p>
+
+
+                 <p><apex:outputText style="font-weight:bold" value="REQUEST DOCUMENT LINK:"/>&nbsp;<a href="{!$label.RFA_CL026}/{!rfaObj.Id}">{!rfaObj.Name}</a><br/></p>
+               
+           
+            </div>
+</apex:component>

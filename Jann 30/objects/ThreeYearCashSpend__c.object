@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>ARERate__c</fullName>
+        <externalId>false</externalId>
+        <formula>RFA__r.ARERate__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>A.R.E. Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>8</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IncrementalVolumebyYear__c</fullName>
+        <externalId>false</externalId>
+        <label>Incremental Volume</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q1CashSpendFunc__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Q1 Cash Spend (FC)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q1CashSpendUSD__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( RecordType.Name =&apos;Additional Years&apos;, null,ARERate__c * Q1CashSpendFunc__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Q1 Cash Spend (USD)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q2CashSpendFunc__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Q2 Cash Spend (FC)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q2CashSpendUSD__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( RecordType.Name =&apos;Additional Years&apos;, null,ARERate__c * Q2CashSpendFunc__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Q2 Cash Spend (USD)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q3CashSpendFunc__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Q3 Cash Spend (FC)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q3CashSpendUSD__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( RecordType.Name =&apos;Additional Years&apos;, null,ARERate__c * Q3CashSpendFunc__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Q3 Cash Spend (USD)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q4CashSpendFunc__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Q4 Cash Spend (FC)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q4CashSpendUSD__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( RecordType.Name =&apos;Additional Years&apos;, null,ARERate__c * Q4CashSpendFunc__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Q4 Cash Spend (USD)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RFA__c</fullName>
+        <externalId>false</externalId>
+        <label>RFA</label>
+        <referenceTo>RFA__c</referenceTo>
+        <relationshipName>Three_Year_Cash_Spend</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>X3YearCashSpendFunc__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Annual Cash Spend (FC)</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X3YearCashSpendUSD__c</fullName>
+        <externalId>false</externalId>
+        <formula>ARERate__c * X3YearCashSpendFunc__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Annual Cash Spend (USD)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Year</label>
+        <length>40</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Three Year Cash Spend</label>
+    <nameField>
+        <displayFormat>Details-{00000000}</displayFormat>
+        <label>Cash Spend Details</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Three Year Cash Spend</pluralLabel>
+    <recordTypes>
+        <fullName>Additional_Years</fullName>
+        <active>true</active>
+        <description>New Recordtype for Additional Years</description>
+        <label>Additional Years</label>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Total_check_for_all_spend</fullName>
+        <active>true</active>
+        <errorConditionFormula>If (((Q1CashSpendFunc__c == 0 || ISNULL(Q1CashSpendFunc__c)) &amp;&amp; 
+(Q2CashSpendFunc__c == 0 || ISNULL(Q2CashSpendFunc__c)) &amp;&amp; 
+(Q3CashSpendFunc__c == 0 || ISNULL(Q3CashSpendFunc__c)) &amp;&amp; 
+(Q4CashSpendFunc__c == 0 || ISNULL(Q4CashSpendFunc__c))), false, 
+If (
+If (NOT( ISBLANK(Q1CashSpendFunc__c)), Q1CashSpendFunc__c, 0) + If(NOT(ISBLANK(Q2CashSpendFunc__c)), Q2CashSpendFunc__c, 0) + 
+If(NOT(ISBLANK(Q3CashSpendFunc__c)), Q3CashSpendFunc__c, 0) + 
+If(NOT(ISBLANK(Q4CashSpendFunc__c)), Q4CashSpendFunc__c, 0) == X3YearCashSpendFunc__c , false, true))</errorConditionFormula>
+        <errorMessage>The total of the Quarterly Spend (FC) amounts must equal the Annual Cash Spend (FC) amount.</errorMessage>
+    </validationRules>
+</CustomObject>

@@ -1,0 +1,2 @@
+<apex:page action="{!sendBackGS1Requests}" controller="GS1_SendBackCtrl">
+</apex:page>

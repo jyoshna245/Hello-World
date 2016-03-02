@@ -1,0 +1,82 @@
+<apex:page standardController="Report_Request__c" extensions="CreateReportRequestExtension" tabStyle="Report_Request__c" >
+    <apex:form >
+    <apex:pageBlock mode="maindetail" >
+        <apex:pageBlockButtons >
+            <apex:commandButton action="{!Save}" value="Save Report Request"/>
+            <apex:commandButton action="{!Cancel}" value="Cancel"/>
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection title="Report Type">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >{!$ObjectType.Report_Type__c.Fields.Name.Label}</apex:outputLabel>
+                <apex:selectList value="{!SelectedReportTypeId}" size="1">
+                    <apex:selectOptions value="{!ReportTypes}"/>
+                    <apex:actionSupport event="onchange" reRender="reportingPeriodSection"/>
+                </apex:selectList>
+            </apex:pageBlockSectionItem> 
+        </apex:pageBlockSection>
+        <apex:outputPanel id="reportingPeriodSection">
+        <apex:pageBlockSection title="Reporting Period">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >{!$ObjectType.Report_Request__c.Fields.Reporting_Period_Start__c.Label}</apex:outputLabel>
+                <apex:inputField value="{!Report_Request__c.Reporting_Period_Start__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >{!$ObjectType.Report_Request__c.Fields.Reporting_Period_End__c.Label}</apex:outputLabel>
+                <apex:inputField value="{!Report_Request__c.Reporting_Period_End__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem rendered="{!ReportType.Supports_Multi_Period__c}">
+                <apex:outputLabel >{!$ObjectType.Report_Request__c.Fields.Reporting_Period_2_Start__c.Label}</apex:outputLabel>
+                <apex:inputField value="{!Report_Request__c.Reporting_Period_2_Start__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem rendered="{!ReportType.Supports_Multi_Period__c}">
+                <apex:outputLabel >{!$ObjectType.Report_Request__c.Fields.Reporting_Period_2_End__c.Label}</apex:outputLabel>
+                <apex:inputField value="{!Report_Request__c.Reporting_Period_2_End__c}"/>
+            </apex:pageBlockSectionItem>                    
+        </apex:pageBlockSection>               
+        </apex:outputPanel>
+        <apex:outputPanel id="reportingHierarchySection">
+        <apex:pageBlockSection title="Reporting Hierarchy Filter" columns="1">
+             <apex:outputPanel >
+                 <apex:commandButton value="Add Filter" action="{!AddHierarchyFilter}" reRender="reportingHierarchySection"/>
+                 <apex:commandButton value="Reset Filters" action="{!ClearHierarchyFilters}" reRender="reportingHierarchySection"/>                 
+            </apex:outputPanel>
+                     
+             <apex:variable var="index" value="{!1}"/>
+             <apex:pageBlockTable rendered="{!hierarchyCaseFilters.size>0}" value="{!hierarchyCaseFilters}" var="filter">
+                 <apex:column headerValue="{!$ObjectType.Case.Fields.SBU__c.Label}">
+                     <apex:inputField value="{!filter.SBU__c}">
+                         <apex:actionSupport event="onchange" reRender="reportingHierarchySection"/>
+                     </apex:inputField>
+                 </apex:column>
+                 <apex:column headerValue="{!$ObjectType.Case.Fields.Group__c.Label}">
+                     <apex:inputField value="{!filter.Group__c}">
+                         <apex:actionSupport event="onchange" reRender="reportingHierarchySection"/>
+                     </apex:inputField>
+                 </apex:column>
+                 <apex:column headerValue="{!$ObjectType.Case.Fields.Business_Unit_Bottling_Company__c.Label}">
+                     <apex:inputField value="{!filter.Business_Unit_Bottling_Company__c}">
+                         <apex:actionSupport event="onchange" reRender="reportingHierarchySection"/>
+                     </apex:inputField>
+                 </apex:column>  
+                 <apex:column headerValue="{!$ObjectType.Case.Fields.Location_Function__c.Label}">
+                     <apex:inputField value="{!filter.Location_Function__c}">
+                         <apex:actionSupport event="onchange" reRender="reportingHierarchySection"/>
+                     </apex:inputField>
+                 </apex:column>                  
+                 <apex:column >
+                     <apex:commandLink style="font-weight:bold;text-decoration:none"  value="X" action="{!DeleteHierarchyFilter}" reRender="reportingHierarchySection">
+                         <apex:param value="{!index-1}" name="Index" assignTo="{!CurrentFilterIndex}"/>
+                     </apex:commandLink>
+                     <apex:variable var="index" value="{!index + 1}"/>
+
+                 </apex:column>                                                 
+             </apex:pageBlockTable>           
+        </apex:pageBlockSection>               
+        </apex:outputPanel>        
+    
+    
+
+    
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

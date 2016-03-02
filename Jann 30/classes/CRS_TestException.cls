@@ -1,0 +1,1 @@
+public with sharing class CRS_TestException extends Exception {}

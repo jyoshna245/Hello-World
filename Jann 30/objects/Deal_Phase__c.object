@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>where the Deal phase is kept</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Deal__c</fullName>
+        <externalId>false</externalId>
+        <label>Deal</label>
+        <referenceTo>Deal__c</referenceTo>
+        <relationshipLabel>Deal Phases</relationshipLabel>
+        <relationshipName>Deal_Phases</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Optional_Attachment__c</fullName>
+        <externalId>false</externalId>
+        <label>Optional Attachment</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Deal Team Contacts</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Assessment of Gov&apos;t &amp; PR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Anti-Trust &amp; REsolution Plan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PR &amp; Communication Plan (PAC/iR)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Accounting Research Footnotes/Notes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Target/Strategic Analysis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>8</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Phase_Complete__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Phase Complete</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Phase__c</fullName>
+        <externalId>false</externalId>
+        <label>Phase</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Phase 1: Strategy &amp; Objectives</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 2: Evaluation of Target &amp; Business Case</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 3: Negotiation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 4: Due Diligence</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 5: Regulatory Approvals &amp; Pre-Closing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 6: Closing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 7: Integration &amp; Learnings</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Required_Attachments__c</fullName>
+        <externalId>false</externalId>
+        <label>Required Attachments</label>
+        <picklist>
+            <controllingField>Phase__c</controllingField>
+            <picklistValues>
+                <fullName>Authorization to Investigate (ATI/A&amp;D)</fullName>
+                <controllingFieldValues>Phase 1: Strategy &amp; Objectives</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Confidentiality Agreement(s)</fullName>
+                <controllingFieldValues>Phase 2: Evaluation of Target &amp; Business Case</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Information Request</fullName>
+                <controllingFieldValues>Phase 2: Evaluation of Target &amp; Business Case</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Valuation</fullName>
+                <controllingFieldValues>Phase 2: Evaluation of Target &amp; Business Case</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RFAN</fullName>
+                <controllingFieldValues>Phase 2: Evaluation of Target &amp; Business Case</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Engagement Letters/SOW</fullName>
+                <controllingFieldValues>Phase 2: Evaluation of Target &amp; Business Case</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LOI</fullName>
+                <controllingFieldValues>Phase 3: Negotiation</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RFA for 3rd Party Due Diligence</fullName>
+                <controllingFieldValues>Phase 4: Due Diligence</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Due Diligence Reports</fullName>
+                <controllingFieldValues>Phase 4: Due Diligence</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RFA</fullName>
+                <controllingFieldValues>Phase 5: Regulatory Approvals &amp; Pre-Closing</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Board Resolution</fullName>
+                <controllingFieldValues>Phase 5: Regulatory Approvals &amp; Pre-Closing</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Government Approvals</fullName>
+                <controllingFieldValues>Phase 5: Regulatory Approvals &amp; Pre-Closing</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Definitive Agreements</fullName>
+                <controllingFieldValues>Phase 6: Closing</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wire Transfer Confirmation</fullName>
+                <controllingFieldValues>Phase 6: Closing</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed Transaction Summary</fullName>
+                <controllingFieldValues>Phase 6: Closing</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Post Transaction Analysis</fullName>
+                <controllingFieldValues>Phase 7: Integration &amp; Learnings</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Integration Plans</fullName>
+                <controllingFieldValues>Phase 7: Integration &amp; Learnings</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Annual Impairment Testing</fullName>
+                <controllingFieldValues>Phase 7: Integration &amp; Learnings</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>8</visibleLines>
+    </fields>
+    <label>Deal Phase</label>
+    <nameField>
+        <displayFormat>DP-{00000}</displayFormat>
+        <label>Deal Phase Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Deal Phases</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

@@ -1,0 +1,37 @@
+<!-- Author          : Infosys    -->
+<!-- Date Created    : 22/12/2015 -->
+
+<apex:page tabStyle="RFA_DOA__c" standardController="RFA_DOA__c" extensions="RFA_VFC_DOAController" >
+      
+    <apex:form >    
+        
+    <apex:pageBlock id="Block">            
+        <apex:messages style="color:red"></apex:messages> 
+        
+            <apex:pageBlockSection columns="2">
+            <apex:pageblockSectionItem >
+                <apex:outputLabel value="Approver Level"/>
+                <apex:selectList size="1" value="{!selectedApproverLevel}" >
+                    <apex:selectOptions value="{!ApproverLevel}" />
+                    <apex:actionSupport event="onchange"  reRender="a,Block"  />
+                </apex:selectList>   
+            </apex:pageblockSectionItem> 
+                
+            <apex:pageblockSectionItem id="a">
+                <apex:outputLabel value="Approver Group"/>
+                <apex:selectList size="1" value="{!selectedApprovergroup}" id="a1" >
+                    <apex:selectOptions value="{!Approvergroup}"/>
+                    <apex:actionSupport event="onchange"  reRender="b,Block"  />
+                </apex:selectList>
+            </apex:pageblockSectionItem>   
+                              
+        </apex:pageBlockSection>   
+        
+         <apex:pageBlockButtons >
+            
+       <apex:commandbutton value="Edit" action="{!EditDOA}" />
+        </apex:pageBlockButtons>
+    </apex:pageBlock>         
+    </apex:form>
+     
+</apex:page>

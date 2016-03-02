@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>Custom lookups settings.</description>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>FieldLabels__c</fullName>
+        <description>Comma-separated list of field labels. Fill this field only if you want to override some field label. Use &apos;-&apos; (minus sign) as a placeholder for fields with standard labels. For example, you have 4 fields and want to override the 3rd field label: &apos;-,-,MyLabel,-&apos;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Comma-separated list of field labels. Fill it only if you want to override some field label. Use &apos;-&apos; (minus sign) as a placeholder for fields with standard labels. For example, you have 4 fields and want to override the 3rd field label: &apos;-,-,MyLabel,-&apos;</inlineHelpText>
+        <label>Field Labels</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FieldNames__c</fullName>
+        <description>Comma-separated list of fields API names, eg. &apos;Name,MyCustomField__c&apos;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Comma-separated list of fields API names, eg. &apos;Name,MyCustomField__c&apos;</inlineHelpText>
+        <label>Fields</label>
+        <length>255</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HasActiveField__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Flag indicating that given object has custom field &apos;Active__c&apos;.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Flag indicating that given object has custom field &apos;Active__c&apos;.</inlineHelpText>
+        <label>Has Active Field</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>HasGvwFlag__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Has GVW Flag</label>
+        <type>Checkbox</type>
+    </fields>
+    <label>CRS Custom Lookup Settings</label>
+</CustomObject>

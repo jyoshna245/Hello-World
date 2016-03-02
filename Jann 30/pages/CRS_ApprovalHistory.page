@@ -1,0 +1,88 @@
+<apex:page StandardController="CRS__c" extensions="CRS_ApprovalHistoryController" id="thePage">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                 <apex:variable value="{!1}" var="ct"/>            
+                
+                 <!-- CSS goes in the document HEAD or added to your external stylesheet -->
+
+   <apex:form >
+                        <table style="position: fixed; top: 0; background: #F2F2F2;" width="100%">
+                             <tr>
+                                    <td colspan="2" style="width:30%">
+                                    <apex:outputtext style="color:black;font-weight: bold;" value="Tracking Number - {!crsTrackingNumber}"/>
+                                     </td>
+                                     <td style="text-align:left;">
+                                        <apex:commandLink target="_top" value="Recall Approval Request" action="{!Recall}" rendered="{!visible}" style="border:1px solid #C2C2C2; border-radius: 3px; text-decoration: none;font-weight:bold; font-size:95%; padding-left:5px;padding-right:5px;" />
+                                     </td>
+                                    <td style="text-align:right;padding-right:25px;">
+                                        
+                                        <apex:commandLink style="color:black;" value="Show Full History" action="{!goto}" target="_top" rendered="{!if(isRender, true, false)}"/>
+                                    </td>
+                             </tr>
+                            <apex:outputPanel rendered="{!if(isRender, false, true)}" style="width:80%">
+                            <tr>
+                                <td colspan="7" style="text-align:left;background: #F2F2F2;vertical-align: top;padding:5px; height:15px;border:1px solid #D7D7D7;">
+                                    <apex:outputtext rendered="{!if(isRender, false, true)}" style="color:black;" value="No records to display"/>
+                                 </td>
+                             </tr>
+                             </apex:outputPanel>
+                             </table>
+                             
+   
+                               
+                 <apex:outputPanel id="theResults" rendered="{!if(isRender, true, false)}">
+                             <table class ="list" border="0" cellspacing="0" cellpadding="0" id="table" width="100%" style="margin-top: 20px; border:1px solid #D7D7D7;">
+                                 <tr style="background: #F2F2F2; font-family: Arial,Helvetica,sans-serif;font-size: 95%; ">
+                                     <th style="border-right:1px solid #D7D7D7; border-top:1px solid #D7D7D7;"> Action </th>
+                                     <th style="border-right:1px solid #D7D7D7; border-top:1px solid #D7D7D7;"> Date </th>
+                                     <th style="border-right:1px solid #D7D7D7; border-top:1px solid #D7D7D7;"> Status </th>
+                                     <th style="border-right:1px solid #D7D7D7; border-top:1px solid #D7D7D7;"> Assign To </th>
+                                     <th style="border-right:1px solid #D7D7D7; border-top:1px solid #D7D7D7;"> Actual Approver </th>
+                                     <th style="border-right:1px solid #D7D7D7; border-top:1px solid #D7D7D7;"> Comments </th>
+                                     <th style="border-top:1px solid #D7D7D7;"> Overall Status</th>
+                                 </tr>
+                               <apex:repeat value="{!Results}" var="r" id="repeat">
+                                <apex:repeat value="{!r.StepsAndWorkitems}" var="st">
+                                 <tr class="tertiaryPalette extraRow" width="100%">
+                                 <td colspan="7" >
+                                    <apex:outputpanel rendered="{!st.StepStatus='Started'}">
+                                        <apex:outputtext value="Approval Request Submitted" style="color:white;font-weight: bold;width:195px;"/>
+                                    </apex:outputpanel> 
+                                    <apex:outputpanel rendered="{!NOT(st.StepStatus='Started')}">
+                                                <apex:outputtext style="color:white;font-weight: bold; float:left;" value="{!LEFT(r.ProcessDefinition.name,5)}" />
+                                            
+                                                <apex:outputpanel style="background-color: #FF8585;font-weight: bold; float: right; padding-right:5px;" rendered="{!r.status = 'Rejected' && crsstatus != 'Abandoned'}"><img src="/img/icon/reject12.gif" alt="" class="extraStatus" title="" /><apex:outputField value="{!r.status}"/></apex:outputpanel>   
+                                                <apex:outputpanel style="background-color: #B8FF94;font-weight: bold; float: right; padding-right:5px;" rendered="{!r.status = 'Approved'}"><img src="/img/icon/approve12.gif" alt="" class="extraStatus" title="" /><apex:outputField value="{!r.status}"/></apex:outputpanel>  
+                                                <apex:outputpanel style="background-color: #FFDA47;font-weight: bold; float: right; padding-right:5px;" rendered="{!r.status = 'Pending'}"><img src="/img/icon/pending12.gif" alt="" class="extraStatus" title="" /><apex:outputField value="{!r.status}"/></apex:outputpanel>
+                                                <apex:outputpanel style="background-color: #787878;font-weight: bold; float: right; padding-right:5px;" rendered="{!r.status = 'Rejected' && crsstatus = 'Abandoned'}"><img src="/img/icon/recall12.gif" alt="" class="extraStatus" title="" /><apex:outputText value="Adandoned"/></apex:outputpanel> 
+                                                <apex:outputpanel style="background-color: #787878;font-weight: bold; float: right; padding-right:5px;" rendered="{!r.status = 'Removed'}"><img src="/img/icon/recall12.gif" alt="" class="extraStatus" title="" /><apex:outputText value="Recalled"/></apex:outputpanel>    
+                                    </apex:outputpanel>
+                                 </td>
+                                 
+                                  </tr>
+                                    <tr style="width:100%">
+                                        <td width="25%">
+                                        <apex:commandLink target="_top" style="color:#005C99; text-decoration: none;" value="Re-send" id="Re-sendLink" title="Resend notification to approvers" rendered="{!st.StepStatus='Pending' && isShowResendLink}" action="/apex/CRS_CRSResendMessage?idCRS={!CRS__c.id}"/>  &nbsp; 
+                                        <apex:outputText rendered="{!st.StepStatus='Pending' && isShowResendLink}">|</apex:outputText>&nbsp;
+                                        <apex:commandLink target="_top" style="color:#005C99; text-decoration: none;" value="Approve / Reject" title="Approve / Reject Record" id="ApproveLink" rendered="{!st.StepStatus='Pending' && isShowApproveLink}" action="{!approveRj}"  /> 
+                                           
+                                        </td>
+                                        <td width="10%"><apex:outputField value="{!st.SystemModStamp}"/>  </td>
+                                        <td width="5%">
+                                            <apex:outputText value="Abandoned" rendered="{!crsstatus = 'Abandoned' && st.StepStatus ='Rejected'}"/> 
+                                            <apex:outputField value="{!st.StepStatus}" rendered="{!NOT(crsstatus = 'Abandoned' && st.StepStatus ='Rejected')}" />
+                                        </td>
+                                        <td width="15%"><apex:outputField value="{!st.OriginalActorId}"/> </td>
+                                        <td width="15%"><apex:outputField value="{!st.ActorId}"/></td>
+                                        <td width="30%"><apex:outputField styleClass="myClass" value="{!st.Comments}"/></td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </apex:repeat> 
+                                 
+                                   </apex:repeat>  
+                             </table> 
+                    </apex:outputpanel>
+
+                             
+                      <apex:variable var="ct" value="{!ct+1}"/>
+     </apex:form>            
+</apex:page>

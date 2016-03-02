@@ -1,0 +1,12 @@
+<apex:page contentType="application/vnd.ms-excel#{! filename}" controller="GS1_SelToExcelCtrl" cache="true" standardStylesheets="false" sidebar="false" showHeader="false">
+	<head>
+		<style>
+			a {
+				color:black;
+			}
+		</style>
+	</head>
+    <div>
+        <apex:outputText escape="false" value="{! html}" id="resultListBlock" />
+    </div>
+</apex:page>

@@ -1,0 +1,3 @@
+<apex:page standardController="CRS_ContentWrapper__c" extensions="CRS_ContentWrapperDeleteController" action="{!deleteRecord}" >
+    <apex:pageMessages />
+</apex:page>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>24.0</apiVersion>
+    <description>RFA R1 - Visulaforce Page to display the Completion Memo to the User to send it out via email</description>
+    <label>RFA_VFP04_CompletionMemo</label>
+</ApexPage>

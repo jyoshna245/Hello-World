@@ -1,0 +1,20 @@
+<apex:page standardController="RFA__c" >
+    <apex:includeScript value="/soap/ajax/15.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/15.0/apex.js"/>
+    <script language="JavaScript">
+    
+    function open_new_window() { 
+    try
+    {  
+     var rfalist1= sforce.connection.query('SELECT BusinessCaseGuideline__c FROM RFA__c WHERE Id = \'{!RFA__c.Id}\' ');
+     alert(rfalist1.records.BusinessCaseGuideline__c);        
+    }
+    catch (error)
+    {
+        alert(error.faultstring);
+    }
+    }  
+    </script> 
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <apex:outputlabel value="Business Case GuideLines" style="font-size:11px;font-weight:bold;"></apex:outputlabel> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="#" onclick="open_new_window()" > Link To Business Case Guideline</a><br></br>
+ </apex:page>

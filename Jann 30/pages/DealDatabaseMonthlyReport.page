@@ -1,0 +1,185 @@
+<apex:page controller="DealDatabaseMonthlyReport" contentType="application/msword#MonthlyReport.doc" standardStylesheets="false" cache="true" showHeader="false">
+<!-- contentType="application/msword#MonthlyReport.doc" -->
+
+
+<style>
+  th{
+  background-color: #BEBEBE;
+  font-size:13px;
+  }
+  td{
+
+  font-size:13px;
+  vertical-align: top;
+  }
+  @page Section1 {mso-footer:f1;
+  mso-header:f2;}
+
+  div.Section1{page:Section1;}
+  p.MsoFooter, li.MsoFooter, div.MsoFooter{
+      mso-pagination:widow-orphan;
+      tab-stops:center 216.0pt right 432.0pt;
+  }
+  /*Below is the style to prevent the repetition of header and Footer..*/
+ table#hrdftrtbl{
+     margin:0in 0in 0in 9in;
+ }
+ .smallTd{
+ width:10px;
+ }
+ .largeTd{
+ width:200px;
+ }
+
+</style>
+
+
+    <div class="Section1">
+    <div >
+    <apex:outputPanel rendered="{!IF(listOfImage.size > 1,true,false)}">
+    <img src="{!currentURL}/servlet/servlet.ImageServer?id={!listOfImage[0].id}
+           &oid={!$Organization.Id}"
+          width="650" height="100"/>
+          <br/><br/><br/><br/>
+
+   <apex:image value="{!currentURL}/servlet/servlet.ImageServer?id={!listOfImage[1].id}
+           &oid={!$Organization.Id}"  width="500" height="500" />
+    <br clear="all" style="page-break-after:always;" />
+    </apex:outputPanel>
+    </div>
+
+    <apex:repeat value="{!listOfGroup}" var="group" >
+      <table width="100%">
+        <tr><td style="text-align:center;font-size: 25px;font-weight:bold;">
+        <apex:outputText value="{0,date,MMMM', 'yyyy}">
+                      <apex:param value="{!Today()}" />
+                  </apex:outputText>
+                  <br/>
+          <div style="font-size: 20px;font-weight:bold;">{!group}</div>
+
+        </td></tr>
+        <tr>
+          <td>
+             <apex:repeat value="{!mapOfGroupAndType[group]}" var="type">
+               <table width="100%">
+                 <tr><td style="font-size: 15px;font-weight:bold;color:{!IF(type='BRAND','blue',IF(type='BOTTLER','red','green'))}">{!type}</td></tr>
+                 <tr>
+                   <td>
+
+                       <table border="1" cellspacing="0" cellpadding="2" width="100%">
+
+                        <tr>
+                            <th style="width:110px;">Project Name</th>
+                            <th style="width:110px;">Estimated USD</th>
+                            <th style="width:110px;">Project Manager</th>
+                            <th style="width:300px;">Deal Description and Objectives</th>
+                            <th style="width:120px;">Close Date</th>
+                            <th style="width:300px;">Deal Status</th>
+                        </tr>
+                        <apex:repeat value="{!mapOfDeal[group+type]}" var="dealRecord">
+                        <tr style="background-color:{!IF(MONTH(dealRecord.Open_Date__c) = MONTH(TODAY())
+                                  && YEAR(dealRecord.Open_Date__c)= YEAR(TODAY()),'yellow','')}">
+                            <td style="width:110px;"> {!dealRecord.Name} </td>
+                            <td style="width:110px;">
+                                <apex:outputText value="{0,Number,###,###,##0}">
+                                    <apex:param value="{!dealRecord.Estimated_USD__c}" />
+                                </apex:outputText>
+
+                            </td>
+                            <td style="width:110px;"> {!dealRecord.Project_Manager__c} </td>
+                            <td style="width:300px;"> {!dealRecord.Deal_Description_Objectives__c} </td>
+                            <td style="width:120px;">
+                            <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                <apex:param value="{!dealRecord.Close_Date__c}" />
+                            </apex:outputText>
+                            </td>
+                            <td style="width:300px;"> {!dealRecord.Current_Status__c}</td>
+                        </tr>
+                        </apex:repeat>
+                       </table>
+                       <br/>
+                       <br/>
+                   </td>
+                 </tr>
+               </table>
+               <br/>
+               <br/>
+             </apex:repeat>
+          </td>
+        </tr>
+      </table>
+       <br clear="all" style="page-break-before:always;" />
+    </apex:repeat>
+    <apex:outputPanel rendered ="{!IF(listOfClosedProject.size > 0,true,false)}">
+      <table width="100%">
+      <tr><td style="text-align:center;font-size: 25px;font-weight:bold;"> Closed Projects - YTD </td></tr>
+      <tr>
+         <td>
+             <table border="1" cellspacing="0" cellpadding="5" width="100%">
+              <tr>
+                  <th>Project Name</th>
+                  <th>Deal Description and Objectives</th>
+                  <th>Close Date</th>
+
+              </tr>
+               <apex:repeat value="{!listOfClosedProject}" var="dealRecord">
+              <tr >
+                  <td > {!dealRecord.Name} </td>
+                  <td> {!dealRecord.Deal_Description_Objectives__c} </td>
+                  <td>
+                  <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                      <apex:param value="{!dealRecord.Close_Date__c}" />
+                  </apex:outputText>
+                  </td>
+
+              </tr>
+              </apex:repeat>
+             </table>
+             <br/>
+             <br/>
+         </td>
+      </tr>
+    </table>
+   </apex:outputPanel>
+   <apex:outputPanel rendered ="{!IF(listOfClosedProject.size > 0,false,true)}">
+      <table width="100%">
+      <tr><td style="text-align:center;font-size: 25px;font-weight:bold;"> Closed Projects - YTD </td></tr>
+      <tr><td style="font-size: 15px;font-weight:bold;">No records for Closed project </td></tr>
+      </table>
+      </apex:outputPanel>
+      <!--Header and Footer Starts-->
+                <table id='hrdftrtbl' border='1' cellspacing='0' cellpadding='0'>
+                    <tr>
+                        <td>
+                            <!--Header-->
+                            <div style='mso-element:header' id="h1" >
+                                <p class="MsoHeader">
+
+                                </p>
+                            </div>
+                        </td>
+
+                        <td>
+                            <!--Footer-->
+                            <div style='mso-element:footer' id="f1">
+                                <p class="MsoFooter">
+        <table width="100%">
+            <tr>
+              <td style="width:30%;text-align: left;vertical-align: bottom;">
+              <span>
+              <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                  <apex:param value="{!Today()}" />
+              </apex:outputText> </span>
+              </td>
+              <td style="width:40%;text-align: center;vertical-align: bottom;"><span >CLASSIFIED: "Highly Confidential"</span></td>
+              <td  style="text-align: right;"><span style='mso-tab-count:2'></span>Page <span style='mso-field-code:" PAGE "'></span> of <span style='mso-field-code:" NUMPAGES "'></span>
+              </td>
+            </tr>
+          </table>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+    </div>
+</apex:page>

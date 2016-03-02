@@ -1,0 +1,135 @@
+<apex:page controller="CRS_LookupSingleSelectController" showHeader="false" sidebar="false">
+<script type="text/javascript">
+    function handleKey(ev) {
+        //Do searh on Enter key pressed.
+        if (window.event && window.event.keyCode == 13 || ev.which == 13) {
+            doSearch();
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>
+<apex:pageMessages id="messages"/>
+<apex:form id="lookupForm">
+    <span style="font-size:22px; display:inline-block; padding-top:10px; padding-bottom:10px; padding-left:15px;">
+        <h1><apex:outputText value="{!objectLabel} {!$Label.CRS_Lookup}"/></h1>
+    </span>
+
+    <apex:actionFunction name="doSearch" action="{!search}" rerender="txtSearch,pnlSearchResults,messages"/>
+
+<apex:tabPanel switchType="client">
+<apex:tab label="{!$Label.CRS_Search}" >
+
+    <apex:outputPanel id="top" layout="block" style="margin:5px;padding:10px;padding-top:2px;">
+        <apex:inputText id="txtSearch" value="{!searchString}" onkeydown="return handleKey(event);"/>
+        <span style="padding-left:5px">
+            <apex:commandButton value="{!$Label.CRS_Go}" action="{!search}" rerender="txtSearch,pnlSearchResults,messages" />
+        </span>
+    </apex:outputPanel>
+
+    <apex:outputPanel id="pnlSearchResults" style="margin:10px;overflow-Y:auto;" layout="block">
+        <apex:pageBlock id="searchResults">
+            <apex:outputPanel rendered="{!resultSize == 0}">{!$Label.CRS_empty_search_result}<br/></apex:outputPanel>
+            <apex:pageBlockTable value="{!results}" var="record" rendered="{!resultSize > 0}" id="resultsGrid" style="font-size:10px;">
+                <apex:repeat value="{!displayFields}" var="fieldName">
+                    <apex:column rendered="{!fieldName != 'Id'}" style="padding-top:2px;padding-bottom:2px;">
+                        <apex:facet name="header">
+                        <apex:outputpanel >
+                            <apex:variable var="sortDirSign" rendered="{!sortField==fieldName && sortDir=='ASC'}" value="▲" />
+                            <apex:variable var="sortDirSign" rendered="{!sortField==fieldName && sortDir=='DESC'}" value="▼" />
+                            <apex:variable var="sortDirSign" rendered="{!sortField!=fieldName}" value="" />
+                            <apex:variable var="sortDirText" rendered="{!sortField==fieldName && sortDir=='ASC'}" value="{!$Label.CRS_Sorted_ascending}"/>
+                            <apex:variable var="sortDirText" rendered="{!sortField==fieldName && sortDir=='DESC'}" value="{!$Label.CRS_Sorted_descending}"/>
+                            <apex:variable var="sortDirText" rendered="{!sortField!=fieldName}" value="{!$Label.CRS_Click_to_sort_ascending}"/>
+                            <apex:commandLink action="{!sort}" value="{!fieldLabels[fieldName]} {!sortDirSign}" title="{!fieldLabels[fieldName]} {!sortDirText}" rerender="pnlSearchResults,messages" >
+                                <apex:param name="sortField" value="{!fieldName}" assignTo="{!sortField}"/>
+                            </apex:commandlink>
+                            </apex:outputpanel>
+                        </apex:facet>
+                        <apex:outputText value="{!record[fieldName]}" rendered="{!fieldName != 'Name'}"/>
+                            <apex:outputLink rendered="{!fieldName == 'Name'}" value="javascript:void(0)" 
+                                    onclick="top.window.opener.lookupPick2('{!FormTag}','{!TextBox}_lkid','{!TextBox}','{!record['Id']}','{!JSENCODE(record[fieldName])}',false)">{!record[fieldName]}</apex:outputLink>
+                    </apex:column>
+                </apex:repeat>
+            </apex:pageBlockTable>
+
+            <apex:outputPanel layout="block" rendered="{!totalPages > 1}" styleClass="bottomNav" style="border-color: #E0E3E5; border-style: solid; border-width: 1px; background-color: #F2F3F3; padding: 7px; height: 18px;">
+                <div class="paginator">
+                    <span class="left">
+                        <apex:selectList value="{!pageSize}" size="1" style="margin: 0px; font-size: 12px;">
+                            <apex:selectOption itemValue="10"/>
+                            <apex:selectOption itemValue="25"/>
+                            <apex:actionSupport event="onchange" rerender="pnlSearchResults,messages" />
+                        </apex:selectList>
+                        {!$Label.CRS_Records_per_page}
+                    </span>
+                    <span class="prevNextLinks">
+                        <apex:outputPanel styleClass="prevNext" rendered="{!hasPrevious}">
+                            <apex:commandLink action="{!first}" rerender="pnlSearchResults,messages" ><img src="/s.gif" title="First Page" alt="First Page" class="first"/></apex:commandlink>
+                        </apex:outputPanel>
+                        <apex:outputPanel styleClass="prevNext" rendered="{!!hasPrevious}"><img src="/s.gif" class="firstoff"/></apex:outputPanel>
+
+                        <apex:outputPanel styleClass="prevNext" rendered="{!hasPrevious}">
+                            <apex:commandLink action="{!previous}" rerender="pnlSearchResults,messages" ><img src="/s.gif" title="Previous" alt="Previous" class="prev"/>{!$Label.CRS_Previous}</apex:commandlink>
+                        </apex:outputPanel>
+                        <apex:outputPanel styleClass="prevNext" rendered="{!!hasPrevious}"><img src="/s.gif" class="prevoff"/>{!$Label.CRS_Previous}</apex:outputPanel>
+
+                        <apex:outputPanel styleClass="prevNext" rendered="{!hasNext}">
+                            <apex:commandLink action="{!next}" rerender="pnlSearchResults,messages" >{!$Label.CRS_Next}<img src="/s.gif" title="Next" alt="Next" class="next"/></apex:commandlink>
+                        </apex:outputPanel>
+                        <apex:outputPanel styleClass="prevNext" rendered="{!!hasNext}">{!$Label.CRS_Next}<img src="/s.gif" class="nextoff"/></apex:outputPanel>
+
+                        <apex:outputPanel styleClass="prevNext" rendered="{!hasNext}">
+                            <apex:commandLink action="{!last}" rerender="pnlSearchResults,messages" ><img src="/s.gif" title="Last Page" alt="Last Page" class="last"/></apex:commandlink>
+                        </apex:outputPanel>
+                        <apex:outputPanel styleClass="prevNext" rendered="{!!hasNext}"><img src="/s.gif" class="lastoff"/></apex:outputPanel>
+                    </span>
+                    <span class="right">{!$Label.CRS_Page}<apex:inputText styleClass="pageInput" maxlength="4" value="{!pageNumberTxt}">
+                        <apex:actionSupport event="onchange" rerender="pnlSearchResults,messages" />
+                    </apex:inputText>{!$Label.CRS_Of} {!totalPages}</span>
+                </div>
+            </apex:outputPanel>
+            <br/>
+            <apex:commandButton value="{!$Label.CRS_Close}" onclick="self.close();"/>
+        </apex:pageBlock>
+
+        <!-- Info for debug purposes.-->
+        <apex:panelGrid columns="1" id="debugInfo" rendered="false">
+            <apex:outputText >Page number: {!pageNumberTxt}</apex:outputText>
+            <apex:outputText >Page size: {!pageSize}</apex:outputText>
+            <apex:outputText >Result size: {!resultSize}</apex:outputText>
+            <apex:outputText >Total Pages: {!totalPages}</apex:outputText>
+            <apex:outputText >Sort Field: {!sortField}</apex:outputText>
+            <apex:outputText >Sort Direction: {!sortDir}</apex:outputText>
+        </apex:panelGrid>
+    </apex:outputPanel>
+</apex:tab>
+
+<apex:tab label="Add New" rendered="{!objectType == 'CRS_CRS_Product__c'}">
+    <apex:pageBlock >
+        <apex:pageBlockSection columns="1">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.CRS_CRS_Product__c.fields.Beverage_Product_Name__c.label}"/>
+                <apex:inputText value="{!inputProductName}" style="width:480px;"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.CRS_Add_Branded_Product}"/>
+                    <apex:image value="/s.gif" alt="{!$Label.CRS_CokeBranded_Product_HelpText}" styleClass="helpOrb" title="{!$Label.CRS_CokeBranded_Product_HelpText}"
+                    style="position:static;"/>
+                </apex:pageBlockSectionItem>
+                <apex:selectList value="{!inputKOProduct}" size="1">
+                    <apex:selectOption itemLabel="--None--" itemValue=""/>
+                    <apex:selectOption itemValue="Yes"/>
+                    <apex:selectOption itemValue="No"/>
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:commandButton value="Submit" action="{!submitProduct}"/>
+        <apex:commandButton value="{!$Label.CRS_Close}" onclick="self.close();"/>
+    </apex:pageBlock>
+</apex:tab>
+</apex:tabPanel>
+</apex:form>
+</apex:page>

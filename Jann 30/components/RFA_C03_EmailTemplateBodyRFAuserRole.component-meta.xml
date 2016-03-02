@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>24.0</apiVersion>
+    <description>Custom component contains Email body attributes. Note: This custom component must be used in VF template with related To set to &quot;RFAUserRole__c&quot;</description>
+    <label>RFA_C03_EmailTemplateBodyRFAuserRole</label>
+</ApexComponent>

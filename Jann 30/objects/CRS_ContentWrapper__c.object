@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <content>CRS_ContentWrapperDelete</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>CRS_ContentWrapperEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>CRS__c</fullName>
+        <externalId>false</externalId>
+        <label>CRS</label>
+        <referenceTo>CRS__c</referenceTo>
+        <relationshipLabel>CRS Attachments</relationshipLabel>
+        <relationshipName>CRS_Attachments</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Document_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Document Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Draft .Supplemental</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Draft Document</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Draft Dossier</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Final .Supplemental</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Final Document</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Final Dossier</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Current Review</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>FileId__c</fullName>
+        <externalId>false</externalId>
+        <label>FileId</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Filename__c</fullName>
+        <externalId>false</externalId>
+        <label>Filename</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Link__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(FileId__c, Filename__c , &apos;_blank&apos;)</formula>
+        <label>Title</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>CRS Attachment</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>CRSAttach{000000}</displayFormat>
+        <label>Attachment Wrapper Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>CRS Attachments</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>Refresh</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Refresh Attachments</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/26.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/26.0/apex.js&quot;)}
+
+var code = parseInt(sforce.apex.execute(&quot;CRS_ContentWrapperHelper&quot;,&quot;syncCRSWrappers&quot;, {id:&quot;{!CRS__c.Id}&quot;}));
+
+switch(code) {
+  case 0:
+    parent.location.reload(true);
+    break;
+  case 1:
+    alert(&apos;Can\&apos;t synchronize attachments because parent record is locked.&apos;);
+    break;
+  case 2:
+    alert(&apos;Exception during attachments synchronization. Please contact your administrator.&apos;);
+    break;
+  case 3:
+    alert(&apos;There are no new files to be synchronized.&apos;);
+    break;
+  default:
+    alert(&apos;Unknown result. Please contact your administrator.&apos;);
+}</url>
+    </webLinks>
+</CustomObject>

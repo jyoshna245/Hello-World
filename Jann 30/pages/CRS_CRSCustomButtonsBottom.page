@@ -1,0 +1,145 @@
+<apex:page standardController="CRS__c" extensions="CRS_CRSCustomButtons" showHeader="false" sidebar="false">
+  
+  <apex:form >
+    
+   <div>
+   <table width="100%">
+   <tr>
+   <td style="width:30%;">&nbsp;
+   </td>
+   <td style="padding-left:5px;">
+        <table border="0" cellpadding="0" cellspacing="0">
+       <tbody>
+         <tr>
+           <td >
+            <apex:commandButton value="Submit for Approval"  rendered="{!showSubmitForApprovalButton}" onclick="submitForApproval();" >
+            </apex:commandButton>
+            <apex:commandButton value="Move to Review" rendered="{!showReviewButton}" onclick="moveToReview();" >
+            </apex:commandButton>
+            <apex:commandButton value="Abandon" rendered="{!showAbandonDisapproveButtons}" onclick="abandon();" >
+            </apex:commandButton>
+            <apex:commandButton value="Disapprove" rendered="{!showAbandonDisapproveButtons}" onclick="disapprove();" >
+            </apex:commandButton>
+            <apex:commandButton value="Reactivate" rendered="{!showReactivateButtons}" onclick="reactivate();" >
+            </apex:commandButton>
+            <apex:commandButton value="Obsolete" rendered="{!showObsoleteButtons}" onclick="obsolete();" >
+            </apex:commandButton>
+           </td>
+         </tr>
+       </tbody>
+    </table>
+   </td>
+   </tr>
+   </table>
+
+  </div>  
+    
+    
+    <script type='text/javascript' src='/soap/ajax/26.0/connection.js'></script>
+    <script type='text/javascript' src='/soap/ajax/26.0/apex.js'></script>
+    <script type='text/javascript' src='{!$Resource.jQuery}'></script>
+    <script type='text/javascript'>
+    
+    sforce.connection.sessionId = "{!$Api.Session_ID}";
+    var crsId='{!crsId}';
+    var j$ = jQuery.noConflict();
+    
+    function PageRefreshMoveToReview(){
+        window.top.location.href='/{!reviewId}';
+      }
+      function PageRefresh(){
+        window.top.location.href='/{!crsId}';
+      }
+      
+   
+    function submitForApproval(){
+            var result1= sforce.apex.execute("CRS_Approval","prepareForApproval",{crsId: crsId}); 
+            if (result1[0].indexOf('error') != -1){ 
+              var errMsg = result1[0].substr(6); 
+              //$('.pbError').html('Error: Cannot start Approval Process. '<br>+errMsg).show(); 
+              alert('Error: Cannot start Approval Process. \n'+errMsg);
+             }else{ 
+                  var result2 = sforce.apex.execute("CRS_Approval","submitForApproval", {crsId: '{!CRS__c.Id}', groupId: result1}); 
+                  if (result2[0].indexOf('error') != -1){ 
+                         var errMsg = result2[0].substr(6); 
+                         //$('.pbError').html('Error: Cannot start Approval Process. <br>'+errMsg).show();
+                         alert('Error: Cannot start Approval Process.\n' +errMsg); 
+                  } 
+                  else { 
+                           
+                           window.top.location.href='/{!crsId}';
+                  } 
+                       
+       }
+        
+    }
+      
+    function moveToReview(){
+        var abc=confirm('Review process will disable CRS object and create a new CRS Review process for discussion.');
+        if(abc == true){
+            var result = sforce.apex.execute("CRS_CRSCustomButtons","MoveToReview",{crs: crsId}); 
+            if(result=true){
+            PageRefreshMoveToReview();
+            }
+                       
+        }
+        else if(abc==false){
+        }
+        
+    }
+    function abandon(){
+        var abc=confirm('Warning: Once Abandoned is chosen, CRS Status cannot be changed back to another value.');
+        if(abc == true){
+            var result = sforce.apex.execute("CRS_CRSCustomButtons","Abandon",{crs: crsId}); 
+            if(result=true){
+                PageRefresh();
+            }
+        }
+        else if(abc==false){
+        } 
+        
+    }
+    function disapprove(){
+        var abc=confirm('Warning: Once Disapproved is chosen, CRS Status cannot be changed back to another value.');
+        if(abc == true){
+            var result = sforce.apex.execute("CRS_CRSCustomButtons","Disapprove", {crs: crsId}); 
+            if(result=true){
+                PageRefresh();
+            }
+        }
+        else if(abc==false){
+        } 
+        
+    }
+    function reactivate(){
+        var abc=confirm('Are you sure you want to reactivate this record.');
+        if(abc == true){
+            var result = sforce.apex.execute("CRS_CRSCustomButtons","Reactivate", {crs: crsId}); 
+            if(result=true){
+                PageRefresh();
+            }
+        }
+        else if(abc==false){
+        } 
+        
+    }
+    function obsolete(){
+        var abc=confirm('Warning: Once Obsolete is chosen, CRS Status cannot be changed back to another value.');
+        if(abc == true){
+            var result = sforce.apex.execute("CRS_CRSCustomButtons","Obsolete", {crs: crsId}); 
+            if(result=true){
+                PageRefresh();
+            }
+        }
+        else if(abc==false){
+        } 
+        
+    }
+  </script>
+  
+ 
+  </apex:form>
+    
+ 
+  
+</apex:page>

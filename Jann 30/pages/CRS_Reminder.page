@@ -1,0 +1,20 @@
+<apex:page StandardController="CRS__c" extensions="CRS_Reminder">
+
+<script>
+
+window.document.onload = new function(e)
+{
+ 
+  if(({!CRS__c.Process_Flow__c == 'Full Review Non-Coke Branded Product'} || {!CRS__c.Process_Flow__c == 'Full Review & Notification'} ||{!CRS__c.Process_Flow__c == 'Full Review & Notification & PAC'} ||{!CRS__c.Process_Flow__c == ''}  || {!CRS__c.Process_Flow__c == 'Full Review Non-Coke Branded Product & PAC'} || {!CRS__c.Process_Flow__c == 'Full Review (for gvwCRS Only)'}) && ({!CRS__c.Internal_Status__c == 'Corporate SRA Approver'}) && ({!CRS__c.Status__c == 'In Process'})&& ({!CRS__c.Internal_Status2__c == 'Wait2'}) && ({!CRS__c.Additional_Submission_Required__c== ''}) && ({!CRS__c.Conditional_Approval_Required__c== ''})&&({!showAlertForCorpSRA} || {!showAlertForSysAdmin} || {!showAlertForBusinessAdmin}) )
+  {
+    alert("Please select Additional Submission Required, if applicable \nPlease select Conditional-Approval, if applicable ");
+  }
+  if(({!CRS__c.Process_Flow__c == 'Full Review Coke Branded Product'} || {!CRS__c.Process_Flow__c == 'Full Review Coke Branded Product & PAC'}) && ({!CRS__c.Internal_Status__c == 'Corp Formula Govern Approver'}) && ({!CRS__c.Status__c == 'In Process'})&& ({!CRS__c.Internal_Status2__c == 'Wait2'}) && ({!CRS__c.Additional_Submission_Required__c== ''}) && ({!CRS__c.Conditional_Approval_Required__c== ''}) &&({!showAlertForCorpFGD}  || {!showAlertForSysAdmin} || {!showAlertForBusinessAdmin}))
+  {
+    alert("Please select Additional Submission Required, if applicable \nPlease select Conditional-Approval, if applicable ");
+  }
+
+}
+</script>
+
+</apex:page>

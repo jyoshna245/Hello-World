@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>RFA_VFP_Approver</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>RFA_VFP_Approver</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>RFA_VFP_Approver</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This stores the Approver users list</description>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Approver_Group_Description__c</fullName>
+        <description>Approver Group Description</description>
+        <externalId>false</externalId>
+        <label>Approver Group Description</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approver_Group__c</fullName>
+        <description>Approver Group</description>
+        <externalId>false</externalId>
+        <label>Approver Group</label>
+        <length>150</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approver_Name__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Approver Name</description>
+        <externalId>false</externalId>
+        <label>Approver Name</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>RFA_Approver_Name</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Approver_Role__c</fullName>
+        <description>Approver Roles</description>
+        <externalId>false</externalId>
+        <label>Approver Role</label>
+        <picklist>
+            <picklistValues>
+                <fullName>ABC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Business_Unit__c</fullName>
+        <description>Business Unit name from Profit center</description>
+        <externalId>false</externalId>
+        <formula>Profit_Center__r.Business_Unit_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Business Unit</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Group__c</fullName>
+        <externalId>false</externalId>
+        <formula>Profit_Center__r.GroupName__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Group</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Key_Operation__c</fullName>
+        <description>Key Operation from Profit Center</description>
+        <externalId>false</externalId>
+        <formula>Profit_Center__r.KeyOperationName__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Key Operation</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Level__c</fullName>
+        <externalId>false</externalId>
+        <label>Level</label>
+        <picklist>
+            <picklistValues>
+                <fullName>KEYOP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BU</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GROUP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CORP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EXEC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sr EXEC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Profit_Center__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Profit Center</label>
+        <referenceTo>ProfitCenter__c</referenceTo>
+        <relationshipLabel>RFA Approvers</relationshipLabel>
+        <relationshipName>RFA_Approvers</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Sequence__c</fullName>
+        <externalId>false</externalId>
+        <label>Sequence</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>RFA Approver</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Level__c</columns>
+        <columns>Profit_Center__c</columns>
+        <columns>Approver_Role__c</columns>
+        <columns>Approver_Name__c</columns>
+        <columns>Sequence__c</columns>
+        <columns>Approver_Group__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>A-{0000}</displayFormat>
+        <label>RFA Approver Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>RFA Approvers</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>RFA_ApproverName_Required</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISBLANK( Approver_Name__c )</errorConditionFormula>
+        <errorMessage>Please Enter Approver Name</errorMessage>
+    </validationRules>
+</CustomObject>

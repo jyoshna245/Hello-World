@@ -1,0 +1,56 @@
+<apex:page standardcontroller="RFA_GroupApprover__c" extensions="RFA_VFC_AutoApprover">
+    <apex:sectionHeader title="Approver Group Edit" />
+    
+    <apex:form >
+    <!-- This section will be visible in New / Edit mode -->
+        <apex:pageBlock title="Information" rendered="{!!viewmode }">
+            <apex:pageBlockSection columns="2" showHeader="true"  >
+                 
+                <apex:inputField label="Level" value="{!RFA_GroupApprover__c.Level__c}" required="true" />
+                 <apex:inputField label="Approver Role" value="{!RFA_GroupApprover__c.Approver_Role__c}" required="true" />
+                <apex:inputField label="Approver Group" value="{!RFA_GroupApprover__c.Approver_Group__c}" required="true" />
+                <apex:inputField label="Approver Group Description" value="{!RFA_GroupApprover__c.Approver_Group_Description__c}" required="true" />
+                <apex:inputField label="Approver Name" value="{!RFA_GroupApprover__c.Approver_Name__c}" required="true" />
+        	   <apex:inputField label="Profit Center" value="{!RFA_GroupApprover__c.Profit_Center__c}" /> 
+                <apex:inputField label="Sequence" value="{!RFA_GroupApprover__c.Sequence__c}" required="true" />
+                
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!Save}" value="Save" />
+                <apex:commandButton action="{!Cancel}" value="Cancel" />
+            </apex:pageBlockButtons>
+        
+        </apex:pageBlock>
+        <!-- This section will be visible in Detail/view mode -->
+        <apex:pageBlock title="Information" rendered="{!viewmode }" >
+            <apex:pageBlockSection columns="2" showHeader="true"  >    
+            <apex:InlineEditSupport />                
+                <apex:outputField label="Level" value="{!RFA_GroupApprover__c.Level__c}" />                
+                <apex:outputField label="Approver Role" value="{!RFA_GroupApprover__c.Approver_Role__c}"/>
+                <apex:outputfield label="Approver Group" value="{!RFA_GroupApprover__c.Approver_Group__c}"/>                
+                <apex:outputField label="Approver Group Description" value="{!RFA_GroupApprover__c.Approver_Group_Description__c}" />                
+                <apex:outputField label="Approver Name" value="{!RFA_GroupApprover__c.Approver_Name__c}"/>              
+                 <apex:outputField label="Profit Center" value="{!RFA_GroupApprover__c.Profit_Center__c}"/>
+                <apex:outputField label="Sequence" value="{!RFA_GroupApprover__c.Sequence__c}"/>
+              </apex:pageBlockSection>
+            <apex:pageBlockButtons >   
+                <apex:commandButton action="{!Edit}" value="Edit" />             
+                <apex:commandButton action="{!Delete}" value="Delete" onclick="return confirm('Are you sure you want to delete this Group?');" />               
+            </apex:pageBlockButtons>        
+        </apex:pageBlock>
+        <!-- This section will be visible in edit mode
+        <apex:pageBlock title="Information" rendered="{!editmode && !!viewmode}" >
+            <apex:pageBlockSection columns="2" showHeader="true"  >            
+                <apex:InputField label="Level" value="{!Approver_Group__c.Level__c}" />                
+                <apex:InputField label="Approver Role" value="{!Approver_Group__c.Approver_Role__c}"/>                
+                <apex:InputField label="Approver Group Description" value="{!Approver_Group__c.Approver_Group_Description__c}" />
+                </apex:pageBlockSection>                 
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!Cancel}" value="Cancel" />
+            </apex:pageBlockButtons>
+        
+        </apex:pageBlock>  -->
+        
+    </apex:form>
+</apex:page>

@@ -1,0 +1,159 @@
+<apex:page tabStyle="RFA_DOA__c" standardController="RFA_DOA__c" extensions="RFA_VFC_DOAController" > 
+ <Style>
+    .OutputTextClass{font-weight: bold;}
+ </Style>
+    
+ 
+	<apex:form >
+      
+		<apex:pageblock title="{!$ObjectType.RFA_DOA__c.label} Edit" id="DOARec" rendered="{!IsEditMode==true}">
+          		
+            		<apex:pageblockbuttons >
+                   
+                        <apex:commandbutton value="Save" action="{!SaveDOA}"  rendered="{!IsEditMode==true}" />
+                        <apex:commandbutton value="Cancel" action="{!CancelDOA}"  rendered="{!IsEditMode==true}"/>
+					</apex:pageblockbuttons>
+            
+					 <apex:pageBlockSection title="Information" showheader="true" columns="1" id="GroupSec">
+                           <apex:messages style="color:red"></apex:messages> 
+                          <apex:pageblockSectionItem > 
+                        <apex:outputText value="Primary DOA Category (*)" styleClass="OutputTextClass" />
+                        <apex:selectList size="1" value="{!selectedDOACategory}"  rendered="{!IsEditMode==true}"  >
+                        <apex:selectOptions value="{!DOACategory}" />                     
+                        </apex:selectList>
+                        
+                         </apex:pageblockSectionItem>
+                         <apex:outputText value="{!selectedDOACategory}" rendered="{!IsEditMode==false}" />
+                        
+                          <apex:pageblockSectionItem > 
+                         <apex:outputText value="DOA Control Level (*)" styleClass="OutputTextClass"/>
+                    <apex:selectList size="1" value="{!selectedDOAControlLevel}"  rendered="{!IsEditMode==true}" >
+                        <apex:selectOptions value="{!DOAControlLevel}" />                     
+                    </apex:selectList>
+                         </apex:pageblockSectionItem>
+					 <apex:outputText value="{!selectedDOAControlLevel}"  rendered="{!IsEditMode==false}"/>
+					
+                        <apex:pageblockSectionItem > 
+                          <apex:outputText value="Approver Type (*)" styleClass="OutputTextClass"/>
+                         <apex:selectList size="1" value="{!selectedapproverType}"  rendered="{!IsEditMode==true}" >
+                             <apex:selectOptions value="{!approverType}" />                     
+                         </apex:selectList>  
+                         </apex:pageblockSectionItem>
+                         <apex:outputText value="{!selectedapproverType}"  rendered="{!IsEditMode==false}"/>   
+					
+                         
+					   <apex:pageblockSectionItem > 
+                         <apex:outputText value="Amount (Upper limit) (*)" styleClass="OutputTextClass" />
+					<apex:inputtext value="{!AmountUpperLimit}" rendered="{!IsEditMode==true}" />   
+                         </apex:pageblockSectionItem>
+                    <apex:outputtext value="{!AmountUpperLimit}" rendered="{!IsEditMode==false}" />
+                     
+                         <apex:pageblockSectionItem > 
+                      <apex:outputText value="Amount (Lower limit) (*)" styleClass="OutputTextClass"/>
+					<apex:inputtext value="{!AmountLowerLimit}" rendered="{!IsEditMode==true}"/>
+                              </apex:pageblockSectionItem>
+                     <apex:outputtext value="{!AmountLowerLimit}" rendered="{!IsEditMode==false}"/>
+					  
+                         
+                         
+					    
+                          
+                         <apex:pageblockSectionItem > 
+                             <apex:outputText value="Approver Level (*)" styleClass="OutputTextClass"/> 
+                        <apex:selectList size="1" value="{!selectedApproverLevel}" rendered="{!IsEditMode==true}">
+                            <apex:selectOptions value="{!ApproverLevel}" />   
+                            <apex:actionSupport event="onchange" action="{!getApproverGroups}"  reRender="GroupSec" />
+                        </apex:selectList>                          
+					    
+                         </apex:pageblockSectionItem>
+                           <apex:outputtext value="{!selectedApproverLevel}" rendered="{!IsEditMode==false}"/>
+                          
+                     
+                         <apex:pageBlockSectionItem id="a">
+                             <apex:outputText value="Approver Group " styleClass="OutputTextClass" />   
+                           	<apex:selectList size="1" value="{!selectedApprovergroup}" rendered="{!(Grpapprover)}">
+                        			<apex:selectOptions value="{!Approvergroup}" />                     
+                    		 </apex:selectList>                            
+                     </apex:pageBlockSectionItem>
+                           <apex:outputtext value="{!selectedApprovergroup}" rendered="{!IsEditMode==false}"/>
+                         
+                          <apex:pageBlockSectionItem >
+                          <apex:outputText value="Comments" styleClass="OutputTextClass" />   
+                         <apex:inputTextarea value="{!Comments}" required="false"  rendered="{!IsEditMode==true}" />
+                         
+                         </apex:pageBlockSectionItem>
+                       
+            </apex:pageBlockSection>
+				 
+            
+		</apex:pageblock>
+        
+        
+        <!-- This section will be visible in Detail/view mode -->
+<apex:pageblock id="DOARecView" rendered="{!IsEditMode==false}">
+            		<apex:pageblockbuttons >
+                
+                        <apex:commandbutton value="Edit" action="{!EditDOA}"  rendered="{!IsEditMode==false}" />
+                        <apex:commandbutton value="Delete" action="{!DeleteDOA}"  rendered="{!IsEditMode==false}" />
+                              
+					</apex:pageblockbuttons>
+            
+					 <apex:pageBlockSection title="Information" showheader="true" columns="1" id="GroupSec">
+                          <apex:pageblockSectionItem > 
+                        <apex:outputText value="Primary DOA Category" styleClass="OutputTextClass" />
+                         <apex:outputText value="{!selectedDOACategory}" rendered="{!IsEditMode==false}" />
+                         </apex:pageblockSectionItem>
+                        
+                        
+                          <apex:pageblockSectionItem > 
+							 <apex:outputText value="DOA Control Level" styleClass="OutputTextClass"/>
+							<apex:outputText value="{!selectedDOAControlLevel}"  rendered="{!IsEditMode==false}"/>
+                         </apex:pageblockSectionItem>
+					
+					
+                        <apex:pageblockSectionItem > 
+                          <apex:outputText value="Approver Type" styleClass="OutputTextClass"/>
+                         <apex:outputText value="{!selectedapproverType}"  rendered="{!IsEditMode==false}"/> 
+                         </apex:pageblockSectionItem>
+                          
+					
+                         
+					   <apex:pageblockSectionItem > 
+                         <apex:outputText value="Amount (Upper limit)" styleClass="OutputTextClass" />
+						<apex:outputtext value="{!AmountUpperLimit}" rendered="{!IsEditMode==false}" />
+                         </apex:pageblockSectionItem>
+                  
+                     
+                         <apex:pageblockSectionItem > 
+							<apex:outputText value="Amount (Lower limit)" styleClass="OutputTextClass"/>
+							<apex:outputtext value="{!AmountLowerLimit}" rendered="{!IsEditMode==false}"/>
+                        </apex:pageblockSectionItem> 
+					    
+                          
+                         <apex:pageblockSectionItem > 
+                             <apex:outputText value="Approver Level" styleClass="OutputTextClass"/> 
+                             <apex:outputtext value="{!selectedApproverLevel}" rendered="{!IsEditMode==false}"/>                  
+					    
+                         </apex:pageblockSectionItem>
+                           
+                         
+                          
+                     
+                     
+                         <apex:pageBlockSectionItem id="a">
+                             <apex:outputText value="Approver Group" styleClass="OutputTextClass" />
+							<apex:outputText value="{!selectedApprovergroup}"/>   							 
+						</apex:pageBlockSectionItem>
+                         
+                         <apex:pageBlockSectionItem >
+                         <apex:outputText value="comments" styleClass="OutputTextClass" />
+                       <apex:outputText value="{!Comments}"  />                    
+                         </apex:pageBlockSectionItem>
+                         
+            </apex:pageBlockSection>
+				 
+            
+		</apex:pageblock>
+	</apex:form>
+	 
+</apex:page>

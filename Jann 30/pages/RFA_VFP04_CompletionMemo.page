@@ -1,0 +1,190 @@
+<apex:page standardController="RFA__c" extensions="RFA_VFC04_CompletionMemoController" sidebar="false" showheader="false">
+
+    <script type="text/javascript">
+        //**********************http://pro-thoughts.blogspot.com/2006/10/incorrect-behavior-of-windowonblur.html******//
+        //********************** FIX FOR IE WINDOW.ONBLUR FUNCTION ***************************************************//
+        var active_element;
+        var bIsMSIE;
+
+        function initiateSelfClosing() {
+            if (navigator.appName == "Microsoft Internet Explorer") {
+                active_element = document.activeElement;
+                document.onfocusout = closeWnd;
+                bIsMSIE = true;
+            } else {
+                window.onblur = closeWnd;
+            }
+        }
+
+        function closeWnd() {
+            if (window.opener != null) {
+                if (bIsMSIE && (active_element != document.activeElement)) {
+                    active_element = document.activeElement;
+                }
+            } else {
+                window.close();
+            }
+        }
+
+        function window_Close(hasError) {
+            try {
+                if (window.opener && window.opener.parentReload) {
+                    if (hasError == false) {
+                        window.opener.parentReload();
+                    }
+                } else {
+                    window.close();
+                }
+            } catch (e) {
+                window.opener.parentReload();
+            }
+        }
+
+        function cancel_ParentRefresh() {
+            window.opener.parentReload();
+        }
+        window.onload = function () {
+            initiateSelfClosing();
+        }
+        
+    </script>
+    <apex:form >
+        <div style="bgcolor:#CCCCCC">
+            <apex:pageMessages id="pageMessage" />
+            <apex:pageBlock id="thepage2" rendered="{!NOT(hideOKButton)}">
+                <apex:pageBlockButtons location="top">
+                    <apex:commandButton style="align:center" value="    OK    " onClick="cancel_ParentRefresh();" />
+                </apex:pageBlockButtons>
+                <!-- Jyoshna code Start -->
+                <script>
+                window.onunload = function () {
+                    window.opener.parentReload();
+                }
+                </script>
+                <!-- Jyoshna code End -->
+            </apex:pageBlock>
+            <apex:pageBlock id="thepage" rendered="{!hideOKButton}">
+                <apex:pageBlockButtons >
+                    <!-- apex:commandButton value="Send" action="{!sendEmail}" rerender="pageMessage" onComplete="window_Close({!hasError})" / -->
+                    <apex:commandButton value="Send" action="{!sendEmail}" />
+                    <apex:commandButton value="Cancel" action="{!cancelSendEmail}" />
+                </apex:pageBlockButtons>
+                <apex:pageblockSection columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.RFA_CL045}" />
+                        <apex:repeat value="{!toList}" var="toLst">
+                            <apex:outputText value="{!toLst.Name}" />
+                            <br/>
+                        </apex:repeat>
+                        <!--<apex:selectList value="{!SelectableUsers}" size="3" multiselect="true">
+                        <apex:selectOptions value="{!SelectableUsers}"/>
+                    </apex:selectList>-->
+                        <!--  <c:RFA_C06_MultiselectPicklist leftLabel="Available Recipients" leftOptions="{!selectableRecipients}" rightLabel="Selected Recipients" rightOptions="{!selectedRecipients}" size="25" width="200px"/> -->
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <!-- <apex:outputLabel value="{!$ObjectType.RFA__c.fields.Business_Unit__c.Label}"/>
+                    <apex:outputField value="{!rfaObj.Business_Unit__c}" /> -->
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.RFA_CL047}" />
+                        <c:RFA_C06_MultiselectPicklist leftLabel="Available Recipients" leftOptions="{!selectableRecipients}" rightLabel="Selected Recipients" rightOptions="{!selectedRecipients}" size="25" width="200px" />
+                        <!-- <apex:inputTextArea value="{!selectedCCusers}" style="width: 60%"  rows="4" cols="150"/> -->
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{! NOT(isRFAPolicy)}">
+                        <apex:outputLabel value="{!$ObjectType.RFA__c.fields.Thefollowingitem__c.Label}" />
+                        <apex:outputPanel >
+                            <div class="{!IF(isRFAPolicy," ","requiredInput ")}">
+                                <!-- edited by mpascua 10-14-2013 -->
+                                <div class="requiredBlock"></div>
+                                <apex:inputField value="{!rfaObj.Thefollowingitem__c}" />
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.RFA__c.fields.RequestTitle__c.Label}" />
+                        <apex:outputField value="{!rfaObj.RequestTitle__c}" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection columns="2">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.RFA__c.fields.ControlNumber__c.Label}" />
+                        <apex:outputField value="{!rfaObj.ControlNumber__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{! NOT(isRFAPolicy)}">
+                        <!-- hide if PE - Roy Oct 16, 2013 -->
+                        <apex:outputLabel value="{!$ObjectType.RFA__c.fields.Functional_Currency__c.Label}" />
+                        <apex:outputText value="{!rfaObj.Functional_Currency__r.Name}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{! NOT(isRFAPolicy)}">
+                        <!-- hide if PE - Roy Oct 16, 2013 -->
+                        <apex:outputLabel value="{!$ObjectType.RFA__c.fields.RequestAmountUSD__c.Label}" />
+                        <apex:outputField value="{!rfaObj.RequestAmountUSD__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.RFA__c.fields.LocalReferenceNumber__c.Label}" />
+                        <apex:outputField value="{!rfaObj.LocalReferenceNumber__c}" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageblockSection>
+                <apex:pageBlockSection columns="1">
+                    <!-- NEw Requirement in defect log 47 RLC Feb 26 2014-->
+                    <apex:pageBlockSectionItem rendered="{! (isRFAPolicy)}">
+                        <!-- hide if Not PE - Roy Feb 26, 2014 -->
+                        <apex:outputLabel value="{!$ObjectType.RFA__c.fields.Expiration_Date__c.Label}" />
+                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                            <apex:param value="{!rfaObj.Expiration_Date__c}" />
+                        </apex:outputText>
+                        <!--<apex:outputText value="{!rfaObj.Expiration_Date__c}"/> -->
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{! (isRFAPolicy)}">
+                        <!-- hide if Not PE - Roy Feb 26, 2014 -->
+                        <apex:outputLabel value="{!$ObjectType.RFA__c.fields.Comments_aboutr__c.Label}" />
+                        <apex:outputText value="{!rfaObj.Comments_aboutr__c}" />
+                    </apex:pageBlockSectionItem>
+                    <!-- end of new requirement in defect log 47 RLC Feb 26 2014 -->
+                </apex:pageBlockSection>
+                <apex:pageBlockSection columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.RFA__c.fields.Theapprovalstatusofyourrequestis__c.Label}" />
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"></div>
+                                <apex:inputField value="{!rfaObj.Theapprovalstatusofyourrequestis__c}">
+                                    <apex:actionsupport event="onchange" reRender="thepage" />
+                                </apex:inputfield>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <!-- <apex:pageBlockSectionItem > -->
+                    <!-- commented below line so that it will accept Conditional and Unconditional approval comments ROY CASTILLO Jan 16, 2014 -->
+                    <apex:pageBlockSectionItem rendered="{!rfaObj.Theapprovalstatusofyourrequestis__c != $Label.RFA_CL057}">
+                        <!-- End of commented below line so that it will accept Conditional and Unconditional approval comments ROY CASTILLO Jan 16, 2014-->
+                        <apex:outputLabel value="{!$ObjectType.RFA__c.fields.CommentsConditions__c.Label}" />
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"></div>
+                                <apex:inputField id="cc" value="{!rfaObj.CommentsConditions__c}" style="width: 40%; height: 60;" />
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <!-- commented below line so that it will accept Conditional and Unconditional approval comments ROY CASTILLO Jan 16 2014-->
+                    <apex:pageBlockSectionItem rendered="{!rfaObj.Theapprovalstatusofyourrequestis__c == $Label.RFA_CL057}">
+                        <apex:outputLabel value="{!$ObjectType.RFA__c.fields.CommentsConditions__c.Label}" />
+                        <apex:inputField id="cc" value="{!rfaObj.CommentsConditions__c}" style="width: 40%; height: 60;" />
+                    </apex:pageBlockSectionItem>
+                    <!-- End of commented below line so that it will accept Conditional and Unconditional approval comments ROY CASTILLO Jan 16, 2014-->
+                    <!--Added by Joban to fix missing functionality for FR1.88 (Defect #176) on 10-June-2013 -->
+                    <apex:pageBlockSectionItem rendered="{! NOT(isRFAPolicy)}">
+                        <apex:outputLabel value="{!$ObjectType.RFA__c.fields.ApprovalLetterComments__c.Label}" />
+                        <apex:outputPanel >
+                            <div class="{!IF(isRFAPolicy," ","requiredInput ")}">
+                                <!-- edited by mpascua 10-14-2013 -->
+                                <div class="requiredBlock"></div>
+                                <apex:inputField value="{!rfaObj.ApprovalLetterComments__c}" />
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </div>
+    </apex:form>
+</apex:page>

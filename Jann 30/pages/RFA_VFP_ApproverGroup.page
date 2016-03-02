@@ -1,0 +1,128 @@
+<apex:page standardcontroller="Approver_Group__c" extensions="RFA_VFC_ApproverGroup">
+   <!-- <apex:sectionHeader title="Approver Group Edit" rendered="{!editmode}" />  -->
+    <apex:pageMessages rendered="{!FieldMsgs}" ></apex:pageMessages>
+   <apex:sectionHeader title="Approver Group" rendered="{!viewmode}" /> 
+    <apex:sectionHeader title="Approver Group Edit" rendered="{!!viewmode}" />        
+    <apex:form >
+    <!-- This section will be visible in New / Edit mode -->   
+        <apex:pageBlock rendered="{!!viewmode && !showmessage}">
+            <apex:pageBlockSection title="Information" columns="2" showHeader="true"  >
+                
+                
+                   <apex:pageblockSectionItem > 
+                        <apex:outputText value="Level"/>
+                        <apex:selectList size="1" value="{!selectedLevel}" required="true"   >
+                        <apex:selectOptions value="{!levels}"  />                     
+                        </apex:selectList> 
+                   </apex:pageblockSectionItem>
+                  
+                <!--
+                <apex:inputField label="Level" value="{!Approver_Group__c.Level__c}" required="true" />-->
+                
+                
+                      <apex:pageblockSectionItem > 
+                             <apex:Outputtext value="Approver Role" styleClass="OutputTextClass" />
+                            <apex:Inputtext value="{!selectedRole}"  />
+                         </apex:pageblockSectionItem>
+                
+             <!--   <apex:inputField label="Approver Role" value="{!Approver_Group__c.Approver_Role__c}" required="true" />-->
+               <!-- <apex:inputField label="Approver Group Description" value="{!Approver_Group__c.Approver_Group_Description__c}" required="true" />-->
+                  <apex:pageblockSectionItem > 
+                             <apex:Outputtext value="Approver Group Description" styleClass="OutputTextClass" />
+                            <apex:Inputtext value="{!selectedDescrip}"  />
+                         </apex:pageblockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!SaveGroup}" value="Save" />
+                <apex:commandButton action="{!Cancel}" value="Cancel" />
+            </apex:pageBlockButtons>
+        
+        </apex:pageBlock>
+        <!-- This section will be visible in Detail/view mode --> 
+       
+        <apex:pageBlock rendered="{!viewmode }" >
+            
+            <apex:pageBlockSection >
+            <apex:outputLink title="Back to Approver Groups list" 
+                     value="/a1k?fcf=00Bg00000016xof"
+                     rendered="{!viewmode}" style="font-family: 'Verdana','Geneva',sans-serif;
+  font-size: 91.3%;
+  margin-bottom: -15px;
+  height: 15px;
+  vertical-align: middle;color: #04B4AE;">
+                &lt;&lt;Back to list: Approver Groups
+            </apex:outputLink>
+            </apex:pageBlockSection> 
+            
+            <apex:pageBlockSection title="Information" columns="2" showHeader="true"  >  
+                
+          <!--  <apex:InlineEditSupport />                -->
+                <!--<apex:outputField label="Level" value="{!Approver_Group__c.Level__c}" />  
+                  --> 
+                          <apex:pageblockSectionItem > 
+                             <apex:outputText value="Level" styleClass="OutputTextClass"/>
+                            <apex:outputText value="{!selectedLevel}"  />
+                         </apex:pageblockSectionItem>  
+                
+                      <apex:pageblockSectionItem > 
+                             <apex:outputText value="Approver Role" styleClass="OutputTextClass"/>
+                            <apex:outputText value="{!selectedRole}"  />
+                         </apex:pageblockSectionItem> 
+                
+                <!-- <apex:outputField label="Approver Role" value="{!Approver_Group__c.Approver_Role__c}"/>-->
+                <apex:outputfield label="Approver Group" value="{!Approver_Group__c.Approver_GroupName__c}"/>
+                
+                
+                <apex:outputField label="Approver Group Description" value="{!Approver_Group__c.Approver_Group_Description__c}" />                
+              </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="System Information" showHeader="true" >  
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Created By</apex:outputLabel>   
+                        <apex:outputPanel >    
+                            <apex:outputField value="{!Approver_Group__c.CreatedById}" />
+                            <apex:outputText value="{0,date,MM/DD/YYYY hh:mm}" >
+                                <apex:param value="{!Approver_Group__c.CreatedDate}" />
+                            </apex:outputText>  
+                        </apex:outputPanel>    
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Last Modified By</apex:outputLabel>
+                        <apex:outputPanel >
+                            <apex:outputField label="Last Modified By" value="{!Approver_Group__c.LastModifiedById}" />
+                            <apex:outputText value="{0,date,MM/DD/YYYY hh:mm}" >
+                                <apex:param value="{!Approver_Group__c.LastModifiedDate}" />
+                            </apex:outputText>
+                        </apex:outputPanel>
+                </apex:pageBlockSectionItem>   
+              </apex:pageBlockSection>
+            <!--  onclick="return confirm('Are you sure you want to delete this Group?');"-->
+            <apex:pageBlockButtons >   
+                <apex:commandButton action="{!Edit}" value="Edit" />             
+                <apex:commandButton action="{!Delete}" value="Delete" />               
+            </apex:pageBlockButtons>        
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!showmessage}">
+         <apex:messages style="color:red;" />
+         <apex:pageBlockButtons >   
+                <apex:commandButton action="{!Bck}" value="Back" />
+                </apex:pageBlockButtons> 
+        </apex:pageBlock>
+        <!-- This section will be visible in edit mode
+        <apex:pageBlock title="Information" rendered="{!editmode && !!viewmode}" >
+            <apex:pageBlockSection columns="2" showHeader="true"  >            
+                <apex:InputField label="Level" value="{!Approver_Group__c.Level__c}" />                
+                <apex:InputField label="Approver Role" value="{!Approver_Group__c.Approver_Role__c}"/>                
+                <apex:InputField label="Approver Group Description" value="{!Approver_Group__c.Approver_Group_Description__c}" />
+                </apex:pageBlockSection>                 
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!Cancel}" value="Cancel" />
+            </apex:pageBlockButtons>
+        
+        </apex:pageBlock>  -->
+        
+    </apex:form>
+</apex:page>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>25.0</apiVersion>
+    <description>RFA R1 - Policy Exemption Component for Completion Memo Email</description>
+    <label>RFA_C09_Policy Completion Memo Body</label>
+</ApexComponent>

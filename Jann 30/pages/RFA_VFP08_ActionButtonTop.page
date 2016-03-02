@@ -1,0 +1,89 @@
+<!-- Author          : Accenture -->
+<!-- Date Created    : 05/15/2012 -->
+<apex:page standardController="RFA__c" extensions="RFA_VFC01_ActionButtons" showheader="false">
+    <apex:includeScript value="{!URLFOR($Resource.RFA_STR02_jQueryLibrary, 'js/jquery-1.7.2.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.RFA_STR02_jQueryLibrary, 'js/jquery-ui-1.8.20.custom.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.RFA_STR02_jQueryLibrary, 'css/ui-lightness/jquery-ui-1.8.20.custom.css')}"/>
+    
+    
+    <script type="text/javascript">
+        var rfaId = "{!$CurrentPage.parameters.Id}";
+    
+        var childWin = null;
+        var j$ = jQuery.noConflict();
+        
+ 
+        
+        j$(document).ready(function(){
+            j$('.btn').click(function (event){                       
+            var url = j$(this).attr('href');
+            var windowName = "popUp";
+            var windowProperties = j$(this).attr('rel');            
+            childWin = window.open(url, windowName, windowProperties); 
+            if (window.focus)
+            {
+                childWin.focus();
+            }
+            //return false;
+            event.preventDefault(); 
+            });
+        });
+        
+        /**
+         * This function is called from child window for parent refresh
+         */
+        //function parentReload()
+        function parentReload()
+
+        {  
+            //alert("Hi inside parent reload function");
+            if(childWin != null)
+            {
+                childWin.close();
+            }  
+            
+            var reloadUrl = "/"+ rfaId;
+                        
+            // code patch for IE cross domain issue (This is a workaround)
+            if(navigator.appName == "Microsoft Internet Explorer")
+            {
+                var a = document.createElement('a');
+                a.href = reloadUrl;
+                a.target = "_top";
+                document.body.appendChild(a);
+                a.click();
+            }
+            else
+            {
+                window.parent.location.href = reloadUrl;
+            }
+        }
+
+    </script>
+    
+     
+   <apex:form id="theForm">
+        <apex:inputHidden value="{!RFA__c.Level__c}"/>
+        <apex:inputHidden value="{!RFA__c.Stage__c}"/> 
+      
+            <apex:outputPanel styleClass="pbButton" style="left:173px; position:fixed;"> 
+               <!-- UserrolesCount="{!rfastrtlvelappvrs}"              strtlvlofRFA="{!startLevelofPC}"  selectApprovers="{!enableselappvrbtn}"  -->                     
+                <c:RFA_C07_PageButtonSection pageButtonList="{!pageButtonList}"
+                rfaObj="{!rfaObj}"                                             
+                labelClicked="{!labelClicked}"  
+                displaypushCirculationButton="{!displaypushCirculationButton}"
+                displayOverridePopup="{!displayOverridePopup}"
+                displayCompletionMemo="{!displayCompletionMemo}"
+                displayRecomButton="{!displayRecomButton}"
+                displayCompleteRFA="{!displayCompleteRFA}"
+                pageButtonListSize="{!pageButtonListSize}"
+                displayNotesAndAttachment="{!displayNotesAndAttachment}"
+                displayCloseDraftRFA="{!displayCloseDraftRFA}" 
+                displayReOpenRFA="{!displayReopenRFA}"> 
+                </c:RFA_C07_PageButtonSection>
+               <div align="center">
+                <apex:outputText value="Note:  This RFA has been returned to sender for updates.  Approvers will receive email notification when the RFA is put back into circulation and ready for approval."  style="font-weight:600;font-style: italic;color:#aa7243"  rendered="{!displayInfoMsgReturnToSender == true}"></apex:outputText>
+                </div>
+            </apex:outputPanel>  
+    </apex:form>   
+</apex:page>

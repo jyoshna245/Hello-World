@@ -1,0 +1,128 @@
+<apex:page id="page" standardController="User" extensions="CRS_RolesViewController" tabStyle="User" showHeader="false">
+    <apex:includeScript value="{!$Resource.jQuery}"/>
+    <script>
+        function redirectToEditPage() {
+           window.top.location.href = "/apex/CRS_RolesEdit?userId={!User.id}";
+        }
+    </script>
+    <style type="text/css">
+        .role-table{
+            margin-top: 50px;
+            text-align: center;
+            border-collapse: collapse;
+            color: #444;
+            border: 1px solid #bbb;
+        }
+        .role-table-header th{
+            text-align: center;
+            padding: 2px;
+            white-space: normal;
+            border: 1px solid #bbb;
+            background: #f0f0f0;
+            width: 6%;
+        }
+        
+        .role-table tbody{
+            padding-top: 50px;
+        }
+        
+        .role-table-rows td{
+            padding: 8px 0;
+            border: 1px solid #bbb;
+            color: #444;
+            width: 6%;
+        }
+    </style>
+    <apex:form style="background-color: #fff; position: fixed; width: 100%; top: 0;" rendered="{!!isReadonly}">
+      <apex:pageBlock id="rolesCommandBlock" mode="maindetail">
+           <apex:pageBlockButtons location="top">
+               <apex:commandButton onclick="javascript:redirectToEditPage()" value="Edit CRS User Roles"/>
+           </apex:pageBlockButtons>
+      </apex:pageBlock>
+    </apex:form>
+           
+           <apex:dataTable value="{!roleList}" var="role" id="theTable" rules="all"
+                       frame="border" styleClass="role-table" rowClasses="role-table-rows" headerClass="role-table-header">
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.Business_Unit__c.label}</apex:facet>
+                   <apex:outputText value="{!role.Business_Unit__r.Name}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.CRS_BU_Legal_Approver__c.label}</apex:facet>
+                   <apex:outputText value="{!role.CRS_BU_Legal_Approver__c}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.CRS_BU_PAC_Approver__c.label}</apex:facet>
+                   <apex:outputText value="{!role.CRS_BU_PAC_Approver__c}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.CRS_Field_SRA_Approver__c.label}</apex:facet>
+                   <apex:outputText value="{!role.CRS_Field_SRA_Approver__c}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.CRS_Corporate_PAC_Approver__c.label}</apex:facet>
+                   <apex:outputText value="{!role.CRS_Corporate_PAC_Approver__c}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.CRS_Corporate_SRA_Approver__c.label}</apex:facet>
+                   <apex:outputText value="{!role.CRS_Corporate_SRA_Approver__c}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.CRS_Corporate_Food_Law_Approver__c.label}</apex:facet>
+                   <apex:outputText value="{!role.CRS_Corporate_Food_Law_Approver__c}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.CRS_Corporate_Level__c.label}</apex:facet>
+                   <apex:outputText value="{!role.CRS_Corporate_Level__c}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.CRS_Corporate_Formula_Governance__c.label}</apex:facet>
+                   <apex:outputText value="{!role.CRS_Corporate_Formula_Governance__c}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.CRS_VP_Chief_Scientific_Regulatory__c.label}</apex:facet>
+                   <apex:outputText value="{!role.CRS_VP_Chief_Scientific_Regulatory__c}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">VP-Science Division</apex:facet>
+                   <apex:outputText value="{!role.CRS_VP_Science_Division__c}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.gvwCRS_BU_Legal_Approver__c.label}</apex:facet>
+                   <apex:outputText value="{!role.gvwCRS_BU_Legal_Approver__c}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.gvwCRS_Field_SRA_Approver__c.label}</apex:facet>
+                   <apex:outputText value="{!role.gvwCRS_Field_SRA_Approver__c}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.gvwCRS_Corporate_SRA_Approver__c.label}</apex:facet>
+                   <apex:outputText value="{!role.gvwCRS_Corporate_SRA_Approver__c}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.gvwCRS_Corporate_Food_Law_Approver__c.label}</apex:facet>
+                   <apex:outputText value="{!role.gvwCRS_Corporate_Food_Law_Approver__c}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.gvwCRS_Corporate_Level__c.label}</apex:facet>
+                   <apex:outputText value="{!role.gvwCRS_Corporate_Level__c}"/>
+               </apex:column>
+               <apex:column >
+                   <apex:facet name="header">{!$ObjectType.CRS_Role__c.fields.gvwCRS_VP_Chief_Scientific__c.label}</apex:facet>
+                   <apex:outputText value="{!role.gvwCRS_VP_Chief_Scientific__c}"/>
+               </apex:column>
+           </apex:dataTable>
+      <script>
+        $(document).ready(function(){
+            var table = $('.role-table');
+            var thead = table.find('thead');
+            var thead2 = thead.clone().css({'position':'fixed','top':'49px','left':'0','margin': '0px'});
+            table.prepend(thead2);
+            thead.css('visibility','hidden');
+            if($('[id*="rolesCommandBlock"]').length == 0){
+                table.css('margin-top', '0px');
+                thead2.css('top', '0');
+            }
+        });
+      </script>
+</apex:page>

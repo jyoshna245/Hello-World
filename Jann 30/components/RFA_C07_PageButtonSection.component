@@ -1,0 +1,106 @@
+<apex:component >    
+    <apex:attribute name="pageButtonList" type="RFA_AP07_PageButtonWrapper[]" required="true" description="List of available page buttons with associated actions"/>
+    <apex:attribute name="pageButtonListSize" type="Integer" required="true" description="page button list size"/>
+    <apex:attribute name="rfaObj" type="RFA__c" required="true" description="RFA Object"/>
+   <!-- <apex:attribute name="UserrolesCount" type="integer" required="true" description="Gives RFA start level approvers count"/>
+    <apex:attribute name="strtlvlofRFA" type="String" required="true" description="Gives RFA start level"/> -->
+    <apex:attribute name="labelClicked" type="String" required="true" description="Identifier for the button clicked by the user"/>    
+    <apex:attribute name="displaypushCirculationButton" type="boolean" required="true" description="boolean variable to control the display of push to circulation stage button"/>
+    <apex:attribute name="displayOverridePopup" type="boolean" required="true" description="boolean variable to control the display of override popup button"/>
+    <apex:attribute name="displayCompletionMemo" type="boolean" required="true" description="boolean variable to control the display of completion memo button"/>
+    <apex:attribute name="displayRecomButton" type="boolean" required="true" description="boolean variable to control the display of Approval Recommendation button"/>
+    <apex:attribute name="displayCompleteRFA" type="boolean" required="true" description="boolean variable to control the display of Complete RFA button"/>
+    <apex:attribute name="displayNotesAndAttachment" type="boolean" required="true" description="boolean variable to control the display of Delete Notes & Attachments button"/>
+
+    <!-- Added by mpascua@coca-cola.com Aug 2, 2013 -->
+    <apex:attribute name="displayCloseDraftRFA" type="boolean" required="true" description="boolean variable to control the display of Close Draft RFA button"/>    
+    <apex:attribute name="displayReOpenRFA" type="boolean" required="true" description="boolean variable to control the display of Reopen RFA button"/>        
+    <!-- jyoshna added below for req23.2 
+    <apex:attribute name="selectApprovers" type="boolean" required="true" description="boolean variable to control the display of the select Approvers button"/>
+     End -->
+    
+    <table>
+        <tr>
+            <!-- ************************** Non - Popup action button for stage updates ******************************-->
+            <apex:repeat value="{!pageButtonList}" var="button" rendered="{!IF(pageButtonListSize > 0, true, false)}">
+                <td valign="middle">
+                
+                    <c:RFA_C01_DynamicButton label="{!button.buttonlabel}" confirm="{!button.confirm}" labelClickedParam="{!labelClicked}"/>
+                </td>
+            </apex:repeat>
+            
+            <!-- ************************** Popup for Push to Next Level Coordinator *********************************-->    
+            
+            <apex:outputPanel rendered="{!displaypushCirculationButton}" layout="block" >
+                <td valign="middle">
+                      <!-- <apex:outputLabel rendered="{!selectApprovers}" styleClass="btn"  style="text-decoration:none; padding: 4px 3px; display: block"   onclick="javascript:Validatestage();">Send to {!RIGHT(rfaObj.Level__c, (LEN(rfaObj.Level__c) - 3))} Circulation</apex:outputLabel> -->
+                          <!--  <apex:outputLabel styleClass="btn"  style="text-decoration:none; padding: 4px 3px; display: block"  rendered="{!displaypushCirculationButton}" onclick="javascript:Validatestage();">Send to {!RIGHT(rfaObj.Level__c, (LEN(rfaObj.Level__c) - 3))} Circulation</apex:outputLabel>  -->
+                     <apex:outputLink value="/apex/RFA_VFP03_ApprovalRouting?Id={!rfaObj.Id}" styleClass="btn"  style="text-decoration:none; padding: 4px 3px; display: block" rel="width=500,height=500,scrollbars=yes,titlebar=no" rendered="{!displaypushCirculationButton}"  >Send to {!RIGHT(rfaObj.Level__c, (LEN(rfaObj.Level__c) - 3))}  Circulation</apex:outputLink>
+                    
+                </td>
+            </apex:outputPanel>
+            
+            
+            <!-- ************************** Popup for Override Screen ************************************************--> 
+            <apex:outputPanel rendered="{!displayOverridePopup}" layout="block">
+                <td valign="middle">                    
+                    <apex:outputLink value="/apex/RFA_VFP02_Override?Id={!rfaObj.Id}" styleClass="btn" style="text-decoration:none; padding: 4px 3px; display: block" rel="width=500,height=500,titlebar=no" rendered="{!displayOverridePopup}">{!$Label.RFA_CL009}</apex:outputLink>      
+                </td>
+            </apex:outputPanel>
+            
+            <!-- ************************** Popup for Completion Memo ************************************************-->
+            <apex:outputPanel rendered="{!displayCompletionMemo}" layout="block">
+            
+                 <td valign="middle">
+                    <apex:outputLink value="/apex/RFA_VFP04_CompletionMemo?Id={!rfaObj.Id}" styleClass="btn"  style="text-decoration:none; padding: 4px 3px; display: block" rendered="{!displayCompletionMemo}" rel="width=700,height=600,scrollbars=yes,titlebar=no,resizable=1">{!$Label.RFA_CL012}</apex:outputLink>                                                          
+                 </td>  
+            </apex:outputPanel>   
+            
+            <!-- ************************** Popup for Recommendation Screen ************************************************-->
+            <apex:outputPanel rendered="{!displayRecomButton}" layout="block">
+                <td valign="middle">
+                    <apex:outputLink value="/apex/RFA_VFP05_ApprovalRecommendation?Id={!rfaObj.Id}" styleClass="btn"  style="text-decoration:none; padding: 4px 3px; display: block" rendered="{!displayRecomButton}" rel="width=500,height=500,titlebar=no">{!$Label.RFA_CL010}</apex:outputLink>                                                          
+                </td>
+            </apex:outputPanel>   
+            
+            <!-- ************************** Popup for RFA Completion Screen ************************************************-->
+            <apex:outputPanel rendered="{!displayCompleteRFA}" layout="block">
+                <td valign="middle">
+                    <apex:outputLink value="/apex/RFA_VFP06_RFAClosing?Id={!rfaObj.Id}" styleClass="btn"  style="text-decoration:none; padding: 4px 3px; display: block" rendered="{!displayCompleteRFA}" rel="width=500,height=500,scrollbars=yes,titlebar=no,resizable=1">{!$Label.RFA_CL011}</apex:outputLink>                                                          
+                </td> 
+            </apex:outputPanel>  
+             
+            <!-- ************************** Popup for Deleting Notes and Attachments ************************************************-->
+            <apex:outputPanel rendered="{!displayNotesAndAttachment}" layout="block">
+                <td valign="middle">
+                    <apex:outputLink value="/apex/RFA_VFP_DeleteNotesAndAttachments?Id={!rfaObj.Id}" styleClass="btn"  style="text-decoration:none; padding: 4px 3px; display: block" rendered="{!displayNotesAndAttachment}" rel="width=500,height=500,scrollbars=yes,titlebar=no">{!$Label.FR1_70}</apex:outputLink>                                                          
+                </td> 
+            </apex:outputPanel>  
+            <!--added by Ashwani for FR1.50 on May 10,2013 -->
+            <!-- ************************** Popup for Show Location Coordinator ************************************************--> 
+            <apex:outputPanel layout="block">
+                <td valign="middle">
+                    <apex:outputLink value="/apex/RFA_RF1_50_LocationCoordinator_V2?Id={!rfaObj.Id}" styleClass="btn" style="text-decoration:none; padding: 4px 3px; display: block" rel="width=500,height=500,titlebar=no,scrollbars=yes">{!$Label.RFA_FR1_50}</apex:outputLink>      
+                </td>
+            </apex:outputPanel> 
+            
+            <!--added by mpascua@coca-cola.com for Close Draft RFA on Aug 1,2013 -->
+            <!-- ************************** Popup for Closing Draft RFA ************************************************--> 
+            <apex:outputPanel layout="block" rendered="{!displayCloseDraftRFA}">
+                <td valign="middle">
+                    <apex:outputLink value="/apex/RFA_VFP_CloseDraftRFA?Id={!rfaObj.Id}" styleClass="btn" style="text-decoration:none; padding: 4px 3px; display: block" rel="width=500,height=300,titlebar=no,scrollbars=yes">Close RFA</apex:outputLink>      
+                </td>
+            </apex:outputPanel>
+             <!-- ************************** Popup for Reopen RFA ************************************************--> 
+             <apex:outputPanel layout="block" rendered="{!displayReOpenRFA}">
+                <td valign="middle">
+                    <apex:outputLink value="/apex/RFA_VFP_ReopenCloseDraftRFA?Id={!rfaObj.Id}" styleClass="btn" style="text-decoration:none; padding: 4px 3px; display: block" rel="width=500,height=200,titlebar=no,scrollbars=yes">Reopen RFA</apex:outputLink>      
+                </td>
+            </apex:outputPanel>
+           
+        </tr>
+    </table>
+     
+            
+      
+</apex:component>

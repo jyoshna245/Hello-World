@@ -1,0 +1,14 @@
+<apex:page standardController="RFA__c" sidebar="false">
+
+<apex:pageMessages id="pageMessage"> 
+            </apex:pageMessages>
+<style>            
+    #investmentTable td{padding:4px;margin:0px;}
+    #investmentTable tr {padding:4px;margin:0px;}
+  
+</style>
+
+<c:RFA_C04_Capital_Expenditure_STD RecordRFAIds="{!RFA__c.ID}" editVisibleFlag="{!$CurrentPage.parameters.visible}" renderComponent="{!$Component.pageMessage}"/>
+ 
+
+</apex:page>

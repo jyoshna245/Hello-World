@@ -1,0 +1,140 @@
+<!-- added this lines for policy exemption request - Roy Castillo Oct 11, 2013 -->
+<!-- <apex:outputPanel rendered="{!RFA__c.recordType.name ='Policy Exemption Request'}"> -->
+
+
+<apex:page standardController="RFA__c" extensions="RFA_VFC04_CompletionMemoController" renderAs="pdf" sidebar="false" showheader="false">
+    <head>
+        <style type="text/css" media="print">
+            @page {
+                @bottom-left {
+                    content: element(footer);
+                }
+            }
+            div.footer {
+                display: block;
+                padding: 5px;
+                position: running(footer);
+            }
+            span.FWBold{
+                font-weight:bold;
+            }
+        </style>
+    </head>
+    <apex:form >
+        <apex:pageBlock >
+            <div style = "font-style:regular; font-size:14px; ">
+                <p>
+                
+                    <center>
+                        <apex:image url="{!$Label.RFA_CL129}"/>
+                    </center>
+                    <center><apex:outputText value="Atlanta, Georgia" style="font-weight:bold"/></center>
+                </p> 
+                <apex:outputPanel rendered="{!RFA__c.recordType.name !='Policy Exemption Request'}">           
+                <p><apex:outputText style="font-weight:bold" value="DATE:"/>&nbsp;{!Month(Today())}/{!Day(Today())}/{!Year(Today())}</p>
+               </apex:outputPanel>
+                
+                <p><span class="FWBold" style="text-transform: uppercase;">{!$Label.RFA_CL045}:&nbsp;</span>{!rfaObj.ToEmailAddressCM__c}</p>
+            
+                <p><span class="FWBold" style="text-transform: uppercase;">{!$Label.RFA_CL047}:&nbsp;</span>{!rfaObj.CCEmailAddressCM__c}</p>
+                
+                <p><apex:outputText style="font-weight:bold" value="SUBJECT:"/>&nbsp;<apex:outputText value="Final Approval Status - {!rfaObj.ControlNumber__c}: {!rfaObj.RequestTitle__c}"/></p>            
+                
+               
+                <apex:outputPanel rendered="{!RFA__c.recordType.name ='Policy Exemption Request'}">
+                 <p><apex:outputText style="font-weight:bold" value="REQUEST TYPE:"/>&nbsp;<apex:outputText value="{!RFA__c.RecordType.name}"/><br/></p>
+                <p><apex:outputText style="font-weight:bold" value="POLICY CATEGORY:"/>&nbsp;<apex:outputText value="{!RFA__c.Policy_Category__c}"/><br/></p>
+                </apex:outputPanel>
+                
+                <!-- <p><span class="FWBold" style="text-transform: uppercase;">{!$ObjectType.RFA__c.fields.Business_Unit__c.Label}&nbsp;:&nbsp;</span>{!rfaObj.Business_Unit__c}</p> -->
+                
+                <apex:outputPanel rendered="{!RFA__c.recordType.name !='Policy Exemption Request'}">
+                
+                <p><span class="FWBold" style="text-transform: uppercase;">{!$Label.RFA_CL134}:&nbsp;</span>{!rfaObj.Thefollowingitem__c}</p>
+
+                <p><span class="FWBold" style="text-transform: uppercase;">{!$Label.RFA_CL135}:&nbsp;</span>{!rfaObj.Theapprovalstatusofyourrequestis__c}</p>
+                <!-- Added OutputField tag  by Ashwani on 6/12/2013 for Release Q1 2013 2013-1Q Enhancements Defect ID #186 -->
+                <!-- rename the last word !rfaobj.CommentsConditions__c to RFA__c.CommentsConditions__c it means it access the field via UI Level not backend - RLC Jan 16, 2014 -->
+                <p><span class="FWBold" style="text-transform: uppercase;">{!$ObjectType.RFA__c.fields.CommentsConditions__c.Label}:&nbsp;</span><apex:outputfield value="{!RFA__c.CommentsConditions__c}"/></p>
+                
+               
+                <apex:outputPanel rendered="{!(rfaObj.ApprovalLetterComments__c != 'Not Applicable')}">
+                      <p><span class="FWBold" style="text-transform: uppercase;">{!$ObjectType.RFA__c.fields.ApprovalLetterComments__c.Label}:&nbsp;</span>{!rfaObj.ApprovalLetterComments__c}</p>
+                </apex:outputPanel>
+            
+                <p><span class="FWBold" style="text-transform: uppercase;">{!$ObjectType.RFA__c.fields.RequestTitle__c.Label}:&nbsp;</span>{!rfaObj.RequestTitle__c}</p>
+                
+                <!-- Changed from displaying merge field to using outputfield tag  by Joban on 6/11/2013 for Release Q1 2013 2013-1Q Enhancements  -->
+                <p><span class="FWBold" style="text-transform: uppercase;">{!$ObjectType.RFA__c.fields.ExecutiveSummary__c.Label}:&nbsp;</span><apex:outputfield value="{!RFA__c.ExecutiveSummary__c}"/></p>
+                <!-- End of changes -->
+                <p><span class="FWBold" style="text-transform: uppercase;">{!$ObjectType.RFA__c.fields.ProfitCenterName__c.Label}:&nbsp;</span>{!RFA__c.ProfitCenterNumber__r.Name}-{!rfaObj.ProfitCenterName__c}</p>
+
+                <p><span class="FWBold" style="text-transform: uppercase;">{!$ObjectType.RFA__c.fields.ControlNumber__c.Label}:&nbsp;</span>{!rfaObj.ControlNumber__c}</p>
+            
+                <p><span class="FWBold" style="text-transform: uppercase;">{!$ObjectType.RFA__c.fields.LocalReferenceNumber__c.Label}:&nbsp;</span>{!rfaObj.LocalReferenceNumber__c}</p>
+
+                <p><span class="FWBold" style="text-transform: uppercase;">{!$ObjectType.RFA__c.fields.RequestAmountUSD__c.Label}:&nbsp;</span>{!rfaObj.RequestAmountUSD__c}</p>
+
+                <p><span class="FWBold" style="text-transform: uppercase;">{!$ObjectType.RFA__c.fields.Functional_Currency__c.Label}:&nbsp;</span>{!rfaObj.Functional_Currency__r.Name}</p>
+                
+                <p><apex:outputText style="font-weight:bold" value="REQUEST AMOUNT (FC):"/>&nbsp;<apex:outputText value="{0,number, #,###}"><apex:param value="{!rfaObj.RequestAmountFunctionalCurrency__c}"/></apex:outputText><br/></p>
+               </apex:outputPanel>
+               
+               <!-- Start of Policy Exemption request pdf format - Roy Castillo Oct 11, 2013 -->
+               <apex:outputPanel rendered="{!RFA__c.recordType.name ='Policy Exemption Request'}">
+               <p><apex:outputText style="font-weight:bold" value="APPROVAL STATUS OF REQUEST:"/>&nbsp;<apex:outputText value="{!RFA__c.Theapprovalstatusofyourrequestis__c}"/><br/></p>
+                
+                <p><apex:outputText style="font-weight:bold" value="EFFECTIVE DATE:"/>&nbsp;
+                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">    
+                 <apex:param value="{!Today()}" />
+                </apex:outputText><br/></p>
+
+                
+                
+                <apex:outputPanel rendered="{!if(ISBLANK(RFA__c.Expiration_Date__c),False,True)}">
+               <p><apex:outputText style="font-weight:bold" value="EXPIRATION DATE:"/>&nbsp;
+                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">    
+                 <apex:param value="{!RFA__c.Expiration_Date__c}" />
+                </apex:outputText><br/></p>
+                 </apex:outputPanel>
+
+                <p><apex:outputText style="font-weight:bold" value="COMMENTS/CONDITIONS:"/><br/></p>
+               <!-- <p><apex:outputText style="font-weight:bold" value="COMMENTS/CONDITIONS:"/>&nbsp;<apex:outputField value="{!RFA__c.CommentsConditions__c}"/><br/></p> -->
+
+
+                <apex:outputPanel rendered="{!if(ISBLANK(RFA__c.Comments_aboutr__c),False,True)}">
+                 <p><apex:outputText value="Expiration Date Comments - "/>&nbsp;<apex:outputText value="{!RFA__c.Comments_aboutr__c}"/><br/></p>
+                </apex:outputPanel>
+
+                
+                <p><apex:outputField value="{!RFA__c.CommentsConditions__c}"/><br/></p>
+                <p><apex:outputText style="font-weight:bold" value="REQUEST TITLE:"/>&nbsp;<apex:outputText value="{!RFA__c.RequestTitle__c}"/><br/></p>
+                
+                <p><apex:outputText style="font-weight:bold" value="REQUEST SUMMARY:"/>&nbsp;<apex:outputField value="{!RFA__c.Request_Summary__c}"/><br/></p>
+
+                
+                <p><apex:outputText style="font-weight:bold" value="PRIMARY REPORTING UNIT:"/>&nbsp;<apex:outputText value="{!RFA__c.PrimaryReportingUnitNumberName__c}"/><br/></p>
+                <apex:outputPanel rendered="{!RFA__c.SecondReportingUnitNumber__c !=''}">
+                <p><apex:outputText style="font-weight:bold" value="SECOND REPORTING UNIT:"/>&nbsp;<apex:outputText value="{!RFA__c.SecondReportingUnitNumberName__c}"/><br/></p>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!RFA__c.ThirdReportingUnitNumber__c !=''}">
+                <p><apex:outputText style="font-weight:bold" value="THIRD REPORTING UNIT:"/>&nbsp;<apex:outputText value="{!rfa__c.ThirdReportingUnitNumberName__c }"/><br/></p>
+                </apex:outputPanel>
+                <p><apex:outputText style="font-weight:bold" value="CONTROL NUMBER:"/>&nbsp;<apex:outputText value="{!RFA__c.ControlNumber__c}"/><br/></p> 
+                <p><apex:outputText style="font-weight:bold" value="LOCAL REFERENCE NUMBER:"/>&nbsp;<apex:outputText value="{!RFA__c.LocalReferenceNumber__c}"/><br/></p>
+
+
+                </apex:outputPanel>
+               <!-- End for Policy Exemption-->
+               
+                <apex:outputPanel >
+                   <p><span class="FWBold" style="text-transform: uppercase;">REQUEST DOCUMENT LINK:</span><apex:outputLink value="{!$Label.RFA_CL026}/{!rfaObj.Id}" id="theLink"> {!RFA__c.name}</apex:outputLink></p>
+                </apex:outputPanel>
+                <div class="footer">
+                    <div>{!now()}</div>
+                </div> 
+            </div>
+
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

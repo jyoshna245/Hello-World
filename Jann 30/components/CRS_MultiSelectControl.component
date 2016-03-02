@@ -1,0 +1,24 @@
+<apex:component controller="CRS_ComponentMultiSelectController">
+    <apex:attribute name="objectType" assignTo="{!objectType}" required="true" type="String" description="todo"/>
+    <apex:attribute name="fieldName" required="true" type="String" description="todo"/>
+    <apex:attribute name="fieldValue" assignTo="{!fieldValue}" required="true" type="String" description="todo"/>
+    
+    <apex:attribute name="filterField" type="String" description="todo"/>
+    <apex:attribute name="filterValue" type="String" description="todo"/>
+
+    <apex:attribute name="isGvw" type="Boolean" description="todo"/>
+    
+    <apex:attribute name="disabled" type="Boolean" default="false" description="Disabled component cannot be edited."/>
+    
+    <apex:outputPanel >
+        <apex:outputText value="{!names}" />
+        <apex:outputLink value="javascript:void(0)" rendered="{!!disabled}"
+                onclick="openPopup('/apex/CRS_LookupMultiSelect?objType={!objectType}&gvw={!IF(isGvw,1,0)}&filterField={!filterField}&filterValue={!filterValue}&fieldName={!fieldName}&fieldValue={!fieldValue}','lookup',350,480,'height=740,width=700,top=200,left=300,resizable=yes,scrollbars=yes',!0); return false;" >
+            <img src="/s.gif" alt="Multiselect Lookup" class="lookupIcon" 
+                    onblur="this.className = 'lookupIcon';" onfocus="this.className = 'lookupIconOn';"
+                    onmouseout="this.className = 'lookupIcon';this.className = 'lookupIcon';" 
+                    onmouseover="this.className = 'lookupIconOn';this.className = 'lookupIconOn';" 
+                    title="Multiselect Lookup" />
+        </apex:outputLink>
+    </apex:outputPanel>
+</apex:component>

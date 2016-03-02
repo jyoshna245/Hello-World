@@ -1,0 +1,57 @@
+<apex:page id="thePage" controller="CRS_RolesEditController" tabStyle="User">
+    <apex:includeScript value="{!$Resource.jQuery}"/> 
+    <apex:sectionHeader subtitle="{!user.Name}" title="{!$Label.CRS_CRSUserRolesEdit}"/>
+    <script>
+        $.ready(function(){
+            setDisabledStatus(!{!activeRolesMap[currentRole.Business_Unit__c]});
+        });       
+        var setDisabledStatus = function(status) {
+            $("select[id*=currentRole_]").each(function(){this.disabled=status});
+        }
+    </script>
+    <apex:form id="theForm">
+        <apex:message for="theBlock" styleClass="locationError"/>
+        <apex:pageBlock id="theBlock" mode="edit">
+            <apex:pageMessages />
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!doSave}" value="Save"/>
+                <apex:commandButton action="{!doCancel}" value="Cancel"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection id="checkboxSection">  
+                <apex:selectList label="{!$ObjectType.CRS_Role__c.fields.Business_Unit__c.label}" value="{!currentRoleId}" size="1">
+                    <apex:actionSupport event="onchange" action="{!doChange}"  rerender="optionsSection, checkboxSection"/>
+                    <apex:selectOptions value="{!items}"/>
+                </apex:selectList>
+                <apex:inputCheckbox id="checkboxActive" onclick="setDisabledStatus(!this.checked)" 
+                                    label="Active" value="{!activeRolesMap[currentRole.Business_Unit__c]}"/>
+            </apex:pageBlockSection>  
+
+            <apex:pageBlockSection id="optionsSection" title="{!$Label.CRS_User_Roles}">
+                <apex:inputField id="currentRole_BLA" value="{!currentRole.CRS_BU_Legal_Approver__c}"/>
+                <apex:inputField id="currentRole_gBLA" value="{!currentRole.gvwCRS_BU_Legal_Approver__c}"/>
+                <apex:inputField id="currentRole_CFLA" value="{!currentRole.CRS_Corporate_Food_Law_Approver__c}"/>
+                <apex:inputField id="currentRole_gCFLA" value="{!currentRole.gvwCRS_Corporate_Food_Law_Approver__c}"/>
+                <apex:inputField id="currentRole_CSA" value="{!currentRole.CRS_Corporate_SRA_Approver__c}"/>
+                <apex:inputField id="currentRole_gCSA" value="{!currentRole.gvwCRS_Corporate_SRA_Approver__c}"/>
+                <apex:inputField id="currentRole_CL" value="{!currentRole.CRS_Corporate_Level__c}"/>
+                <apex:inputField id="currentRole_gCL" value="{!currentRole.gvwCRS_Corporate_Level__c}"/>
+                <apex:inputField id="currentRole_FSA" value="{!currentRole.CRS_Field_SRA_Approver__c}"/>
+                <apex:inputField id="currentRole_gFSA" value="{!currentRole.gvwCRS_Field_SRA_Approver__c}"/>
+                <apex:inputField id="currentRole_CFG" value="{!currentRole.CRS_Corporate_Formula_Governance__c}"/>
+                <apex:inputField id="currentRole_gVCS" value="{!currentRole.gvwCRS_VP_Chief_Scientific__c}"/>
+                <apex:inputField id="currentRole_BPAC" value="{!currentRole.CRS_BU_PAC_Approver__c}"/>
+                &nbsp;
+                <apex:inputField id="currentRole_PAC" value="{!currentRole.CRS_Corporate_PAC_Approver__c}"/>    
+                &nbsp;
+                <apex:inputField id="currentRole_VCSR" value="{!currentRole.CRS_VP_Chief_Scientific_Regulatory__c}"/>
+                &nbsp;
+                <apex:inputField id="currentRole_VSD" value="{!currentRole.CRS_VP_Science_Division__c}"/>
+
+                <apex:pageBlockSection />
+                                <script>
+                    setDisabledStatus(!{!activeRolesMap[currentRole.Business_Unit__c]});
+                </script>
+            </apex:pageBlockSection>
+         </apex:pageBlock>
+    </apex:form>
+</apex:page>

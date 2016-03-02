@@ -1,0 +1,101 @@
+<apex:page standardController="GS1_Request__c" extensions="GS1_CustomSearchCtrl" id="thePage">
+    <apex:sectionHeader title="Search"/>
+    <apex:pageMessages id="messages"></apex:pageMessages>    
+    <apex:form id="theForm">
+        <apex:pageBlock title="Search Parameters / Criteria" rendered="{! resultCount==0}">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="   Search  " action="{! execSearch}"/>
+                <apex:commandButton value="   Reset   " action="{! startOver}"/>
+            </apex:pageBlockButtons>    
+            <apex:pageBlockSection columns="2">
+                <!--  <apex:inputField value="{! GS1_Request__c.Country__c}"/> -->
+                <apex:selectList label="Country" value="{! GS1_Request__c.Country__c}" size="1">
+                    <apex:selectOptions value="{! AvailableCountryList}" />
+                </apex:selectList> 
+                
+                <apex:selectList value="{! Product }" label="Product" size="1" multiselect="false" >   <!--Added by Jeevan 11-24-2014  -->
+                    <apex:selectOptions value="{! ProductList }" />
+                </apex:selectList>
+                    
+                 <apex:inputField value="{! GS1_Request__c.Trademark__c}"/>
+                <!--<apex:inputField value="{! GS1_Request__c.Unit__c}"/>-->
+                
+                 <apex:inputField value="{! GS1_Request__c.Flavour__c}"/> 
+              <!--  <apex:inputField value="{! GS1_Request__c.Capacity__c}"/> -->  <!--Added by Jeevan 11-24-2014  -->
+                                
+               <!-- <apex:inputField value="{! GS1_Request__c.Trademark__c}"/> -->
+                 <apex:inputField value="{! GS1_Request__c.Unit__c}"/>
+                <!--<apex:inputField value="{! GS1_Request__c.Flavour__c}"/> -->
+                 <apex:inputField value="{! GS1_Request__c.Capacity__c}"/>               
+                <apex:inputField value="{! GS1_Request__c.Material__c}"/>                
+                <apex:inputField value="{! GS1_Request__c.Design__c}"/>                
+                <apex:inputField value="{! GS1_Request__c.Multipack__c}"/>                
+                <apex:inputField value="{! GS1_Request__c.Units_Pack__c}"/>                
+                <apex:inputField value="{! GS1_Request__c.Packs_Case__c}"/>                
+                <apex:inputText value="{! unitsPerCase}" label="Units/Case"/>
+                
+                <apex:inputField value="{! GS1_Request__c.BBN__c}"/>    <!--Added by Jeevan 11-24-2014  -->
+                <apex:inputField value="{! GS1_Request__c.BBN_Short__c}" label="BBN Short"/>   <!--Added by Jeevan 11-24-2014  -->
+                
+                <apex:inputField value="{! GS1_Request__c.EAN_Code__c}"/>                
+                <apex:selectList value="{! status}" label="Status" size="4" multiselect="true" >
+                    <apex:selectOptions value="{! statusList}" />
+                </apex:selectList>
+                
+            
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock title="Sorting Options" rendered="{! resultCount==0}">            
+            <apex:pageBlockSection columns="2">
+                <apex:selectList label="Sort By" value="{! sortField}" size="1">
+                    <apex:selectOptions value="{! SortFieldsList}" />
+                </apex:selectList>              
+                <apex:selectList label="Sort Order" value="{! sortOrder}" size="1">
+                    <apex:selectOption itemvalue="Ascending" itemLabel="Ascending"/>
+                    <apex:selectOption itemvalue="Descending" itemLabel="Descending"/>
+                </apex:selectList>                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock title="Search Result ({! resultCount})" mode="true" id="result" rendered="{!SearchResult!=null}">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="New search" action="{! startOver}"/>
+                <apex:commandButton value="Export to Excel" onclick="exportToExcel();return false;"/>
+            </apex:pageBlockButtons>                
+            <apex:variable value="{!1}" var="count"/> 
+            <apex:pageBlockTable value="{!SearchResult}" var="request">                    
+                <apex:column headerValue="#" >{!FLOOR(count)}<apex:variable var="count" value="{!count+ 1}"/></apex:column>                    
+                <apex:column headerValue="Description"><apex:outputLink value="/{! request.id}" target="_blank">{! request.description__c}</apex:outputLink></apex:column>
+                <apex:column value="{!request.country__r.name}" headerValue="Country"/>                                 
+                <apex:column value="{!request.trademark__r.name}" headerValue="Trademark"/> 
+                <apex:column value="{!request.flavour__r.name}" headerValue="Flavour"/> 
+                <apex:column value="{!request.material__r.name}" headerValue="Material"/> 
+                <apex:column value="{!request.design__r.name}" headerValue="Design"/>                  
+                <apex:column value="{!request.unit__r.name}" headerValue="Unit"/> 
+                <apex:column value="{!request.multipack__r.name}" headerValue="Multipack"/> 
+                <apex:column value="{!request.units_pack__r.name}" headerValue="Units/Pack" style="text-align:right;"/> 
+                <apex:column value="{!request.Packs_Case__c}" headerValue="Packs/Case" style="text-align:right;"/> 
+                <apex:column value="{!request.Units_Case__c}" headerValue="Units/Case" style="text-align:right;"/> 
+                <apex:column value="{!request.EAN_Code__r.name}" headerValue="Barcode"/> 
+                <apex:column value="{!request.Status__c}" headerValue="Status"/> 
+                 <!--Added by Jeevan 11-24-2014 starts -->
+                <apex:column value="{!request.Capacity__r.Name}" headerValue="Capacity"/> 
+                <apex:column value="{!request.BBN__r.Name}" headerValue="BBN"/>
+                <apex:column value="{!request.BBN_Short__c}" headerValue="BBN Short"/>
+                <apex:column value="{!request.Product_Type__c}" headerValue="Product"/>
+                 <!--Added by Jeevan 11-24-2014 ends -->               
+                 <!-- Add By Aldrin 12-Dec //starts -->
+                <apex:column value="{!request.Request_Type__c}" headerValue="Type"/>
+                 <!-- Add By Aldrin 12-Dec //ends -->
+            </apex:pageBlockTable>                 
+        </apex:pageBlock>        
+    </apex:form>
+    <script>
+        function exportToExcel() {
+            var ids='{! resultIds}';
+            var sf='{! sortField}';
+            var so='{! sortOrder}';
+            var url = "/apex/GS1_SelToExcel?ids="+ids + "&sf=" + sf + "&so=" + so;
+            window.location.href=url; 
+        }
+    </script>
+</apex:page>

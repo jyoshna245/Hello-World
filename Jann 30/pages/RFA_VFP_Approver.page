@@ -1,0 +1,153 @@
+<apex:page standardController="RFA_GroupApprover__c" extensions="RFA_VFC_Approver" >
+     <Style>
+    .OutputTextClass{font-weight: bold;}
+ </Style>
+    <script>
+    
+    </script>
+    <apex:sectionHeader title="Approver" rendered="{!!editmode}" /> 
+    <apex:sectionHeader title="Approver Edit" rendered="{!editmode}" />
+    
+     <apex:form > 
+         {!editmode} {!showmessage}  
+        <apex:pageMessages rendered="{!FieldMsgs}" ></apex:pageMessages>
+         <!--This is for EDIT/NEW MOde -->
+        <apex:pageBlock rendered="{!editmode && !showmessage}"   id="RoleSec"  > 
+            <apex:pageBlockSection title="Information" columns="2" id="RoleSec1" >               
+                
+                 <apex:pageblockSectionItem >
+                 <apex:outputText value="Approver Level (*)" />
+                  
+                  <apex:selectList size="1" value="{!selectedLevel}" >
+                            <apex:selectOptions value="{!ApproverLevels}" />  <!--action="{!getApproverRoles}"--> 
+                            <apex:actionSupport event="onchange"   reRender="RoleSec1"  action="{!getApproverGroups}"/> 
+                 </apex:selectList>      
+                    
+                </apex:pageblockSectionItem> 
+              <!--
+                 <apex:pageblockSectionItem id="RoleSec2"  >
+                <apex:outputText value="Approver Role (*)" /> 
+                      
+                <apex:selectList value="{!selectedApproverRole}" size="1" rendered="{!(ApproverRoles)}"  >
+                    <apex:selectOptions value="{!ApproverRole}" />
+                    <apex:actionSupport event="onchange" action="{!getApproverGroups}"  reRender="RoleSec1" />
+                </apex:selectList>
+                </apex:pageblockSectionItem>
+            -->
+                
+                
+                <apex:pageblockSectionItem >
+                 <apex:outputText value="Approver Group (*)" /><!-- rendered="{!(ApproverGroups)}"-->
+                  <apex:selectList size="1" value="{!selectedGroup}" >
+                            <apex:selectOptions value="{!ApproverGroup}" />
+                 </apex:selectList>      
+                </apex:pageblockSectionItem>    
+                
+                <apex:pageBlockSectionItem > 
+                    <apex:outputText value="Sequence" />  
+                <apex:inputText label="Sequence" value="{!sequence}"  />
+                </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputText value="Profit Center" />
+                <apex:inputField label="Profit Center" value="{!GrpApprverObj.Profit_Center__c}" /> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                     <apex:outputText value="Approver Name" />
+                <apex:inputField label="Approver Name" value="{!GrpApprverObj.Approver_Name__c}" />
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+                
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!saveApprover}" />
+                <apex:commandButton value="Cancel" action="{!CancelApprover}"  />
+            </apex:pageBlockButtons>  
+        </apex:pageBlock>
+         
+        <apex:pageBlock rendered="{!!editmode && !showmessage}"> 
+             
+            <apex:pageBlockSection >
+            <apex:outputLink title="Back to Approvers list" 
+                     value="/a1o?fcf=00Bg00000016xp9"
+                     style="font-family: 'Verdana','Geneva',sans-serif;
+                      font-size: 91.3%;
+                      margin-bottom: -15px;
+                      height: 15px;
+                      vertical-align: middle;color: #04B4AE;">
+                &lt;&lt;Back to list: Back to Approvers
+            </apex:outputLink>
+            </apex:pageBlockSection> 
+            
+            <apex:pageBlockSection title="Information" columns="2" >
+                <apex:pageBlockSectionItem >
+                     <apex:outputText Value="Approver Level" />
+                    <apex:outputText value="{!GrpApprverObj.Level__c}" />
+                    
+                </apex:pageBlockSectionItem>
+              <!--  <apex:pageBlockSectionItem >
+                     <apex:outputText Value="Approver Role" />
+                <apex:outputText label="Approver Role" value="{!GrpApprverObj.Approver_Role__c}"/>
+                </apex:pageBlockSectionItem>
+                -->
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputText Value="Approver Group" />
+                <apex:outputText label="Approver Group" value="{!GrpApprverObj.Approver_Group__c}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputText Value="Approver Group Description" />
+                <apex:outputText label="Approver Group" value="{!GrpApprverObj.Approver_Group_Description__c}"/>
+                </apex:pageBlockSectionItem>
+                            
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputText Value="Sequence" value="sequence" />
+                 <apex:outputText value="{!sequence}" />
+                </apex:pageBlockSectionItem> 
+                <apex:outputField label="Profit Center" value="{!GrpApprverObj.Profit_Center__c}" />       
+                <apex:outputField label="Approver Name" value="{!GrpApprverObj.Approver_Name__c}" />  
+                <apex:outputField label="Key Operation" value="{!GrpApprverObj.Key_Operation__c}"/>
+              
+                <apex:outputField label="Business Unit" value="{!GrpApprverObj.Business_Unit__c}"/>
+                 <apex:outputField label="Group" value="{!GrpApprverObj.Group__c}"/> 
+                
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="System Information" showHeader="true" >  
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Created By</apex:outputLabel>   
+                        <apex:outputPanel >    
+                            <apex:outputField value="{!RFA_GroupApprover__c.CreatedById}" />
+                            <apex:outputText value="{0,date,MM/DD/YYYY hh:mm}" >
+                                <apex:param value="{!RFA_GroupApprover__c.CreatedDate}" />
+                            </apex:outputText>  
+                        </apex:outputPanel>    
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Last Modified By</apex:outputLabel>
+                        <apex:outputPanel >
+                            <apex:outputField label="Last Modified By" value="{!RFA_GroupApprover__c.LastModifiedById}" />
+                            <apex:outputText value="{0,date,MM/DD/YYYY hh:mm}" >
+                                <apex:param value="{!RFA_GroupApprover__c.LastModifiedDate}" />
+                            </apex:outputText>
+                        </apex:outputPanel>
+                </apex:pageBlockSectionItem>   
+              </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Edit" action="{!EditApprover}" />
+                <apex:commandButton value="Delete" onclick="return confirm('Are you sure you want to delete this Approver?');" action="{!DeleteApprover}" />
+            </apex:pageBlockButtons>  
+        </apex:pageBlock>
+         
+         <apex:pageBlock rendered="{!showmessage}">
+         <apex:messages style="color:red;" />
+         <apex:pageBlockButtons >   
+                <apex:commandButton action="{!Bck}" value="Back" />
+                </apex:pageBlockButtons> 
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

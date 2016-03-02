@@ -1,0 +1,378 @@
+<apex:page contentType="text/javascript" controller="GS1_AppWebHelperJSCtrl">
+//<script>
+sforce.connection.sessionId = '{!$Api.Session_ID}';
+var lookupDialogValidObjectPrefixes = '{! GS1ObjectIds}|apex/GS1_CustomSearchPage'.split('|');
+
+var HELPER_CLASS_NAME = 'GS1_AppWebHelperJSCtrl';
+
+var GS1 = new Object();
+
+GS1.descriptionLabel = 'Description (edit.)';
+GS1.requestObjectPrefix = '{! RequestObjectPrefix}';
+GS1.isAdmin = {! IsGS1Admin};
+GS1.bbnObjectPrefix = '{! BBNObjectPrefix}';
+GS1.bbnLabel = 'BBN';
+
+GS1.deallocateRequests = function(rIds) {
+    var ret = sforce.apex.execute(HELPER_CLASS_NAME,'deallocateRequests',{reqIds:rIds});
+    return ret;
+}
+
+GS1.getObjectPrefix = function(objName) {
+    var objid = sforce.apex.execute(HELPER_CLASS_NAME,'getObjectPrefix',{objectName:objName}); 
+    return objid ;
+}
+
+GS1.withdrawRequest = function(reqId) {
+    var ret = sforce.apex.execute(HELPER_CLASS_NAME,'withdrawRequest',{requestId:reqId});
+    return ret;
+}
+
+GS1.reactivateRequest = function(reqId) {
+    var ret = sforce.apex.execute(HELPER_CLASS_NAME,'reactivateRequest',{requestId:reqId});
+    return ret;
+}
+
+GS1.allocateEAN = function(reqId, eanRecordId, free) {
+    var ret = sforce.apex.execute(HELPER_CLASS_NAME,'allocateEAN',{requestId:reqId, eanId:eanRecordId, isFree:free});
+    return ret; 
+}
+
+GS1.findAllowableEAN = function(reqId) {
+    var ret = sforce.apex.execute(HELPER_CLASS_NAME,'findAllowableEAN',{requestId:reqId});
+    return ret; 
+}
+
+GS1.findAllowableEANSpecial = function(reqId, sORl) {
+    var ret = sforce.apex.execute(HELPER_CLASS_NAME,'findAllowableEANSpecial',{requestId:reqId, longOrShort:sORl});
+    return ret; 
+}
+    
+GS1.submitRequest = function(reqId, dupReqId) {
+    var ret = sforce.apex.execute(HELPER_CLASS_NAME,'submitRequest',{requestId:reqId, duplicateId:dupReqId});
+    return ret;
+}
+
+GS1.cancelDuplicateRequest = function(reqId) {
+    var ret = sforce.apex.execute(HELPER_CLASS_NAME,'cancelDuplicateRequest',{requestId:reqId});
+    return ret;
+}
+
+GS1.findDuplicateRequest = function(reqId) {
+    var ret = sforce.apex.execute(HELPER_CLASS_NAME,'findDuplicateRequest',{requestId:reqId});
+    return ret;
+}
+
+GS1.freeBarcode = function(id) {
+    var ret = sforce.apex.execute(HELPER_CLASS_NAME,'freeBarcode',{barcodeId:id});
+    return ret; 
+} 
+
+GS1.sendDuplicateRequestEmail = function(reqId) {
+    var ret = sforce.apex.execute(HELPER_CLASS_NAME,'sendDuplicateRequestEmail',{requestId:reqId});
+    return ret;
+}
+    
+GS1.cancelRequest = function(reqId) {
+    var ret = sforce.apex.execute(HELPER_CLASS_NAME,'cancelRequest',{requestId:reqId});
+    return ret;
+}
+
+GS1.editMode = function() {
+    var ret = false;
+    var url = self.location.href;
+    if (url.indexOf('/e?')>-1) {
+        ret = true;
+    }
+    
+    if (!ret) {
+        var index = url.indexOf('/e');
+        if (index == (url.length-2)) {
+            ret = true;
+        }
+    } 
+    
+    return ret;
+}
+
+GS1.createLinkInFieldLabel = function(fieldName, clickCallBack, toolTip) {
+    //var requiredMarker = '<span class=requiredmark>*</span>';//commented 17.Jun.2015 for summer 15 issue
+    var requiredMarker = '<span class=assistiveText>*</span>'; //added 17.Jun.2015 for summer 15 issue
+    var labels = document.getElementsByTagName('label');
+    for (var i=0; i< labels.length; i++) {
+        if (labels[i].htmlFor===fieldName) {
+            //var html = labels[i].innerHTML.toLowerCase().replace('class="requiredmark"','class=requiredmark');//commented 17.Jun.2015 for summer 15 issue
+            var html = labels[i].innerHTML.toLowerCase().replace('class="assistivetext"','class=assistivetext'); //added 17.Jun.2015 for summer 15 issue
+            if (html.indexOf(requiredMarker)==0) {
+                var child = labels[i].childNodes[0];
+                if (child) {
+                    if (String(child)=='[object HTMLSpanElement]'||String(child)=='[object HTMLElement]') {
+                        if (child.innerHTML == '*') {
+                            labels[i].removeChild(child);
+                        }
+                    }
+                }                                                
+            } 
+            labels[i].style.textDecoration = 'underline';
+            labels[i].onclick = clickCallBack;
+            labels[i].style.cursor = 'pointer';
+            labels[i].style.color = 'NAVY';
+            return;
+        }
+    }   
+}
+
+GS1.getFieldIdByLabel = function(fieldLabel) {
+    var labels = document.getElementsByTagName('label');
+    for (var i=0; i< labels.length; i++) {
+        //var lbl = labels[i].innerHTML.toLowerCase().replace('class="requiredmark"','class=requiredmark');//commented 17.Jun.2015 for summer 15 issue
+        //var requiredLbl = '<span class=requiredmark>*</span>' + fieldLabel;////commented 17.Jun.2015 for summer 15 issue
+        var lbl = labels[i].innerHTML.toLowerCase().replace('class="assistivetext"','class=assistivetext'); //added 17.Jun.2015 for summer 15 issue
+        var requiredLbl = '<span class=assistivetext>*</span>' + fieldLabel; //added 17.Jun.2015 for summer 15 issue
+        if (lbl.toLowerCase() == requiredLbl.toLowerCase()) {
+            return labels[i].htmlFor;
+        } else if (lbl.toLowerCase() == fieldLabel.toLowerCase()) {         
+            return labels[i].htmlFor;
+        }
+        
+    }
+}
+
+GS1.getFieldByLabel = function(fieldLabel) {
+    var fieldName = GS1.getFieldIdByLabel(fieldLabel);
+    if (!fieldName) return;
+    if (fieldName.trim()=='') return;   
+    var descField = document.getElementsByName(fieldName);
+    if (!descField) return;
+    if (descField.length < 1) return;
+    //return (descField[0]);
+    for (var i=0; i<descField.length; i++) {
+        if (descField[i].name===fieldName ) {
+            return descField[i];
+        }
+    }
+}
+
+GS1.descriptionClick = function() {
+    var descField = GS1.getFieldByLabel(GS1.descriptionLabel);  
+    var fields = ['Trademark','Flavour','Capacity','Unit','Material','Design','Multipack'];
+    if (descField) {
+        var desc = '';
+        for (var i=0; i< fields.length; i++) {
+            var fld = GS1.getFieldByLabel(fields[i]);
+            if (fld) {              
+                desc += desc == '' ? fld.value : ' ' + fld.value;
+            }
+        }
+        
+        var unitsPerPack = GS1.getFieldByLabel('Units/Pack');
+        var packsPerCase = GS1.getFieldByLabel('Packs/Case');
+        desc += ' ' + unitsPerPack.value;
+        desc += ' ' + packsPerCase.value;
+        if (unitsPerPack.value != '' && packsPerCase.value != '') {
+            var upp = Number(unitsPerPack.value);
+            var ppc = Number(packsPerCase.value);
+            if (!isNaN(upp) && !isNaN(ppc)) {
+                desc += ' '  + String(upp * ppc);
+            }
+        }
+        
+        var pal = GS1.getFieldByLabel('Pallet Material');
+        if (pal) {
+            desc += ' ' + pal.value;
+            
+            pal = GS1.getFieldByLabel('Pallet Design');
+            if (pal) {
+                desc += ' ' + pal.value;
+            }
+        }
+        
+        descField.value = desc;
+    }   
+}
+
+GS1.getViewComboList = function() {
+    var cboList = document.getElementsByName('fcf');
+    if (cboList.length > 0) {
+        cboList = cboList[0];
+        return cboList;
+        if (cboList.id!='fcf') {
+            return cboList;
+        }   
+    }
+}
+
+GS1.hideUnapplicableButtons = function(viewId) {
+    var btn = document.getElementById(viewId + '_refresh');
+    if (!btn) {
+        window.setTimeout(function() {GS1.hideUnapplicableButtons(viewId);}, 100);
+        return;
+    }
+    
+    btn = document.getElementsByName('de_allocate_selected');
+    if (btn.length>0) btn[0].style.display = 'none'; 
+
+    btn = document.getElementsByName('send_back');
+    if (btn.length>0) btn[0].style.display = 'none';     
+    
+    var div = document.getElementById(viewId + '_listButtons'); 
+    if (div) div.style.visibility = 'visible';    
+    
+    div = null;
+    btn = null;
+}
+
+
+var cboModified = false;
+GS1.setupButtons = function() {
+    var cbo = GS1.getViewComboList();
+    
+    var cbo = GS1.getViewComboList();
+    if (!cbo) {
+        window.setTimeout(function(){GS1.setupButtons();},100); 
+        return;
+    }    
+    
+    var viewPort = null;
+    var currentView = '';
+    var viewId = cbo.id.split('_')[0];      
+    currentView = cbo.options[cbo.selectedIndex].text;
+    viewPort = ListViewport.instances[viewId];    
+    var div = document.getElementById(viewId + '_listButtons');
+    if (div) div.style.visibility = 'hidden';           
+    
+    if (!cboModified) {                        
+        GS1.setupLoadDiv(viewId);
+        if (viewPort) {
+            if (viewPort.showFeedOrListView) {
+                cbo.onchange = function() {      
+                    div = null;           
+                    viewPort.showFeedOrListView(cbo.options[cbo.selectedIndex].value);
+                    GS1.setupButtons();
+                }
+            }
+        }
+        
+        for (var i=0; i<cbo.options.length; i++) {
+            if (cbo.options[i].text.indexOf('-----------------------------------') >=0) {
+                cbo.options[i] = new Option('------------------------------------------','test');
+                cbo.options[i].disabled = true;
+            }
+        }
+        cboModified = true;
+    }        
+    
+    if (!viewPort) {
+        return;
+    }
+    if (!(GS1.isAdmin)) {
+        GS1.hideUnapplicableButtons(viewId);
+    } else {
+        if (currentView.indexOf('To Send Back')>=0) {
+            div.style.visibility = 'visible';                   
+        } else {            
+            GS1.hideUnapplicableButtons(viewId);            
+        }
+    }    
+    
+    div = null;     
+}
+
+GS1.setupLoadDiv = function(viewId) {
+    var loadDiv = document.getElementById(viewId + '_loading');
+    if (!loadDiv) {
+        window.setTimeout(function() {GS1.setupLoadDiv(viewId);},100);
+        return
+    }
+    
+    var subNav = document.getElementById(viewId + '_subNav');
+    subNav.onclick = function() {
+        window.setTimeout(function() {GS1.setButtonsAfterRefresh(viewId);}, 100);
+    }
+    
+    loadDiv.onmouseover = function() {
+        window.setTimeout(function() {GS1.setButtonsAfterRefresh(viewId);}, 100);
+    }
+}
+
+GS1.setButtonsAfterRefresh = function(viewId) {
+    var loadDiv = document.getElementById(viewId + '_loading');
+    if (loadDiv.style.display == 'block') {
+        var div = document.getElementById(viewId + '_listButtons');    
+        if (div) div.style.visibility = 'hidden';
+        window.setTimeout(function() {GS1.setButtonsAfterRefresh(viewId);}, 100);
+        loadDiv = null;
+        return;
+    }
+    
+    GS1.setupButtons();
+}
+
+GS1.isRequestObject = function() {  
+    var url = location.protocol + '//' + location.host + '/';
+    var testURL = url + GS1.requestObjectPrefix;
+    if (location.href.indexOf(testURL)==0) {
+        return true;
+    }
+}
+
+GS1.setupBBNLookup = function() {
+    var bbn = GS1.getFieldByLabel(GS1.bbnLabel);
+    if (bbn) {        
+        var link = document.createElement('a');
+        link.style.cursor = 'pointer';
+        link.onclick = function() {
+            dlg.openLookup('/_ui/common/data/LookupPage?lkfm=editPage&lknm=' + bbn.id + '&lktp=' + GS1.bbnObjectPrefix + '&lkent=' + GS1.requestObjectPrefix ,0,0,'&lksrch=' + bbn.value, bbn);
+        }
+        
+        var icon = document.createElement('img');
+        icon.className = 'lookupIcon';
+        icon.src = '/s.gif';
+        
+        icon.onmouseover = function() {
+            icon.className = 'lookupIconOn';
+            icon.className = 'lookupIconOn';
+        }
+        
+        icon.onmouseout = function() {
+            icon.className = 'lookupIcon';
+            icon.className = 'lookupIcon';
+        }        
+        
+        icon.onfocus = function() {
+            icon.className = 'lookupIconOn';
+            icon.className = 'lookupIconOn';
+        }
+        
+        icon.onblur = function() {
+            icon.className = 'lookupIcon';
+            icon.className = 'lookupIcon';
+        }        
+        
+        link.appendChild(icon);            
+        bbn.parentNode.insertBefore(link, bbn.nextSibling);                
+    }
+}
+
+if (GS1.editMode() && GS1.isRequestObject()) {
+    var prevOnload = self.onload;
+    self.onload = function() {
+        if (prevOnload) prevOnload();
+        GS1.createLinkInFieldLabel(GS1.getFieldIdByLabel(GS1.descriptionLabel), GS1.descriptionClick);
+        
+        fld = GS1.getFieldByLabel('Comment');
+        if (fld) fld.style.width = '100%';      
+        
+        var fld = GS1.getFieldByLabel(GS1.descriptionLabel);
+        if (fld) fld.style.width = '100%';             
+        
+        GS1.setupBBNLookup();     
+    }
+}
+
+if (GS1.isRequestObject()) {
+    GS1.setupButtons();
+}
+
+//</script>
+</apex:page>

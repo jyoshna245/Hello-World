@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>ARERate__c</fullName>
+        <externalId>false</externalId>
+        <formula>RFA__r.ARERate__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>A.R.E. Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>8</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AmountUSD__c</fullName>
+        <externalId>false</externalId>
+        <formula>Amount__c* ARERate__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Amount (USD)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount (FC)</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AssetCategory__c</fullName>
+        <externalId>false</externalId>
+        <label>Asset Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Land</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Land Improvements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leasehold Improvements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Buildings &amp; Improvements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Machinery &amp; Equipment (M&amp;E)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sales Equipment - Venders</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sales Equipment - Coolers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sales Equipment - Dispensers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sales Equipment - Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Furniture &amp; Fixtures</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fleet - Automobiles</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fleet - Trucks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fleet - Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT Hardware</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT Software</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Containers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bottles &amp; Cases</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CAPPrs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>InvestmentObjectiveCategory__c</fullName>
+        <externalId>false</externalId>
+        <label>Investment Objective Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Quality and Compliance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Infrastructure Maintenance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Productivity / Efficiency</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Information Technology</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cold Drink Initiatives</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Consumer Marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Distribution Expansion</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Growth / Production Expansion</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Strategic Acceleration</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Social Responsibility and Planet</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RFA__c</fullName>
+        <externalId>false</externalId>
+        <label>RFA</label>
+        <referenceTo>RFA__c</referenceTo>
+        <relationshipName>Capital_Expenditures</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <label>Capital Request Detail</label>
+    <nameField>
+        <displayFormat>CE#-{000000}</displayFormat>
+        <label>Capital Request Detail Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Capital Request Details</pluralLabel>
+    <recordTypes>
+        <fullName>CapitalProjectRequest</fullName>
+        <active>true</active>
+        <label>Capital Project Request</label>
+        <picklistValues>
+            <picklist>AssetCategory__c</picklist>
+            <values>
+                <fullName>Bottles %26 Cases</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Buildings %26 Improvements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CAPPrs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Containers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fleet - Automobiles</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fleet - Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fleet - Trucks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Furniture %26 Fixtures</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IT Hardware</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IT Software</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Land</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Land Improvements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Leasehold Improvements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Machinery %26 Equipment %28M%26E%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Equipment - Coolers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Equipment - Dispensers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Equipment - Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Equipment - Venders</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>InvestmentObjectiveCategory__c</picklist>
+            <values>
+                <fullName>Cold Drink Initiatives</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consumer Marketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Distribution Expansion</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Growth %2F Production Expansion</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information Technology</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Infrastructure Maintenance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Productivity %2F Efficiency</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quality and Compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Social Responsibility and Planet</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strategic Acceleration</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>SmallProjectRequest</fullName>
+        <active>true</active>
+        <label>Small Project Request</label>
+        <picklistValues>
+            <picklist>AssetCategory__c</picklist>
+            <values>
+                <fullName>Bottles %26 Cases</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Buildings %26 Improvements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CAPPrs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Containers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fleet - Automobiles</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fleet - Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fleet - Trucks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Furniture %26 Fixtures</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IT Hardware</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IT Software</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Land</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Land Improvements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Leasehold Improvements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Machinery %26 Equipment %28M%26E%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Equipment - Coolers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Equipment - Dispensers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Equipment - Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Equipment - Venders</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>InvestmentObjectiveCategory__c</picklist>
+            <values>
+                <fullName>Cold Drink Initiatives</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consumer Marketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Distribution Expansion</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Growth %2F Production Expansion</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information Technology</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Infrastructure Maintenance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Productivity %2F Efficiency</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quality and Compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Social Responsibility and Planet</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strategic Acceleration</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

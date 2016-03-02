@@ -1,0 +1,348 @@
+<apex:page standardController="ITPR__c" extensions="ITPR" showheader="false" rendered="true" >
+
+<apex:form id="test" >
+
+
+ <style>
+.bPageBlock {
+background-color: white !important ;
+}
+</style>
+ <script>
+function SubmissionAlert(){
+    if(('{!ITPR__c.CAPEX1__c}'=='') && ('{!ITPR__c.CAPEX2__c}'=='') && ('{!ITPR__c.CAPEX3__c}'=='')
+        && ('{!ITPR__c.OPEX1__c}'=='') && ('{!ITPR__c.OPEX2__c}'=='') && ('{!ITPR__c.OPEX3__c}'==''))
+     {
+           alert("Please Enter Budget details");
+     }
+     else
+     {
+       
+       var exception = document.getElementById('idException').value;
+        if(exception == null || exception == "" || exception == "null"){
+        alert("The Request {!ITPR__c.Name} is submitted to the Assignees Successfully"); 
+            window.top.location='/{!ITPR__c.id}';
+        }
+    }
+    }
+    function PageRefresh1(){
+    
+        var exception = document.getElementById('idException').value;
+        if(exception == null || exception == "" || exception == "null"){
+            window.top.location='/{!ITPR__c.id}';
+        }
+         
+
+    } 
+     
+    function PageRefresh2(){
+ var x = "";
+ var y = false;
+    if(('{!ITPR__c.Wave1_Approver_1__c}'== '') && ('{!ITPR__c.Wave1_Approver_2__c}'== '') && ('{!ITPR__c.Wave1_Approver_3__c}'== '')&& ('{!ITPR__c.Wave1_Approver_4__c}'== '') && ('{!ITPR__c.Wave1_Approver_5__c}'== ''))
+    {
+    y = true;
+    x += ("{!ITPR__c.Primary_Assignee__c} Action               : Please select atleast one Approver from Wave 1\n");
+   
+   }
+    if(('{!ITPR__c.CAPEX1__c}'=='') && ('{!ITPR__c.CAPEX2__c}'=='') && ('{!ITPR__c.CAPEX3__c}'=='')
+        && ('{!ITPR__c.OPEX1__c}'=='') && ('{!ITPR__c.OPEX2__c}'=='') && ('{!ITPR__c.OPEX3__c}'==''))
+    {
+    y = true;
+   x += ("{!ITPR__c.Finance_Assignee__r.Name} Action          : Budget Details Not entered\n");
+   
+   }
+    if((('{!ITPR__c.Request_Type__c}'!= 'RFI')&&('{!ITPR__c.Request_Type__c}'!= 'RFP')&&('{!ITPR__c.Request_Type__c}'!= 'NDA')&&('{!ITPR__c.Request_Type__c}'!= 'Letter Of Termination')&&('{!ITPR__c.Request_Type__c}'!= 'Eval Agreement')&&('{!ITPR__c.Request_Type__c}'!= 'Other Legal')) && ('{!ITPR__c.Are_There_Fees_For_Early_Termination__c}'== ''))
+    {
+    y = true;
+    if('{!ITPR__c.Procurement_Assignee__c}' != '')
+    {
+   x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Are There Fees For Early Termination? should be selected\n");   
+   }
+   else
+   {
+   x += ("Are There Fees For Early Termination? should be selected but there is no Procurement Assignee to populate the same\n"); 
+   }
+   }
+   
+   if((('{!ITPR__c.Request_Type__c}'!= 'RFI')&&('{!ITPR__c.Request_Type__c}'!= 'RFP')&&('{!ITPR__c.Request_Type__c}'!= 'NDA')&&('{!ITPR__c.Request_Type__c}'!= 'Letter Of Termination')&&('{!ITPR__c.Request_Type__c}'!= 'Eval Agreement')&&('{!ITPR__c.Request_Type__c}'!= 'Other Legal')) && ('{!ITPR__c.Are_There_Fees_For_Early_Termination__c}'== 'Yes')&& ('{!ITPR__c.If_Yes_Explain3__c}'== ''))
+    {
+    y = true;
+   x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Please enter text since Fees for Early Termination was selected as Yes.\n");   
+   }
+   if((('{!ITPR__c.Request_Type__c}'!= 'RFI')&&('{!ITPR__c.Request_Type__c}'!= 'RFP')&&('{!ITPR__c.Request_Type__c}'!= 'NDA')&&('{!ITPR__c.Request_Type__c}'!= 'Letter Of Termination')&&('{!ITPR__c.Request_Type__c}'!= 'Eval Agreement')&&('{!ITPR__c.Request_Type__c}'!= 'Other Legal')) && ('{!ITPR__c.Expiration_Date__c}'== '')  && ('{!ITPR__c.Evergreen__c}' == false))
+    {
+    y = true;
+    if('{!ITPR__c.Procurement_Assignee__c}' != '')
+    {
+   x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Please enter the Expiration date\n");   
+   }
+   else
+   {
+   x += ("Expiration Date should be selected but there is no Procurement Assignee to populate the same\n"); 
+   }
+   }
+   if((('{!ITPR__c.Request_Type__c}'== 'New Master')||('{!ITPR__c.Request_Type__c}'== 'COA')||('{!ITPR__c.Request_Type__c}'== 'Change In Existing Master')) && ('{!ITPR__c.Are_There_Exceptions_To_LoL__c}'== ''))
+    {
+    y = true;
+   /*x += ("{!ITPR__c.Legal_Assignee__r.Name} Action      : Please select either Yes/No for Exceptions to LOL\n");*/
+   }
+    if((('{!ITPR__c.Request_Type__c}'== 'New Master')||('{!ITPR__c.Request_Type__c}'== 'COA')||('{!ITPR__c.Request_Type__c}'== 'Change In Existing Master')) && ('{!ITPR__c.Are_There_Exceptions_To_LoL__c}'== 'Yes')&&('{!ITPR__c.If_yes_Explain4__c}'== ''))
+    {
+    y = true;
+   /*x += ("{!ITPR__c.Legal_Assignee__r.Name}'s Action      : Please enter the text since there are Exceptions to LOL.\n"); */
+   }
+   /*
+     if(('{!ITPR__c.Engagement_Of_A_New_Supplier__c}'== 'Yes')&&('{!ITPR__c.New_Supplier_Financial_Analysis_Done__c}'== ''))
+    {
+    y = true;
+    
+   x += ("{!ITPR__c.Finance_Assignee__r.Name} Action      : New Supplier? Financial Analysis Done? should be selected when Engagement Of A New Supplier? is Yes.\n");   
+   }
+     if(('{!ITPR__c.New_Supplier_Financial_Analysis_Done__c}'== 'No')&&('{!ITPR__c.If_No_Explain1__c}'== ''))
+    {
+    y = true;
+   x += ("{!ITPR__c.Finance_Assignee__r.Name} Action      : Please enter the text since Supplier Financial Analysis was not done\n");   
+   }
+   */
+     if((('{!ITPR__c.Request_Type__c}'== 'New Master')||('{!ITPR__c.Request_Type__c}'== 'COA')||('{!ITPR__c.Request_Type__c}'== 'Change In Existing Master'))&&('{!ITPR__c.Standard_Indemnifications_Including_IP__c}'== 'No')&&('{!ITPR__c.If_No_Explain3__c}'== ''))
+    {
+    y = true;
+    
+   /*x += ("{!ITPR__c.Legal_Assignee__r.Name} Action      : Please enter the text since Standard Indemnifications is No\n");*/
+   }
+    if((('{!ITPR__c.Request_Type__c}'== 'New Master')||('{!ITPR__c.Request_Type__c}'== 'COA')||('{!ITPR__c.Request_Type__c}'== 'Change In Existing Master')) && ('{!ITPR__c.Standard_Representations_Warranties__c}'== 'No')&& ('{!ITPR__c.If_No_Explain2__c}'== ''))
+    {
+    y = true;
+   /*x += ("{!ITPR__c.Legal_Assignee__r.Name} Action      : Please enter the text since Standard representative warranties is No.\n"); */
+   }  
+    if((('{!ITPR__c.Request_Type__c}'!= 'RFI')&&('{!ITPR__c.Request_Type__c}'!= 'RFP')&&('{!ITPR__c.Request_Type__c}'!= 'NDA')&&('{!ITPR__c.Request_Type__c}'!= 'Letter Of Termination')&&('{!ITPR__c.Request_Type__c}'!= 'Eval Agreement')&&('{!ITPR__c.Request_Type__c}'!= 'Other Legal')) && ('{!ITPR__c.Any_Noteworthy_Exceptional_Risk__c}'== ''))
+    {
+    y = true;
+    if('{!ITPR__c.Procurement_Assignee__c}' != '')
+    {
+   x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Any Noteworthy/Exceptional Risk? should be selected\n");   
+   }
+   else
+   {
+   x += ("Noteworthy/Exceptional Risk should be selected but there is no Procurement Assignee to populate the same\n"); 
+   }
+   }
+    if((('{!ITPR__c.Request_Type__c}'!= 'RFI')&&('{!ITPR__c.Request_Type__c}'!= 'RFP')&&('{!ITPR__c.Request_Type__c}'!= 'NDA')&&('{!ITPR__c.Request_Type__c}'!= 'Letter Of Termination')&&('{!ITPR__c.Request_Type__c}'!= 'Eval Agreement')&&('{!ITPR__c.Request_Type__c}'!= 'Other Legal')) && ('{!ITPR__c.Any_Noteworthy_Exceptional_Risk__c}'== 'Yes')&& ('{!ITPR__c.If_Yes_Explain1__c}'== ''))
+    {
+    y = true;
+   x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Please enter the text since Noteworthy Exceptional Risk is Yes.\n");   
+   }
+   if((('{!ITPR__c.Request_Type__c}'== 'New Master')||('{!ITPR__c.Request_Type__c}'== 'COA')||('{!ITPR__c.Request_Type__c}'== 'Change In Existing Master')) && ('{!ITPR__c.Standard_Indemnifications_Including_IP__c}'== ''))
+    {
+    y = true;
+   /*x += ("{!ITPR__c.Legal_Assignee__r.Name} Action      : Please select a value for standard Indemnifications Including IP \n"); */
+   }
+   if((('{!ITPR__c.Request_Type__c}'== 'New Master')||('{!ITPR__c.Request_Type__c}'== 'COA')||('{!ITPR__c.Request_Type__c}'== 'Change In Existing Master')) && ('{!ITPR__c.Standard_Representations_Warranties__c}'== ''))
+    {
+    y = true;
+ /* x += ("{!ITPR__c.Legal_Assignee__r.Name} Action      : Please select a value for standard Representations/Warranties? \n"); */
+   }
+     if((('{!ITPR__c.Request_Type__c}'!= 'RFI')&&('{!ITPR__c.Request_Type__c}'!= 'RFP')&&('{!ITPR__c.Request_Type__c}'!= 'NDA')&&('{!ITPR__c.Request_Type__c}'!= 'Letter Of Termination')&&('{!ITPR__c.Request_Type__c}'!= 'Eval Agreement')&&('{!ITPR__c.Request_Type__c}'!= 'Other Legal')) && ('{!ITPR__c.Will_Supplier_Retain_Rights_To_New_IP__c}'== ''))
+    {
+    y = true;
+     if('{!ITPR__c.Procurement_Assignee__c}' != '')
+    {
+   x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Will Supplier Retain Rights To New IP? should be selected\n");   
+   }
+   else
+   {
+   x += ("Will Supplier Retain Rights To New IP? should be selected but there is no Procurement Assignee to populate the same\n"); 
+   }
+   
+   }
+     if((('{!ITPR__c.Request_Type__c}'!= 'RFI')&&('{!ITPR__c.Request_Type__c}'!= 'RFP')&&('{!ITPR__c.Request_Type__c}'!= 'NDA')&&('{!ITPR__c.Request_Type__c}'!= 'Letter Of Termination')&&('{!ITPR__c.Request_Type__c}'!= 'Eval Agreement')&&('{!ITPR__c.Request_Type__c}'!= 'Other Legal')) && ('{!ITPR__c.Will_Supplier_Retain_Rights_To_New_IP__c}'== 'Yes')&& ('{!ITPR__c.If_Yes_Explain2__c}'== ''))
+    {
+    y = true;
+   x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Please enter text since Supplier retain rights to New IP is Yes.\n");   
+   }
+   //new changes for procurement assignee
+   if(('{!ITPR__c.Request_Type__c}'!= 'NDA')&&('{!ITPR__c.Request_Type__c}'!= 'Letter Of Termination')&&('{!ITPR__c.Request_Type__c}'!= 'Eval Agreement')&&('{!ITPR__c.Request_Type__c}'!= 'Other Legal'))
+    {
+        if('{!ITPR__c.Agreement_ID__c}' == ''){
+            y = true;
+            x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Agreement ID cannot be blank. Please enter the text.\n");  
+        } 
+        if('{!ITPR__c.Cost_Avoidance__c}' == ''){
+            y = true;
+            x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Cost Avoidance cannot be blank. Please enter the text.\n");  
+        } 
+        /*if('{!ITPR__c.If_Rqd_Has_Hosting_Cert_Team_Approved__c}' == ''){
+            y = true;
+            x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Please select a value for If Rqd, Has Hosting Cert. Team Approved?.\n");  
+        }*/
+        if('{!ITPR__c.If_Required_Has_IT_Security_Approved__c}' == ''){
+            y = true;
+            x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Please select a value for If Required, Has IT Security Approved?.\n");  
+        } 
+        if('{!ITPR__c.Labor_Services_Checklist_Completed__c}' == ''){
+            y = true;
+            x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Please select a value for Labor Services? Checklist Completed?.\n");  
+        } 
+        if('{!ITPR__c.New_Master_COA_Logged_In_Contract_DB__c}' == ''){
+            y = true;
+            x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Please select a value for New Master/COA? Logged In Contract DB?.\n");  
+        } 
+        if('{!ITPR__c.New_COA__c}' == ''){
+            y = true;
+            x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Please select a value for New COA?.\n");  
+        } 
+        if('{!ITPR__c.New_Master__c}' == ''){
+            y = true;
+            x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Please select a value for New Master?.\n");  
+        } 
+        if('{!ITPR__c.Savings__c}' == ''){
+            y = true;
+            x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Savings cannot be blank.Please enter a value.\n");  
+        } 
+        if('{!ITPR__c.Spelling_And_Formatting_Checked__c}' == ''){
+            y = true;
+            x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Please select a value for Spelling And Formatting Checked?.\n");  
+        } 
+        if('{!ITPR__c.Is_System_Participation_Allowed__c}' == ''){
+            y = true;
+            x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Please select a value for Is System Participation Allowed?.\n");  
+        } 
+        /*if('{!ITPR__c.If_Required_Has_The_TRB_Approved__c}' == ''){
+            y = true;
+            x += ("{!ITPR__c.Procurement_Assignee__r.Name} Action      : Please select a value for If Required, Has The TRB Approved?.\n");  
+        }*/ 
+   }
+   //--end of new changes for procurement assignee
+    /* if('{!ITPR__c.SFAS_133_Embedded_Derivatives__c}'== '')
+    {
+    y = true;
+   x += ("{!ITPR__c.Finance_Assignee__r.Name} Action      : Please select Embedded Derivatives \n");
+   
+   }
+     if('{!ITPR__c.Guarantees__c}'== '')
+    {
+    y = true;
+   x += ("{!ITPR__c.Finance_Assignee__r.Name} Action      : Please select Guarentees \n");
+   
+   }
+     if('{!ITPR__c.Long_Term_Commitments_Obligations__c}'== '')
+    {
+    y = true;
+   x += ("{!ITPR__c.Finance_Assignee__r.Name} Action      : Please select Long term commitments Obligations\n");
+   
+   }
+     if('{!ITPR__c.Thereafter__c}'== '')
+    {
+    y = true;
+   x += ("{!ITPR__c.Finance_Assignee__r.Name} Action      : Please enter Thereafter\n");
+   
+   }
+    if('{!ITPR__c.Year_1__c}'== '')
+    {
+    y = true;
+   x += ("{!ITPR__c.Finance_Assignee__r.Name} Action      : Please enter Year 1\n");
+   
+   }
+    if('{!ITPR__c.Year_2__c}'== '')
+    {
+    y = true;
+   x += ("{!ITPR__c.Finance_Assignee__r.Name} Action      : Please enter Year 2\n");
+   
+   }
+    if('{!ITPR__c.Year_3__c}'== '')
+    {
+    y = true;
+   x += ("{!ITPR__c.Finance_Assignee__r.Name} Action      : Please enter Year 3\n");
+   
+   }
+    if('{!ITPR__c.Year_4__c}'== '')
+    {
+    y = true;
+   x += ("{!ITPR__c.Finance_Assignee__r.Name} Action      : Please enter Year 4\n");
+   
+   }
+    if('{!ITPR__c.Year_5__c}'== '')
+    {
+    y = true;
+   x += ("{!ITPR__c.Finance_Assignee__r.Name} Action      : Please enter Year 5\n");
+   
+   }*/
+   if((y = true)&&(x.length >0))
+   {
+   window.alert("The IT-SES Document cannot be sent for Final Budget as the below actions are pending. -  \n\n" + x);
+   return false;
+   }
+  /* else
+   {
+   //window.parent.location.href='/apex/ITPR_Notes?{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}={!ITPR__c.Name}&{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}_lkid={!ITPR__c.Id}&retURL=%2F{!ITPR__c.Id}&sfdc.override=1&saveURL=%2F{!ITPR__c.Id}&param1={!ITPR__c.Id}&param2=pendingbudget';
+    
+   //return true;
+   //window.top.location='/{!ITPR__c.id}';
+   
+   }*/
+    
+  
+}
+    </script>
+    <apex:outputPanel rendered="{!refreshPage}">   
+     <script>   
+         window.top.location='/{!ITPR__c.id}';
+            </script> 
+            </apex:outputPanel>
+    
+<apex:pageBlock > 
+<apex:pageMessages id="errMsg"/>
+
+<apex:outputPanel id="panelException"><input id="idException" type="hidden"  value="{!strException}" /></apex:outputPanel>
+<apex:OutputPanel rendered="{!Visibile}">
+
+<div style="text-align:center;">
+<apex:commandButton title="Submit" value="Submit" onComplete="SubmissionAlert();"  action="{!Submit}" rendered="{!submitbtn}" reRender="errMsg, panelException"/>
+<apex:commandButton value="Download Request as PDF" onclick="window.open('/apex/ITPR_GeneratePDF?id='+'{!ITPR__c.Id}','_blank','height=600,location=no,resizable=yes,toolbar=no,status=no,menubar=no,scrollbars=1', 1)"/>
+<apex:commandButton value="Print Cover Sheet" onclick="window.open('/apex/IT_SES_PrintCoverSheetPDF?id='+'{!ITPR__c.Id}','_blank','height=600,location=no,resizable=yes,toolbar=no,status=no,menubar=no,scrollbars=1', 1)" rendered="{!printcoversheet}"/>
+</div>
+</apex:OutputPanel>
+<apex:OutputPanel rendered="{!Visibile1}">
+<div style="text-align:center;">
+<apex:commandButton id="Pendingmore" title="Pending More Info Needed" value="Pending More Info Needed" onclick="window.parent.location.href='/apex/ITPR_Notes?{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}={!ITPR__c.Name}&{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}_lkid={!ITPR__c.Id}&retURL=%2F{!ITPR__c.Id}&sfdc.override=1&saveURL=%2F{!ITPR__c.Id}&param1={!ITPR__c.Id}&param2=pendingmoreinfo'"  rendered="{!pendingmoreinfo}" />
+<apex:commandButton title="Accept" value="Accept" onComplete="PageRefresh1();" action="{!Accept}" rendered="{!accept}" reRender="errMsg, panelException"/>
+<apex:commandButton title="Pending Project Final Budget" value="Pending Project Final Budget"  action="{!PendingFinalBudget}" rendered="{!pendingbudget}"  onclick="return PageRefresh2();"/>
+<apex:commandButton title="On Hold" value="On Hold" onclick="window.parent.location.href='/apex/ITPR_Notes?{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}={!ITPR__c.Name}&{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}_lkid={!ITPR__c.Id}&retURL=%2F{!ITPR__c.Id}&sfdc.override=1&saveURL=%2F{!ITPR__c.Id}&param1={!ITPR__c.Id}&param2=onhold'" rendered="{!onhold}" />
+<apex:commandButton title="Cancel" value="Cancel" onclick="window.parent.location.href='/apex/ITPR_Notes?{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}={!ITPR__c.Name}&{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}_lkid={!ITPR__c.Id}&retURL=%2F{!ITPR__c.Id}&sfdc.override=1&saveURL=%2F{!ITPR__c.Id}&param1={!ITPR__c.Id}&param2=cancel'"  rendered="{!cancel}" />
+<apex:commandButton title="Complete" value="Complete" onclick="window.parent.location.href='/apex/ITPR_Notes?{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}={!ITPR__c.Name}&{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}_lkid={!ITPR__c.Id}&retURL=%2F{!ITPR__c.Id}&sfdc.override=1&saveURL=%2F{!ITPR__c.Id}&param1={!ITPR__c.Id}&param2=complete'" rendered="{!complete1}"  />
+<apex:commandButton title="Reactivate" value="Reactivate" onComplete="PageRefresh1();"  action="{!Reactivate}" rendered="{!reactivate}" reRender="errMsg, panelException"/>
+<apex:commandButton value="Print Cover Sheet" onclick="window.open('/apex/IT_SES_PrintCoverSheetPDF?id='+'{!ITPR__c.Id}','_blank','height=600,location=no,resizable=yes,toolbar=no,status=no,menubar=no,scrollbars=1', 1)" rendered="{!printcoversheet2}"/>
+<apex:commandButton title="Reopen" value="Reopen" onclick="window.parent.location.href='/apex/ITPR_Notes?{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}={!ITPR__c.Name}&{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}_lkid={!ITPR__c.Id}&retURL=%2F{!ITPR__c.Id}&sfdc.override=1&saveURL=%2F{!ITPR__c.Id}&param1={!ITPR__c.Id}&param2=Reopen'" rendered="{!ReOpen}"  />
+
+</div>
+</apex:OutputPanel>
+<apex:OutputPanel rendered="{!Visibile2}">
+<div style="text-align:center;">
+<apex:commandButton title="Executed and Filed" value="Executed and Filed" onComplete="PageRefresh1();" action="{!ExecutedAndFiled}" rendered="{!ExecutedandFiled}" reRender="errMsg, panelException"/>
+<apex:commandButton title="Not Executed and Closed" value="Not Executed and Closed" onclick="window.parent.location.href='/apex/ITPR_Notes?{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}={!ITPR__c.Name}&{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}_lkid={!ITPR__c.Id}&retURL=%2F{!ITPR__c.Id}&sfdc.override=1&saveURL=%2F{!ITPR__c.Id}&param1={!ITPR__c.Id}&param2=notexecuted'" rendered="{!NotExecutedandClosed}"/>
+<apex:commandButton value="Print Cover Sheet" onclick="window.open('/apex/IT_SES_PrintCoverSheetPDF?id='+'{!ITPR__c.Id}','_blank','height=600,location=no,resizable=yes,toolbar=no,status=no,menubar=no,scrollbars=1', 1)" rendered="{!printcoversheet2}"/>
+</div>
+</apex:OutputPanel>
+<apex:OutputPanel rendered="{!Visibile4}">
+<div style="text-align:center;">
+<apex:commandButton value="Print Cover Sheet" onclick="window.open('/apex/IT_SES_PrintCoverSheetPDF?id='+'{!ITPR__c.Id}','_blank','height=600,location=no,resizable=yes,toolbar=no,status=no,menubar=no,scrollbars=1', 1)" rendered="{!printcoversheet2}"/>
+</div>
+</apex:OutputPanel>
+<apex:outputPanel rendered="{!Visibile3}">
+<div style="text-align:center;">
+<apex:commandButton title="Reopen" value="Reopen" rendered="{!ReOpen}"  action="{!Reopen}" onComplete="PageRefresh1();"/>
+<apex:commandButton title="Reactivate" value="Reactivate" onComplete="PageRefresh1();"  action="{!Reactivate}" rendered="{!reactivate}" reRender="errMsg, panelException"/>
+</div>
+</apex:outputPanel>
+
+
+<apex:OutputPanel rendered="{!Visibile5}">
+<div style="text-align:center;">
+<apex:commandButton title="Complete" value="Complete" onclick="window.parent.location.href='/apex/ITPR_Notes?{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}={!ITPR__c.Name}&{!$Setup.ITPRStatusNotesLookupField__c.ITPR__c}_lkid={!ITPR__c.Id}&retURL=%2F{!ITPR__c.Id}&sfdc.override=1&saveURL=%2F{!ITPR__c.Id}&param1={!ITPR__c.Id}&param2=complete'" rendered="{!complete2}"  />
+</div>
+</apex:OutputPanel>
+
+</apex:pageBlock>
+
+</apex:form>
+</apex:page>

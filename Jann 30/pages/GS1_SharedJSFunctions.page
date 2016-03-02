@@ -1,0 +1,257 @@
+<apex:page contentType="text/javascript">
+//<script>
+
+var Utils = new Object();
+
+Utils.hideElementByName = function(elemName) {
+    var elem = document.getElementsByName(elemName);
+    var elemCount = elem.length;
+    if(elemCount > 0) {
+        for (var i=0; i<elemCount; i++) {
+            elem[i].style.visibility = 'hidden';
+            elem[i].style.display = 'none';
+        }
+    }
+}
+
+Utils.removeElementByName = function(elemName) {
+    var elem = document.getElementsByName(elemName);
+    var elemCount = elem.length;
+    if(elemCount > 0) {
+        for (var i=0; i<elemCount; i++) {
+            elem[0].parentNode.removeChild(elem[0]);
+        }
+    }
+}
+
+Utils.getElementsByClassName = function (cn, doc){ // GEBCN = GetElementByClassName
+    if (doc == null) doc = document;
+    if(doc.getElementsByClassName)
+        return document.getElementsByClassName(cn); 
+
+    cn = cn.replace(/ *$/, '');
+
+    if(doc.querySelectorAll)
+        return document.querySelectorAll((' ' + cn).replace(/ +/g, '.'));
+
+    return Utils.GEBCN_IE(doc, cn);
+}
+
+Utils.GEBCN_IE = function(className, doc) {// GEBCN for older IE
+    var foundList = []; 
+    var elems = null;
+    var cname = className.toUpperCase();
+    
+    if (doc.all) { //if IE
+        elems = doc.all;
+    } else {
+        elems = doc.getElementsByTagName("*");
+    }
+ 
+    var count = elems.length;
+    for (var i = 0; i < count; i++) {
+        if (elems[i].className != '') {
+            var classes = elems[i].className.split(' ');
+            for (var j=0; j < classes.length; j++) {
+                if (classes[j].toUpperCase() == cname) {
+                    foundList[foundList.length] = elems[i];
+                }
+            }
+        }
+    }
+ 
+    if (foundList.length > 0) return foundList;
+    else return null;
+}
+
+
+function SalesforceDialog() {
+    var btnWidth = '60px';
+    var sfBox;
+    var progressScreen;
+    var buttonBlock;
+    var dialogBoxName = 'SalesforceDialog-{!$Api.Session_ID}';
+    var progressDialogName = 'SalesforceProgressDialog-{!$Api.Session_ID}';
+    var initialize = function(title) {
+        if (!sfBox) {
+            sfBox = new SimpleDialog(dialogBoxName, true);
+            sfBox.createDialog();
+        } else {
+            var nodeList = sfBox.getContentElement().childNodes;
+            while (nodeList.length > 0) {
+                sfBox.getContentElement().removeChild(nodeList[0]);            
+            }
+        }
+                
+        sfBox.setTitle(title); 
+    }
+
+    var createMessageBlock = function(message) {
+        if (!message) message='';
+        var msgBlock = document.createElement('div');
+        if (message.indexOf('\n')>=0) {
+            var messageChunks = message.split('\n');
+            var count = messageChunks.length;
+            for (var i=0; i<count; i++) {
+                //msgBlock.appendChild(document.createTextNode(messageChunks[i]));
+                msgBlock.innerHTML += messageChunks[i];
+                msgBlock.appendChild(document.createElement('br'));
+            }    
+        } else {
+            //msgBlock.appendChild(document.createTextNode(message));
+            msgBlock.innerHTML = message;
+        }   
+        
+        return msgBlock;
+    }
+    
+    var buildAlertContent = function(message, title, okCallback) {
+        if (!title) {
+            title = 'Message';
+        }
+        initialize(title);
+        
+        buttonBlock = document.createElement('div');
+        buttonBlock.align = 'right';
+        
+        btn = document.createElement('button');
+        btn.onclick = function() {
+                sfBox.hide();
+                if (okCallback) okCallback();
+            }       
+        btn.className = 'btn';
+        btn.style.width = btnWidth;
+        btn.appendChild(document.createTextNode('OK'));
+        buttonBlock.appendChild(btn);       
+        
+        sfBox.getContentElement().appendChild(createMessageBlock(message));         
+    }
+    
+    this.alert = function(message, title, okCallback) {
+        buildAlertContent(message, title, okCallback);  
+        sfBox.getContentElement().appendChild(document.createElement('hr'));
+        sfBox.getContentElement().appendChild(buttonBlock);    
+        sfBox.show();    
+    }
+    
+    this.alertPlus = function(message, title, okCallback, elems) {
+        buildAlertContent(message, title, okCallback);
+        sfBox.getContentElement().appendChild(document.createElement('br'));        
+        for (var i=0; i<elems.length; i++) {
+            sfBox.getContentElement().appendChild(elems[i]);
+        }                 
+        sfBox.getContentElement().appendChild(document.createElement('hr'));
+        sfBox.getContentElement().appendChild(buttonBlock);    
+        sfBox.show();    
+    }    
+
+    this.confirm = function(message, title, okCallback, yn) {
+        buildConfirmContent(message, title, okCallback, yn);
+        sfBox.getContentElement().appendChild(document.createElement('hr'));
+        sfBox.getContentElement().appendChild(buttonBlock);
+        sfBox.show();  
+    }
+    
+    this.confirmPlus = function(message, title, okCallback, yn, elems) {
+        buildConfirmContent(message, title, okCallback, yn, elems);     
+        sfBox.getContentElement().appendChild(document.createElement('br'));        
+        for (var i=0; i<elems.length; i++) {
+            sfBox.getContentElement().appendChild(elems[i]);
+        }       
+        sfBox.getContentElement().appendChild(document.createElement('hr'));
+        sfBox.getContentElement().appendChild(buttonBlock);     
+        sfBox.show(); 
+    }    
+    
+    var buildConfirmContent = function(message, title, okCallback, yn) {
+        cancelText = 'Cancel';
+        okayText = 'OK';
+        if (yn) {
+            if (yn==true) {
+                cancelText = 'No';
+                okayText = 'Yes';           
+            }       
+        }
+        if (!title) {
+            title = 'Confirm';
+        }   
+        initialize(title); 
+        
+        buttonBlock = document.createElement('div');
+        buttonBlock.align = 'right';
+        
+        var btn = null;         
+        if (okCallback) {
+            btn = document.createElement('button');
+            btn.onclick = function() {
+                    sfBox.hide();
+                    if (okCallback) okCallback();
+                }
+            btn.className = 'btn';
+            btn.style.width = btnWidth;
+            btn.appendChild(document.createTextNode(okayText));
+            buttonBlock.appendChild(btn);        
+        }
+        
+        btn = document.createElement('button');
+        btn.onclick = function() {sfBox.hide();};
+        btn.className = 'btn';
+        btn.style.width = btnWidth;
+        btn.appendChild(document.createTextNode(cancelText));
+        buttonBlock.appendChild(btn);
+        
+        sfBox.getContentElement().appendChild(createMessageBlock(message));
+    }   
+        
+    this.status = function(statusText) {
+        var psName = progressDialogName;   
+        var msg;
+        if (!progressScreen) {
+            progressScreen = new SimpleDialog(psName,false);
+            progressScreen.createDialog();            
+            var space = document.createElement('span');
+            space.style.margin = '10px';
+            
+            var img = document.createElement('img');
+            img.src = UserContext.getUrl("/img/loading.gif");
+            
+            msg = document.createElement('span');
+            msg.id = psName + 'Message';
+            msg.style.color = '#404040';
+            msg.style.fontWeight = 'bold';
+            
+            var psCon = progressScreen.getContentElement();                                  
+            psCon.appendChild(img);
+            psCon.appendChild(space);
+            psCon.appendChild(msg);                      
+            progressScreen.setWidth(400);    
+            psCon.parentNode.style.backgroundImage = '';
+            psCon.parentNode.style.backgroundColor = 'WHITE';
+    
+            var psTitle = document.getElementById(psName + 'FocusPoint');
+            if (psTitle) {
+                psTitle.parentNode.style.height='4px';
+            }
+        }
+        
+        if (statusText == '') {
+            statusText = null;
+        }
+        
+        if (progressScreen) {
+            if (statusText) {            
+                msg = document.getElementById(psName + 'Message');
+                if (msg) {
+                    msg.innerHTML = statusText;
+                    progressScreen.show();
+                }
+            } else {
+                progressScreen.hide();
+            }
+        }
+    }
+} 
+
+Utils.Dialog = new SalesforceDialog();
+//</script>
+</apex:page>

@@ -1,0 +1,201 @@
+<apex:page sidebar="false" showHeader="false" tabStyle="GS1_Request__c" controller="GS1_CustomLookupPageCtrl" id="thePage">
+<style>
+
+table { 
+    border-spacing:0;
+    border-collapse:collapse;
+}
+
+.noresult {
+    font-weight: bold;
+    color: #404040;
+    text-align: center;
+    height: 200px;
+    vertical-align: middle;
+    line-height:200px;
+}
+
+.dataRow:hover {
+    background-color: #FED3D5;
+    cursor: pointer;    
+}
+
+.letterButton {
+    width:20px;    
+    font-weight:normal !important;
+    cursor: pointer;
+}
+
+.letterButtonSelected {
+    width:20px;    
+    font-weight:bold !important;
+    color: WHITE !important;
+    background-color: #C10D0D !important;
+    background-image: none !important;
+}
+
+.naviButton {
+    width:75px;    
+}
+
+.pbTitle {
+    display:none !important;
+}
+
+.filterLabel {
+    display: block;
+    width: 100px;
+    font-weight:bold;
+}
+
+</style>
+<body onkeyup="docKeyUp(event)" onload="processOnLoad()">
+    <apex:form id="theForm">        
+        <apex:actionFunction name="resubmit" action="{! refresh}" reRender="resultList,searchKey"/>
+        <apex:actionFunction name="queryByLetterSubmit" action="{!queryByLetter}" reRender="resultList,searchKey"/>
+        <apex:pageBlock id="page1Block">
+            <table>
+                <tr>
+                    <td><apex:outputLabel value="Search Key" styleClass="filterLabel"/></td>
+                    <td>
+                        <apex:inputText value="{! searchKey}" label="Search Key" id="searchKey" onkeypress="return submitOnReturn(event);" style="width:400px;"/>
+                        <apex:commandButton value="   Go   " reRender="resultList" action="{!queryBySearchKey}" id="submitButton"/>
+                        <apex:commandButton value=" Reset Search " reRender="resultList,filterField,searchKey" action="{!resetSearch}"/>                             
+                    </td>
+                </tr>
+                <tr>
+                    <td><apex:outputLabel value="Filter By" styleClass="filterLabel"/></td>
+                    <td>
+                        <apex:selectList value="{! filterField}" size="1" style="width:400px;" id="filterField" onchange="resubmit()">
+                            <apex:selectOptions value="{! FieldOptions}"></apex:selectOptions>
+                        </apex:selectList>                                
+                    </td>
+                </tr>
+            </table>
+            
+        </apex:pageBlock>
+        <apex:pageBlock id="page2Block">        
+            <apex:outputPanel id="resultList">
+                <apex:inputHidden value="{! debugString}" id="debugString"/>
+                <apex:inputHidden value="{! selectedLetter}" id="selectedLetter"/>        
+                <div align="center" style="margin-bottom:5px;"><apex:outputText value="{! LetterButtonsHTML}" escape="false"/></div>
+                <div style="overflow:auto; height:{! dialogHeight-160}px; border-style:solid; border-width:1px; border-color:#c0c0c0;">
+                    <apex:outputText escape="false" value="{! html}" id="resultListBlock" />
+                </div>                
+                <table width="100%" cellpadding="3">
+                    <tr>
+                        <td valign="middle">Showing {! IF(lastFetchCount=0,0,lastOffset+1)} to {! lastFetchCount} of <b>{! recordCount}</b> records returned.</td>
+                        <td align="right" valign="middle">
+                            <apex:commandButton styleClass="naviButton" disabled="{! disablePrevButton}" value="<< Previous" reRender="resultList" action="{! previousPage}"/>
+                            <apex:commandButton styleClass="naviButton" disabled="{! disableNextButton}" value="Next >>" reRender="resultList" action="{! nextPage}"/>
+                        </td>
+                    </tr>                        
+                </table>
+            </apex:outputPanel>
+        </apex:pageBlock>                
+    </apex:form>
+</body>
+<script>
+
+var isIE = document.all;
+var ieVersion = (function() {
+    var ret = 0;
+    if (isIE) {
+        if (navigator.userAgent.indexOf('MSIE 7.0;')>=0) ret = 7;
+        else if (navigator.userAgent.indexOf('MSIE 8.0;')>=0) ret = 8;
+        else if (navigator.userAgent.indexOf('MSIE 9.0;')>=0) ret = 9;
+        else if (navigator.userAgent.indexOf('MSIE 10.0;')>=0) ret = 10;
+        else if (navigator.userAgent.indexOf('MSIE 11.0;')>=0) ret = 11;
+        else if (navigator.userAgent.indexOf('MSIE 12.0;')>=0) ret = 11;
+        else ret = 100;
+    }
+    return ret;
+})();        
+
+function queryByLetter(letter) {
+    var field = document.getElementById('{! $Component.thePage.theForm.page2Block.selectedLetter}');
+    if (field) {
+        field.value = letter.value;
+        queryByLetterSubmit();
+    }
+}
+
+function pick(d1,d2,d3) {
+    sendMessageToParent('lookupPick|' +d1+'|'+d2+'|'+d3);
+}
+
+function sendMessageToParent(data) {
+    var win = window.parent;
+    win.postMessage(data,'*');
+}
+
+function docKeyUp (evt) {   
+    evt = evt ? evt : window.event;
+    var key = (evt.keyCode) ? evt.keyCode : ((evt.charCode) ? evt.charCode : evt.which);    
+    if (key == 27) {
+        sendMessageToParent('closeDialog');
+    }
+} 
+
+function setCurrentLetterButton() {
+    var lettersBlock = document.getElementById('{!$Component.thePage.theForm.page2Block.topBtns}');
+    if (lettersBlock) {
+        //alert(lettersBlock.childNodes[1].childNodes[1].value);
+    }
+}
+
+function processOnLoad() {
+    window.onkeyup = function(evt) {docKeyUp(evt);}
+    var bodyCSS = window.document.body.style; 
+    bodyCSS.height = getWinSize().height + '0px';
+    bodyCSS.overflow = 'hidden';
+    
+    var searchField = document.getElementById('{!$Component.thePage.theForm.page1Block.searchKey}');
+    if (searchField) {
+        searchField.focus();
+    }
+    setCurrentLetterButton();
+}
+
+function getWinSize(win) {
+    win = win ? win : self;
+    var winW = {!dialogWidth}, winH = {!dialogHeight};
+    /*if (win.document.body && win.document.body.offsetWidth) {
+        winW = win.document.body.offsetWidth;
+        winH = win.document.body.offsetHeight;
+    }
+    if (win.document.compatMode=='CSS1Compat' &&    
+        win.document.documentElement &&
+        win.document.documentElement.offsetWidth ) {
+        winW = win.document.documentElement.offsetWidth;
+        winH = win.document.documentElement.offsetHeight;
+    }
+    if (win.innerWidth && win.innerHeight) {
+        winW = win.innerWidth;
+        winH = win.innerHeight;
+    }*/
+    
+    var size = new Object();
+    size.width = winW;
+    size.height = winH;
+    return size;
+}
+
+function submitOnReturn(evt) {
+    evt = evt ? evt : window.event;
+    var key = (evt.keyCode) ? evt.keyCode : ((evt.charCode) ? evt.charCode : evt.which);
+    if (key == 13) {
+        clickSubmit();
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function clickSubmit() {
+    var btn = document.getElementById('{!$Component.thePage.theForm.page1Block.submitButton}');
+    if (btn) btn.click();
+}
+
+</script>
+</apex:page>

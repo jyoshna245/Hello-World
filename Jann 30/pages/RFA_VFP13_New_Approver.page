@@ -1,0 +1,111 @@
+<apex:page title="RFA Approver/User Edit" standardController="RFAUserRole__c" extensions="RFA_VFC13_New_Approver" id="NewAppPage" >
+
+<script src="/resource/1357724829000/jquery" type="text/javascript"></script>
+<script src="/soap/ajax/22.0/connection.js" type="text/javascript"></script>    
+
+    <apex:sectionHeader subtitle="New RFA Approver/User"  title="RFA Approver/User Edit" rendered="{!rfaUserObj.Name == null}"/>
+    <apex:sectionHeader subtitle="{!rfaUserObj.Name}"  title="RFA Approver/User Edit" rendered="{!rfaUserObj.Name != null}"/>
+    
+    <apex:outputPanel id="msgs2">    
+        <apex:pageMessages id="msgs"/>
+    </apex:outputPanel>
+    
+    <apex:form id="form">
+
+    <apex:pageBlock title="RFA Approver/User Edit" id="thePageBlock">
+        <apex:pageBlockButtons >
+            <apex:commandButton action="{!dosave}" value="Save"/>
+            <apex:commandButton action="{!doSaveAndNew}" value="Save & New"/>
+            <apex:commandButton action="{!cancel}" value="Cancel"/>
+        </apex:pageBlockButtons>
+        
+        <!-- Approver Information Section-->            
+        <apex:pageBlockSection title="Approver Information" id="ApproverSection" collapsible="false" rendered="{!IF(CONTAINS(rfaUserObj.RecordTypeID, $Label.RFA_CL140),true,false)}" >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.RFAUserRole__c.fields.UserName__c.label}" for="UserName"/>
+                    <apex:outputPanel id="UsernamePanel">
+                        <apex:actionregion >
+                           <apex:inputField value="{!rfaUserObj.UserName__c}" required="true" id="UserName">
+                                <apex:actionSupport event="onchange" action="{!queryAgents}" rerender="UsernamePanel, AgentsSection, msgs"/>
+                           </apex:inputField>
+                        </apex:actionregion>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+               
+                <apex:outputField value="{!rfaUserObj.RecordTypeId}"/>
+
+                <!-- apex:inputField value="{!rfaUserObj.Level__c}" required="{!IF(isPolicy,false,true)}" rendered="{!IF(isPolicy,false,true)}"  / -->
+                                    
+                <apex:pageBlockSectionItem rendered="true" >                   
+                    <apex:outputLabel value="Level" for="Level"/>
+                    <apex:outputPanel styleClass="requiredInput" layout="block">        
+                       <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                       <apex:selectList styleClass="requiredInput" id="Level" value="{!strLevel}" required="false" size="1" rendered="true"  >
+                           <apex:selectOptions value="{!Level}"/>
+                       </apex:selectList> 
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                        
+                 <apex:inputField value="{!rfaUserObj.RFA__c}"/>
+                <apex:outputText ></apex:outputText>
+                <apex:inputField value="{!rfaUserObj.DoNotSendEmail__c}"/>
+         </apex:pageBlockSection>        
+        
+        <!-- Reviewer Section-->            
+        <apex:pageBlockSection title="Reviewer Information" id="ReviewerSection" collapsible="false" rendered="{!IF(CONTAINS(rfaUserObj.RecordTypeID, $Label.RFA_CL141),true,false)}" columns="2">
+            <apex:pageBlockSectionItem >
+            <apex:outputLabel value="{!$ObjectType.RFAUserRole__c.fields.UserName__c.label}" for="UserName"/>
+                <apex:outputPanel id="UsernamePanel2">
+                    <apex:actionregion >
+                        <apex:inputField value="{!rfaUserObj.UserName__c}" required="true" id="UserName">
+                            <apex:actionSupport event="onchange" action="{!queryAgents}" rerender="UsernamePanel2, AgentsSection, msgs"/>
+                        </apex:inputField>
+                    </apex:actionregion>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:outputField value="{!rfaUserObj.RecordTypeId}"/>
+
+            <!-- apex:inputField value="{!rfaUserObj.Level__c}" required="{!IF(isPolicy,false,true)}" rendered="{!IF(isPolicy,false,true)}"  / -->
+                                    
+                <apex:pageBlockSectionItem rendered="true" >                   
+                    <apex:outputLabel value="Level" for="Level"/>
+                    <apex:outputPanel styleClass="requiredInput" layout="block">        
+                       <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                       <apex:selectList styleClass="requiredInput" id="Level" value="{!strLevel}" required="true" size="1" rendered="true"  >
+                           <apex:selectOptions value="{!Level}"/>
+                       </apex:selectList> 
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+            <apex:inputField value="{!rfaUserObj.RFA__c}"/>
+            <apex:outputText ></apex:outputText>
+           <!--  <apex:inputField value="{!rfaUserObj.DoNotSendEmail__c}"/> Commented out for INC1879110 BSA 25-Aug-2014-->
+        </apex:pageBlockSection>
+
+        <!-- Co-creator Section-->            
+        <apex:pageBlockSection title="{!IF(CONTAINS(rfaUserObj.RecordTypeID, $Label.RFA_CL143),'Co-Creator Information',IF(CONTAINS(rfaUserObj.RecordTypeID, $Label.RFA_CL142),'Primary Point of Contact Information',null))}" collapsible="false" columns="2" rendered="{!(IF(CONTAINS(rfaUserObj.RecordTypeID, $Label.RFA_CL143),true,false))||(IF(CONTAINS(rfaUserObj.RecordTypeID, $Label.RFA_CL142),true,false))}">
+            <apex:inputField value="{!rfaUserObj.UserName__c}" required="true"/>
+            <apex:outputField value="{!RFAUserRole__c.RecordTypeId}"/>
+            <apex:outputText ></apex:outputText>
+            <apex:inputField value="{!rfaUserObj.RFA__c}"/>
+        </apex:pageBlockSection>
+        
+        <!-- Approver Response Section-->            
+        <apex:pageBlockSection title="Approval Response" collapsible="false" rendered="{!IF(CONTAINS(rfaUserObj.RecordTypeID, $Label.RFA_CL140),true,false)}">
+            <apex:inputField value="{!rfaUserObj.ApprovalRecommendation__c}"/>
+            <apex:inputtextarea value="{!rfaUserObj.ApprovalComments__c}" rows="6" cols="40"/> 
+        </apex:pageBlockSection>
+        
+        
+        <!-- Agent Info Section-->  
+         <apex:outputPanel id="AgentsSection2">
+        <apex:pageBlockSection title="Agent Information" columns="1" collapsible="false" id="AgentsSection" rendered="{!IF(CONTAINS(rfaUserObj.RecordTypeID, $Label.RFA_CL140) || CONTAINS(rfaUserObj.RecordTypeID, $Label.RFA_CL141),true,false)}">
+            <apex:inputField value="{!rfaUserObj.Agent1__c}" id="Agent1"/>
+            <apex:inputField value="{!rfaUserObj.Agent2__c}" id="Agent2"/>
+            <apex:inputField value="{!rfaUserObj.Agent3__c}" id="Agent3"/>
+        </apex:pageBlockSection>
+        </apex:outputPanel>
+  </apex:pageBlock>  
+</apex:form>  
+
+</apex:page>

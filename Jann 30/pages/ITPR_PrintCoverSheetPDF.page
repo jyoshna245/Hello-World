@@ -1,0 +1,264 @@
+<apex:page standardController="ITPR__c" extensions="ITPR_PrintCoverSheetPDF" renderAs="pdf" standardStylesheets="false" applyHtmlTag="false" showHeader="false" sidebar="false">
+  <head>
+  <style>
+      body{
+          font-size: 10px;
+      }
+      
+      table{
+          border-collapse : collapse;
+      }
+      
+      td{
+          padding-left: 10px;
+          border: 1px solid black;
+      }
+      
+      .bold_black{
+          font-weight: bold;
+          color: black;
+      }
+
+      .heading_main{
+          font-weight: bold;
+          color: black;
+          font-size: 16px;
+      }
+
+      .heading{
+          font-weight: bold;
+          color: black;
+          font-size: 12px;
+      }
+      
+      .bold_blue{
+          font-weight: bold;
+          color: blue;
+      }
+   </style>
+  </head>
+  <img src="{!$Resource.ITSES_Logo}" width="240" height="60"/>
+  <div class="heading_main" style="width: 100%; text-align: center">IT-SES Review and Coversheet</div>
+  <br/><br/>
+  <table class="table_style" cellspacing="0" cellpadding="0" width="100%">
+      <tr>
+          <td width="25%" class="bold_black">{!$ObjectType.ITPR__c.fields.Name.label}</td>
+          <td class="bold_blue">{!objITPR.Name}</td>
+      </tr>
+      <tr>
+          <td class="bold_black">{!$ObjectType.ITPR__c.fields.Request_Type__c.label}</td>
+          <td class="bold_blue">{!objITPR.Request_Type__c}</td>
+      </tr>      
+      <tr>
+          <td class="bold_black">{!$ObjectType.ITPR__c.fields.Supplier_Name__c.label}</td>
+          <td class="bold_blue">{!objITPR.Supplier_Name__r.Name}</td>
+      </tr>      
+      <tr>
+          <td class="bold_black">{!$ObjectType.ITPR__c.fields.Submitted_By__c.label}</td>
+          <td class="bold_blue">{!objITPR.Submitted_By__c}</td>
+      </tr>
+      <tr>
+          <td class="bold_black">Requesting Manager</td>
+          <td class="bold_blue">{!objITPR.Manager__r.Name}</td>
+      </tr>
+      <tr>
+          <td class="bold_black" valign = "top">{!$ObjectType.ITPR__c.fields.Opportunity_Statement__c.label}</td>
+          <td class="bold_blue" valign = "top" style="min-height:40px;">{!objITPR.Opportunity_Statement__c}</td>
+      </tr>
+      <tr>
+          <td class="bold_black" valign = "top">{!$ObjectType.ITPR__c.fields.Category__c.label}</td>
+          <td class="bold_blue" valign = "top">{!objITPR.Category__c}</td>
+      </tr>
+      <tr>
+          <td class="bold_black" valign = "top">{!$ObjectType.ITPR__c.fields.Business_Area__c.label}</td>
+          <td class="bold_blue" valign = "top">{!objITPR.Business_Area__c}</td>
+      </tr>      
+      <tr>
+          <td class="bold_black" valign = "top">{!$ObjectType.ITPR__c.fields.Portfolio_Department__c.label}</td>
+          <td class="bold_blue" valign = "top">{!objITPR.Portfolio_Department__c}</td>
+      </tr>
+  </table>
+  <table width="100%">
+      <tr>
+          <td height="35px" class="heading" valign="bottom">APPROVER DETAILS</td>
+      </tr>
+  </table>
+  <table width="100%">
+      <apex:variable var="index" value="{!1}"/>
+      <apex:repeat value="{!lstApprovalDetails}" var="approvalDetail">
+      <tr>
+          <td width="20%" class="bold_black">{!IF(approvalDetail.deptName != '', approvalDetail.deptName, 'Approver ' + TEXT(index))}</td>
+          <td width="20%" class="bold_blue">{!approvalDetail.approverName}</td>
+          <td width="20%"><apex:outputText value="{0, Date, MM/dd/yyyy HH:mm a}">
+              <apex:param value="{!approvalDetail.dateApproved}" />
+              </apex:outputText></td>
+          <td>{!approvalDetail.comments}</td>
+      </tr>
+      <tr><td>&nbsp;</td><td></td><td></td><td></td></tr>
+      <apex:variable var="index" value="{!index + 1}"/>
+      </apex:repeat>
+  </table>
+  <table width="100%">
+      <tr>
+          <td height="35px" class="heading" valign="bottom">BUDGET DETAILS</td>
+      </tr>
+  </table>
+  
+ <table width="100%">
+      <tr>
+          <td width="25%" class="bold_black">{!$ObjectType.ITPR__c.fields.CAPEX1__c.label}</td>
+          <td width="25%">{!objITPR.CAPEX1__c}</td>
+          <td width="25%" class="bold_black">{!$ObjectType.ITPR__c.fields.Project_Cost_Center1__c.label}</td>
+          <td>{!objITPR.Project_Cost_Center1__c}</td>
+      </tr>
+      <tr>
+          <td width="25%" class="bold_black">{!$ObjectType.ITPR__c.fields.OPEX1__c.label}</td>
+          <td width="25%">{!objITPR.OPEX1__c}</td>
+          <td width="25%" class="bold_black">{!$ObjectType.ITPR__c.fields.Project_Cost_Center2__c.label}</td>
+          <td>{!objITPR.Project_Cost_Center2__c}</td>
+      </tr>      
+      <tr>
+          <td width="25%" class="bold_black">{!$ObjectType.ITPR__c.fields.CAPEX2__c.label}</td>
+          <td width="25%">{!objITPR.CAPEX2__c}</td>
+          <td width="25%" class="bold_black">{!$ObjectType.ITPR__c.fields.Project_Cost_Center3__c.label}</td>
+          <td>{!objITPR.Project_Cost_Center3__c}</td>
+      </tr>
+
+      <tr>
+          <td width="25%" class="bold_black">{!$ObjectType.ITPR__c.fields.OPEX2__c.label}</td>
+          <td width="25%">{!objITPR.OPEX2__c}</td>
+          <td width="25%" class="bold_black">{!$ObjectType.ITPR__c.fields.Project_Cost_Center4__c.label}</td>
+          <td>{!objITPR.Project_Cost_Center4__c}</td>
+      </tr>
+      <tr>
+          <td width="25%" class="bold_black">{!$ObjectType.ITPR__c.fields.CAPEX3__c.label}</td>
+          <td width="25%">{!objITPR.CAPEX3__c}</td>
+          <td width="25%" class="bold_black">{!$ObjectType.ITPR__c.fields.Project_Cost_Center5__c.label}</td>
+          <td>{!objITPR.Project_Cost_Center5__c}</td>
+      </tr>      
+      <tr>
+          <td width="25%" class="bold_black">{!$ObjectType.ITPR__c.fields.OPEX3__c.label}</td>
+          <td width="25%">{!objITPR.OPEX3__c}</td>
+          <td width="25%" class="bold_black">{!$ObjectType.ITPR__c.fields.Project_Cost_Center6__c.label}</td>
+          <td>{!objITPR.Project_Cost_Center6__c}</td>
+      </tr>      
+  </table>
+  
+  <table width="100%">
+      <tr>
+          <td height="35px" class="heading" valign="bottom">FINANCE ASSESSMENT</td>
+      </tr>
+  </table>
+  <table width="100%">
+      <tr>
+          <td width="50%" class="bold_black">{!$ObjectType.ITPR__c.fields.Long_Term_Commitments_Obligations__c.label}</td>
+          <td width="50%">{!objITPR.Long_Term_Commitments_Obligations__c}</td>
+      </tr>
+      <tr>
+          <td width="50%" class="bold_black">{!$ObjectType.ITPR__c.fields.Guarantees__c.label}</td>
+          <td width="50%">{!objITPR.Guarantees__c}</td>
+      </tr>
+      <tr>
+          <td width="50%" class="bold_black">{!$ObjectType.ITPR__c.fields.SFAS_133_Embedded_Derivatives__c.label}</td>
+          <td width="50%">{!objITPR.SFAS_133_Embedded_Derivatives__c}</td>
+      </tr>
+      <tr>
+          <td width="50%" class="bold_black">{!$ObjectType.ITPR__c.fields.New_Supplier_Financial_Analysis_Done__c.label}</td>
+          <td width="50%">{!objITPR.New_Supplier_Financial_Analysis_Done__c}</td>
+      </tr>
+      <tr>
+          <td width="50%" class="bold_black" style="padding-left: 30px">{!$ObjectType.ITPR__c.fields.If_No_Explain1__c.label}</td>
+          <td width="50%">{!objITPR.If_No_Explain1__c}</td>
+      </tr>
+  </table>
+  <br/><br/>
+  <br/><br/>
+  <br/><br/>
+ <br/><br/>
+  <table width="100%">
+      <tr>
+          <td height="35px" class="bold_black" align="center" valign="bottom">Form 481 / 581 reporting - Minimum Financial Obligation</td>
+      </tr>
+  </table>
+  <table width="100%">
+      <tr>
+          <td width="50%" class="bold_black">Year 1 (contract year)</td>
+          <td width="50%">{!objITPR.Year_1__c}</td>
+      </tr>
+      <tr>
+          <td width="50%" class="bold_black">Year 2</td>
+          <td width="50%">{!objITPR.Year_2__c}</td>
+      </tr>
+      <tr>
+          <td width="50%" class="bold_black">Year 3</td>
+          <td width="50%">{!objITPR.Year_3__c}</td>
+      </tr>
+      <tr>
+          <td width="50%" class="bold_black">Year 4</td>
+          <td width="50%">{!objITPR.Year_4__c}</td>
+      </tr>
+      <tr>
+          <td width="50%" class="bold_black">Year 5</td>
+          <td width="50%">{!objITPR.Year_5__c}</td>
+      </tr>
+      <tr>
+          <td width="50%" class="bold_black">Thereafter</td>
+          <td width="50%">{!objITPR.Thereafter__c}</td>
+      </tr>
+  </table>
+  <table width="100%">
+      <tr>
+          <td height="35px" class="bold_black" align="center" valign="bottom">&nbsp;</td>
+      </tr>
+  </table>
+  <table width="100%">
+      <tr>
+          <td width="20%" class="bold_black">{!$ObjectType.ITPR__c.fields.Any_Noteworthy_Exceptional_Risk__c.label}</td>
+          <td width="15%">{!objITPR.Any_Noteworthy_Exceptional_Risk__c}</td>
+          <td width="20%" class="bold_black">{!$ObjectType.ITPR__c.fields.If_Yes_Explain1__c.label}</td>
+          <td>{!objITPR.If_Yes_Explain1__c}</td>
+      </tr>
+      <tr>
+          <td width="20%" class="bold_black">{!$ObjectType.ITPR__c.fields.Will_Supplier_Retain_Rights_To_New_IP__c.label}</td>
+          <td width="15%">{!objITPR.Will_Supplier_Retain_Rights_To_New_IP__c}</td>
+          <td width="20%" class="bold_black">{!$ObjectType.ITPR__c.fields.If_Yes_Explain2__c.label}</td>
+          <td>{!objITPR.If_Yes_Explain2__c}</td>
+      </tr>      
+      <tr>
+          <td width="20%" class="bold_black">{!$ObjectType.ITPR__c.fields.Are_There_Fees_For_Early_Termination__c.label}</td>
+          <td width="15%">{!objITPR.Are_There_Fees_For_Early_Termination__c}</td>
+          <td width="20%" class="bold_black">{!$ObjectType.ITPR__c.fields.If_Yes_Explain3__c.label}</td>
+          <td>{!objITPR.If_Yes_Explain3__c}</td>
+      </tr>
+      <tr>
+          <td width="20%" class="bold_black">{!$ObjectType.ITPR__c.fields.Cost_Avoidance__c.label}</td>
+          <td width="15%">{!objITPR.Cost_Avoidance__c}</td>
+          <td width="20%" class="bold_black">{!$ObjectType.ITPR__c.fields.Savings__c.label}</td>
+          <td>{!objITPR.Savings__c}</td>
+      </tr>
+  </table>
+  <table width="100%">
+      <tr>
+          <td height="35px" class="bold_black" align="center" valign="bottom">&nbsp;</td>
+      </tr>
+  </table>
+  <table width="100%">
+      <tr>
+          <td width="20%" class="bold_black">{!$ObjectType.ITPR__c.fields.Is_System_Participation_Allowed__c.label}</td>
+          <td>{!objITPR.Is_System_Participation_Allowed__c}</td>
+      </tr>
+      <tr>
+          <td width="20%" class="bold_black">{!$ObjectType.ITPR__c.fields.If_Required_Has_IT_Security_Approved__c.label}</td>
+          <td>{!objITPR.If_Required_Has_IT_Security_Approved__c}</td>
+      </tr>
+      <tr>
+          <td width="20%" class="bold_black">{!$ObjectType.ITPR__c.fields.If_Rqd_Has_Hosting_Cert_Team_Approved__c.label}</td>
+          <td>{!objITPR.If_Rqd_Has_Hosting_Cert_Team_Approved__c}</td>
+      </tr>
+  </table>
+  <table width="100%">
+      <tr>
+          <td height="35px" class="bold_black" align="center" valign="bottom">&nbsp;</td>
+      </tr>
+  </table>
+</apex:page>

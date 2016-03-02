@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>CRS_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>CRS Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Dossier_Field__c</fullName>
+        <externalId>false</externalId>
+        <label>Section</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field_Label__c</fullName>
+        <externalId>false</externalId>
+        <label>Field Label</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Options__c</fullName>
+        <externalId>false</externalId>
+        <label>Field Options</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Hidden</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Optional</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mandatory</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Tool_Tip__c</fullName>
+        <externalId>false</externalId>
+        <label>Tool Tip</label>
+        <length>4000</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <label>CRS Dossier Configuration</label>
+    <listViews>
+        <fullName>X17</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>startsWith</operation>
+            <value>Corporate reputation claim (e.g.,‘Earn Trust’)</value>
+        </filters>
+        <label>17. Corporate reputation claim</label>
+    </listViews>
+    <listViews>
+        <fullName>X18_glaceau_vitaminwater_communication</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>startsWith</operation>
+            <value>glaceau vitaminwater communication</value>
+        </filters>
+        <label>18. glaceau vitaminwater communication</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType1</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>equals</operation>
+            <value>Communication based on national or regional or international dietary guidance</value>
+        </filters>
+        <label>01. Communication based on national or</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType10</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>equals</operation>
+            <value>Negative Claim</value>
+        </filters>
+        <label>10. Negative Claim</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType11</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>equals</operation>
+            <value>Non-environmental packaging attribute claim</value>
+        </filters>
+        <label>11. Non-environmental packaging attribut</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType12</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>startsWith</operation>
+            <value>Nutrition or health or physiological benefit claim specifically allowed</value>
+        </filters>
+        <label>12. Nutrition or health or physiological</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType13</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>startsWith</operation>
+            <value>Nutrition or health or physiological benefit claim that is not specifically allo</value>
+        </filters>
+        <label>13. Nutrition or health or physiological</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType14</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>equals</operation>
+            <value>Processing Claim</value>
+        </filters>
+        <label>14. Processing Claim</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType15</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>equals</operation>
+            <value>Substance Claim</value>
+        </filters>
+        <label>15. Substance Claim</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType16</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>equals</operation>
+            <value>Testimonial communication</value>
+        </filters>
+        <label>16. Testimonial communication</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType2</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>equals</operation>
+            <value>Comparison or competitive or collaborative claim</value>
+        </filters>
+        <label>02. Comparison or competitive or collabo</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType3</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>equals</operation>
+            <value>Emotional communication that conveys an objective and verifiable benefit</value>
+        </filters>
+        <label>03. Emotional communication that conveys</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType4</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>equals</operation>
+            <value>Endorsement communication</value>
+        </filters>
+        <label>04. Endorsement communication</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType5</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>equals</operation>
+            <value>General Communication on nutrition health and food safety</value>
+        </filters>
+        <label>05. General Communication on nutrition</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType6</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>equals</operation>
+            <value>Historical use communication</value>
+        </filters>
+        <label>06. Historical use communication</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType7</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>equals</operation>
+            <value>Live Positively branded communication</value>
+        </filters>
+        <label>07.Live Positively branded communication</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType8</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>equals</operation>
+            <value>Market History Communication</value>
+        </filters>
+        <label>08. Market History Communication</label>
+    </listViews>
+    <listViews>
+        <fullName>crsType9</fullName>
+        <columns>Field_Label__c</columns>
+        <columns>Tool_Tip__c</columns>
+        <columns>Options__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CRS_Type__c</field>
+            <operation>equals</operation>
+            <value>Natural Claim</value>
+        </filters>
+        <label>09. Natural Claim</label>
+    </listViews>
+    <nameField>
+        <displayFormat>D-{0000}</displayFormat>
+        <label>Dossier name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Dossier Configuration</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

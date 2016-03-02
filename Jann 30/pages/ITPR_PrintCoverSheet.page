@@ -1,0 +1,15 @@
+<apex:page standardController="ITPR__c" showheader="false">
+    <table width="100%">
+        <tr>
+        <td>
+               <img src="{!$Resource.ITSES_Logo}" width="240" height="60"/> 
+        </td>
+        <td align="left">
+                <a href="javascript:self.close()">Close Window</a><br/>
+                <a href="javascript:window.print();">Print This Page</a>
+        </td>
+        </tr>
+    </table>
+    
+    <apex:detail subject="{!ITPR__c}" relatedList="true" title="true"/> 
+    </apex:page>

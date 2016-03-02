@@ -1,0 +1,48 @@
+<apex:page controller="CRS_ItemsToApprove">
+<apex:form >  
+   <apex:pageBlock tabStyle="ProcessInstanceWorkitem" >
+    <table border="0" cellpadding="0" cellspacing="5" width="52%">
+    <tbody>
+      <tr>
+        <td>
+           <h2 style="font-size:130%">Items to Approve</h2> 
+        </td>
+        <td > 
+           <apex:commandButton value="Manage All" title="Manage All" onclick="showPopup();"/> 
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+   
+     <!--Refined Approach -->
+     <apex:pageBlockSection collapsible="false" columns="1" rendered="{!Results.size==0}">
+        <apex:outputText >No records to display</apex:outputText> 
+     </apex:pageBlockSection>
+     <apex:pageBlockSection collapsible="false" columns="1" rendered="{!Results.size!=0}">
+      <apex:pageBlockTable columns="5" var="v" value="{!Results}" width="100%">
+      <apex:column headerValue="Action">
+          <apex:outputLink value="/p/process/ProcessInstanceWorkitemWizardStageManager?id={!v.Id}" style="color:#005C99; text-decoration: none;" target="_parent">Approve / Reject</apex:outputLink>
+      </apex:column>
+      
+      <apex:column headerValue="Related To" >
+        <apex:outputLink value="/{!v.ProcessInstance.TargetObjectId}" target="_parent"> {!mapRecentCRSRecords[v.ProcessInstance.TargetObjectId]}</apex:outputLink>
+       </apex:column>
+      
+      <apex:column headerValue="Type">CRS</apex:column>
+      <apex:column headerValue="Most Recent Approver" >
+         <apex:outputLink value="/{!mapRecentApprover[v.ProcessInstance.TargetObjectId]}" target="_parent">{!mapRecentApproverName[mapRecentApprover[v.ProcessInstance.TargetObjectId]]}</apex:outputLink>
+       </apex:column>
+      <apex:column headerValue="Date Submitted" value="{!v.SystemModstamp}" />
+
+      </apex:pageBlockTable>
+     </apex:pageBlockSection>
+     
+  </apex:pageBlock>
+ </apex:form>
+   <script>
+     function showPopup(){
+        window.top.location.href='/04i';
+      }
+   </script>
+</apex:page>

@@ -1,0 +1,1378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>GS1_Product_ViewMode</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Approval_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Approval Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Approved_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Approved By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Products_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Author_Profile__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Author Profile</label>
+        <referenceTo>GS1_AuthorProfile__c</referenceTo>
+        <relationshipLabel>Created/Submitted Requests</relationshipLabel>
+        <relationshipName>Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>BBN_Formula__c</fullName>
+        <externalId>false</externalId>
+        <label>BBN</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BBN_Short_Dsp__c</fullName>
+        <description>updated 2-3-15 -  INC2400385 previous value BBN_Short__c</description>
+        <externalId>false</externalId>
+        <formula>IF( OR(ISNULL(BBN_Formula__c), ISBLANK(BBN_Formula__c)), BBN_Short__c , BBN__r.Code__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>BBN Short</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BBN_Short__c</fullName>
+        <externalId>false</externalId>
+        <label>BBN Short (Container)</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BBN__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>BBN</label>
+        <referenceTo>GS1_BBN__c</referenceTo>
+        <relationshipLabel>Requests</relationshipLabel>
+        <relationshipName>Products_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Cancelled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Cancelled</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Capacity__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Capacity</label>
+        <referenceTo>GS1_Unit_Capacity__c</referenceTo>
+        <relationshipLabel>Requests</relationshipLabel>
+        <relationshipName>Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Comment__c</fullName>
+        <externalId>false</externalId>
+        <label>Comment</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ConsumerDespatchUnit__c</fullName>
+        <externalId>false</externalId>
+        <formula>LEFT( Multipack_Type__c, 1)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>C/D</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Count_per_Layer__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF((Count_per_Pallet__c=0) ||  (Number_of_Layers__c=0),null,Count_per_Pallet__c /  Number_of_Layers__c)</formula>
+        <label>Nr. Multipack or DU / Layer</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Count_per_Pallet__c</fullName>
+        <externalId>false</externalId>
+        <label>Nr. Multipack or DU / Pallet</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <referenceTo>GS1_Country__c</referenceTo>
+        <relationshipLabel>Requests for this Country</relationshipLabel>
+        <relationshipName>Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Date_On_Market__c</fullName>
+        <externalId>false</externalId>
+        <label>Date On Market</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Description_Computed__c</fullName>
+        <externalId>false</externalId>
+        <formula>Trademark__r.Name + &quot; &quot; + 
+Flavour__r.Name + &quot; &quot; + 
+Capacity__r.Name + &quot; &quot; + 
+Unit__r.Name + &quot; &quot; + 
+Material__r.Name + &quot; &quot; + 
+Design__r.Name + &quot; &quot; + 
+Multipack__r.Name + &quot; &quot; + 
+Units_Pack__r.Name + &quot; &quot; + 
+TEXT(Packs_Case__c) + &quot; &quot; + 
+TEXT( Units_Case__c ) + 
+IF(Product_Type__c = &quot;Pallet&quot;, &quot; &quot; +  Pallet_Material__r.Name + &quot; &quot; + Pallet_Design__r.Name, &quot;&quot;)</formula>
+        <label>Description (comp.)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Click the link to generate description</inlineHelpText>
+        <label>Description (edit.)</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Design__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Design</label>
+        <referenceTo>GS1_Design__c</referenceTo>
+        <relationshipLabel>Requests</relationshipLabel>
+        <relationshipName>Products_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Duplicate_Request__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Duplicate Request</label>
+        <referenceTo>GS1_Request__c</referenceTo>
+        <relationshipLabel>Duplicate Requests</relationshipLabel>
+        <relationshipName>DuplicateRequests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>EAN_Code__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Barcode</label>
+        <referenceTo>GS1_EAN__c</referenceTo>
+        <relationshipLabel>Requests Using this barcode</relationshipLabel>
+        <relationshipName>Products_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Flavour__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Flavour</label>
+        <referenceTo>GS1_Flavour__c</referenceTo>
+        <relationshipLabel>Requests</relationshipLabel>
+        <relationshipName>Products_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Long_Short__c</fullName>
+        <externalId>false</externalId>
+        <label>Long/Short</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Material__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Material</label>
+        <referenceTo>GS1_Material__c</referenceTo>
+        <relationshipLabel>Requests</relationshipLabel>
+        <relationshipName>Products_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Multipack_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (ISPICKVAL(Multipack__r.UnitType__c,&quot;C&quot;),&quot;Consumer Unit&quot;,
+IF (ISPICKVAL(Multipack__r.UnitType__c,&quot;D&quot;),&quot;Despatch Unit&quot;, null))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Multipack Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Multipack__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Multipack</label>
+        <referenceTo>GS1_Multipack__c</referenceTo>
+        <relationshipLabel>Requests</relationshipLabel>
+        <relationshipName>Products_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Layers__c</fullName>
+        <externalId>false</externalId>
+        <label>Nr. Layers</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Packs_Case__c</fullName>
+        <externalId>false</externalId>
+        <label>Packs/Case</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pallet_Design__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Pallet Design</label>
+        <referenceTo>GS1_Pallet_Design__c</referenceTo>
+        <relationshipLabel>Requests</relationshipLabel>
+        <relationshipName>Products_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Pallet_Material__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Pallet Material</label>
+        <referenceTo>GS1_Pallet_Material__c</referenceTo>
+        <relationshipLabel>Requests</relationshipLabel>
+        <relationshipName>Products_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product_Type__c</fullName>
+        <defaultValue>IF (
+CONTAINS($RecordType.Name , &quot;Pallet&quot;), &quot;Pallet&quot;,
+IF (CONTAINS($RecordType.Name , &quot;CU/DU&quot;), &quot;CU/DU&quot;, null))</defaultValue>
+        <externalId>false</externalId>
+        <label>Product</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Promo_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount (ex. 5 or 3.23)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Promo_Currency__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Promo Currency</label>
+        <referenceTo>GS1_Currency__c</referenceTo>
+        <relationshipLabel>Requests</relationshipLabel>
+        <relationshipName>Products_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Promo_Other__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Other</label>
+        <referenceTo>GS1_Promo_Other__c</referenceTo>
+        <relationshipLabel>Requests</relationshipLabel>
+        <relationshipName>Products_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Promo_Quantity__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Type &apos;*free*&apos; to show all items with free</inlineHelpText>
+        <label>Additional Free Product</label>
+        <referenceTo>GS1_Promo_Free_Product__c</referenceTo>
+        <relationshipLabel>Requests</relationshipLabel>
+        <relationshipName>Products_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Promotion_type__c</fullName>
+        <defaultValue>IF(CONTAINS( $RecordType.Name , &quot;Amount&quot;), &quot;Amount&quot;,
+IF(CONTAINS( $RecordType.Name , &quot;Quantity&quot;), &quot;Quantity&quot;,
+IF(CONTAINS( $RecordType.Name , &quot;Other&quot;), &quot;Other&quot;,
+NULL)))</defaultValue>
+        <externalId>false</externalId>
+        <label>Promotion type</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reject_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Reject Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Rejected_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Rejected By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Products_Requests2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Request_Type__c</fullName>
+        <defaultValue>IF (CONTAINS($RecordType.Name , &quot;Normal&quot;), &quot;Normal&quot;, &quot;Promotion&quot;)</defaultValue>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RequestedByUserId__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>RequestedByUserId (Hidden)</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>GS1_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Requested_By__c</fullName>
+        <defaultValue>IF ($User.FirstName = &apos;&apos;,&apos;&apos;,$User.FirstName + &apos; &apos;) + $User.LastName</defaultValue>
+        <externalId>false</externalId>
+        <label>Requested By</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Requested_Date__c</fullName>
+        <defaultValue>NOW()</defaultValue>
+        <externalId>false</externalId>
+        <label>Requested Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Sent_Back__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Sent Back</label>
+        <trackHistory>true</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Single_Units_per_Pallet__c</fullName>
+        <externalId>false</externalId>
+        <formula>Count_per_Pallet__c *  Units_Case__c</formula>
+        <label>Single Units / Pallet</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <defaultValue>&quot;New&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Trademark__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Trademark</label>
+        <referenceTo>GS1_Trademark__c</referenceTo>
+        <relationshipLabel>Requests</relationshipLabel>
+        <relationshipName>Products_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>URLLink__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&apos;/&apos; +  Id , IF(Description__c!=&apos;&apos;,Description__c,Description_Computed__c), &apos;_self&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Unit__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Unit</label>
+        <referenceTo>GS1_Unit__c</referenceTo>
+        <relationshipLabel>Requests</relationshipLabel>
+        <relationshipName>Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Units_Case__c</fullName>
+        <externalId>false</externalId>
+        <formula>Packs_Case__c *   VALUE(Units_Pack__r.Name)</formula>
+        <label>Units/Case</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Units_Pack__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Units/Pack</label>
+        <referenceTo>GS1_Multipack_Value__c</referenceTo>
+        <relationshipLabel>Requests</relationshipLabel>
+        <relationshipName>Products</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Withdraw_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Withdraw Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Withdrawn_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Withdrawn By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Products_Requests1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <label>GS1 Request</label>
+    <listViews>
+        <fullName>By_Approval_Date</fullName>
+        <columns>Approval_Date__c</columns>
+        <columns>Requested_Date__c</columns>
+        <columns>Country__c</columns>
+        <columns>Product_Type__c</columns>
+        <columns>Request_Type__c</columns>
+        <columns>ConsumerDespatchUnit__c</columns>
+        <columns>URLLink__c</columns>
+        <columns>EAN_Code__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>EAN Allocated</value>
+        </filters>
+        <filters>
+            <field>Sent_Back__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>04 - By Approval Date</label>
+    </listViews>
+    <listViews>
+        <fullName>CU_DU_Normal</fullName>
+        <columns>Country__c</columns>
+        <columns>URLLink__c</columns>
+        <columns>EAN_Code__c</columns>
+        <columns>Long_Short__c</columns>
+        <columns>ConsumerDespatchUnit__c</columns>
+        <columns>Trademark__c</columns>
+        <columns>Flavour__c</columns>
+        <columns>Unit__c</columns>
+        <columns>Capacity__c</columns>
+        <columns>Material__c</columns>
+        <columns>Design__c</columns>
+        <columns>Multipack__c</columns>
+        <columns>Units_Pack__c</columns>
+        <columns>Packs_Case__c</columns>
+        <columns>Units_Case__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Request_Type__c</field>
+            <operation>equals</operation>
+            <value>Normal</value>
+        </filters>
+        <filters>
+            <field>Product_Type__c</field>
+            <operation>equals</operation>
+            <value>CU/DU</value>
+        </filters>
+        <filters>
+            <field>Sent_Back__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>EAN_Code__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>EAN Allocated</value>
+        </filters>
+        <label>05 - CU/DU Normal</label>
+    </listViews>
+    <listViews>
+        <fullName>CU_DU_Promotion</fullName>
+        <columns>Country__c</columns>
+        <columns>URLLink__c</columns>
+        <columns>EAN_Code__c</columns>
+        <columns>Long_Short__c</columns>
+        <columns>ConsumerDespatchUnit__c</columns>
+        <columns>Trademark__c</columns>
+        <columns>Flavour__c</columns>
+        <columns>Unit__c</columns>
+        <columns>Capacity__c</columns>
+        <columns>Material__c</columns>
+        <columns>Design__c</columns>
+        <columns>Multipack__c</columns>
+        <columns>Units_Pack__c</columns>
+        <columns>Packs_Case__c</columns>
+        <columns>Units_Case__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Request_Type__c</field>
+            <operation>equals</operation>
+            <value>Promotion</value>
+        </filters>
+        <filters>
+            <field>Product_Type__c</field>
+            <operation>equals</operation>
+            <value>CU/DU</value>
+        </filters>
+        <filters>
+            <field>Sent_Back__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>EAN_Code__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>EAN Allocated</value>
+        </filters>
+        <label>06 - CU/DU Promotion</label>
+    </listViews>
+    <listViews>
+        <fullName>Drafts_New</fullName>
+        <columns>URLLink__c</columns>
+        <columns>Country__c</columns>
+        <columns>RECORDTYPE</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>New</value>
+        </filters>
+        <label>10 - Drafts</label>
+    </listViews>
+    <listViews>
+        <fullName>For_Barcode_Allocation</fullName>
+        <columns>Requested_By__c</columns>
+        <columns>Country__c</columns>
+        <columns>URLLink__c</columns>
+        <columns>Product_Type__c</columns>
+        <columns>Request_Type__c</columns>
+        <columns>Requested_Date__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Requested,Approved</value>
+        </filters>
+        <label>01 - For Barcode Allocation</label>
+        <sharedTo>
+            <group>GS1_Admin</group>
+            <group>GS1_Restricted_View_Access</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Pallet_Normal</fullName>
+        <columns>Country__c</columns>
+        <columns>URLLink__c</columns>
+        <columns>EAN_Code__c</columns>
+        <columns>Long_Short__c</columns>
+        <columns>ConsumerDespatchUnit__c</columns>
+        <columns>Trademark__c</columns>
+        <columns>Flavour__c</columns>
+        <columns>Unit__c</columns>
+        <columns>Capacity__c</columns>
+        <columns>Material__c</columns>
+        <columns>Design__c</columns>
+        <columns>Multipack__c</columns>
+        <columns>Units_Pack__c</columns>
+        <columns>Packs_Case__c</columns>
+        <columns>Units_Case__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Request_Type__c</field>
+            <operation>equals</operation>
+            <value>Normal</value>
+        </filters>
+        <filters>
+            <field>Product_Type__c</field>
+            <operation>equals</operation>
+            <value>Pallet</value>
+        </filters>
+        <filters>
+            <field>Sent_Back__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>EAN_Code__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>EAN Allocated</value>
+        </filters>
+        <label>07 - Pallet Normal</label>
+    </listViews>
+    <listViews>
+        <fullName>Pallet_Promotion</fullName>
+        <columns>Country__c</columns>
+        <columns>URLLink__c</columns>
+        <columns>EAN_Code__c</columns>
+        <columns>Long_Short__c</columns>
+        <columns>ConsumerDespatchUnit__c</columns>
+        <columns>Trademark__c</columns>
+        <columns>Flavour__c</columns>
+        <columns>Unit__c</columns>
+        <columns>Capacity__c</columns>
+        <columns>Material__c</columns>
+        <columns>Design__c</columns>
+        <columns>Multipack__c</columns>
+        <columns>Units_Pack__c</columns>
+        <columns>Packs_Case__c</columns>
+        <columns>Units_Case__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Request_Type__c</field>
+            <operation>equals</operation>
+            <value>Promotion</value>
+        </filters>
+        <filters>
+            <field>Product_Type__c</field>
+            <operation>equals</operation>
+            <value>Pallet</value>
+        </filters>
+        <filters>
+            <field>Sent_Back__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>EAN_Code__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>EAN Allocated</value>
+        </filters>
+        <label>08 - Pallet Promotion</label>
+    </listViews>
+    <listViews>
+        <fullName>Rejected</fullName>
+        <columns>URLLink__c</columns>
+        <columns>Country__c</columns>
+        <columns>Reject_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Rejected</value>
+        </filters>
+        <label>13 - Rejected</label>
+    </listViews>
+    <listViews>
+        <fullName>To_Send_Back</fullName>
+        <columns>Country__c</columns>
+        <columns>URLLink__c</columns>
+        <columns>EAN_Code__c</columns>
+        <columns>Product_Type__c</columns>
+        <columns>Request_Type__c</columns>
+        <columns>Requested_By__c</columns>
+        <columns>Long_Short__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Sent_Back__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>EAN_Code__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>EAN Allocated</value>
+        </filters>
+        <label>02 - To Send Back</label>
+        <sharedTo>
+            <group>GS1_Admin</group>
+            <group>GS1_Restricted_View_Access</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Waiting_Approval</fullName>
+        <columns>Country__c</columns>
+        <columns>Product_Type__c</columns>
+        <columns>Request_Type__c</columns>
+        <columns>ConsumerDespatchUnit__c</columns>
+        <columns>URLLink__c</columns>
+        <columns>Requested_Date__c</columns>
+        <columns>Requested_By__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Requested</value>
+        </filters>
+        <label>11  - Waiting Approval</label>
+    </listViews>
+    <listViews>
+        <fullName>Withdrawn</fullName>
+        <columns>Country__c</columns>
+        <columns>Withdraw_Date__c</columns>
+        <columns>EAN_Code__c</columns>
+        <columns>URLLink__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Withdrawn</value>
+        </filters>
+        <label>14 - Withdrawn</label>
+        <sharedTo>
+            <group>GS1_Admin</group>
+            <group>GS1_Restricted_View_Access</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>separator01</fullName>
+        <columns>Country__c</columns>
+        <columns>Withdraw_Date__c</columns>
+        <columns>EAN_Code__c</columns>
+        <columns>URLLink__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>_blank_</value>
+        </filters>
+        <label>03 -----------------------------------</label>
+        <sharedTo>
+            <group>GS1_Admin</group>
+            <group>GS1_Restricted_View_Access</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>separator02</fullName>
+        <columns>Country__c</columns>
+        <columns>Withdraw_Date__c</columns>
+        <columns>EAN_Code__c</columns>
+        <columns>URLLink__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>_blank_</value>
+        </filters>
+        <label>09 -----------------------------------</label>
+    </listViews>
+    <listViews>
+        <fullName>separator03</fullName>
+        <columns>Country__c</columns>
+        <columns>Withdraw_Date__c</columns>
+        <columns>EAN_Code__c</columns>
+        <columns>URLLink__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>_blank_</value>
+        </filters>
+        <label>12 -----------------------------------</label>
+    </listViews>
+    <nameField>
+        <displayFormat>REQ-{YYYYMM}-{0000000000}</displayFormat>
+        <label>Request Ref #</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>GS1 Requests</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>CU_DU_Normal</fullName>
+        <active>true</active>
+        <description>CU/DU Normal Request</description>
+        <label>CU/DU - Normal</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>CU_DU_Promotion_Amount</fullName>
+        <active>true</active>
+        <description>CU/DU Promotion request which promo type is amount</description>
+        <label>CU/DU - Promotion - Amount</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>CU_DU_Promotion_Other</fullName>
+        <active>true</active>
+        <description>CU/DU Promotion request which promo type is other</description>
+        <label>CU/DU - Promotion - Other</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>CU_DU_Promotion_Quantity</fullName>
+        <active>true</active>
+        <description>CU/DU Promotion request which promo type is quantity</description>
+        <label>CU/DU - Promotion - Quantity</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Pallet_Normal</fullName>
+        <active>true</active>
+        <description>Pallet Normal Request</description>
+        <label>Pallet - Normal</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Pallet_Promotion_Amount</fullName>
+        <active>true</active>
+        <description>Pallet Promotion request which promo type is amount</description>
+        <label>Pallet - Promotion - Amount</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Pallet_Promotion_Other</fullName>
+        <active>true</active>
+        <description>Pallet Promotion request which promo type is other</description>
+        <label>Pallet - Promotion - Other</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Pallet_Promotion_Quantity</fullName>
+        <active>true</active>
+        <description>Pallet Promotion request which promo type is quantity</description>
+        <label>Pallet - Promotion - Quantity</label>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Country__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>URLLink__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>EAN_Code__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Trademark__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Flavour__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Material__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Design__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Product_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Request_Type__c</customTabListAdditionalFields>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <listViewButtons>Send_Back</listViewButtons>
+        <listViewButtons>de_allocate_selected</listViewButtons>
+        <listViewButtons>Custom_Search</listViewButtons>
+        <listViewButtons>Export_selected_to_Excel</listViewButtons>
+        <lookupDialogsAdditionalFields>Description__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>EAN_Code__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Country__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Trademark__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Flavour__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Material__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Design__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Product_Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Request_Type__c</lookupDialogsAdditionalFields>
+        <searchFilterFields>Country__c</searchFilterFields>
+        <searchFilterFields>Trademark__c</searchFilterFields>
+        <searchFilterFields>Flavour__c</searchFilterFields>
+        <searchFilterFields>Unit__c</searchFilterFields>
+        <searchFilterFields>Material__c</searchFilterFields>
+        <searchFilterFields>Multipack__c</searchFilterFields>
+        <searchFilterFields>Units_Pack__c</searchFilterFields>
+        <searchFilterFields>Packs_Case__c</searchFilterFields>
+        <searchFilterFields>Units_Case__c</searchFilterFields>
+        <searchFilterFields>Design__c</searchFilterFields>
+        <searchResultsAdditionalFields>Description__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>EAN_Code__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Country__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Trademark__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Flavour__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Material__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Design__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Product_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Request_Type__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <sharingReasons>
+        <fullName>CountryUser__c</fullName>
+        <label>Country User</label>
+    </sharingReasons>
+    <webLinks>
+        <fullName>Allocate_EAN</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Allocate Barcode</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+allocateEANToCurrentRequest();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Cancel_duplicate_request</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Cancel this duplicate request</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+cancelDuplicate();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Cancel_this_Request</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Cancel this Request</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+Utils.Dialog.confirm(&apos;This request will be cancelled.\n\nDo you wish to continue?&apos;, dialogTitleWarn,cancelCurrentRequest,true);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Create_New_Copy</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Create New Copy...</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+createCopy();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Custom_Search</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Search</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+var cbo = GS1.getViewComboList(); 
+var viewName = &apos;&apos;; 
+if (cbo) { 
+   viewName = cbo.options[cbo.selectedIndex].text; 
+} 
+
+window.location = &apos;/apex/GS1_CustomSearchPage?v=&apos; + viewName;</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Edit</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Edit</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+
+var request = sforce.connection.query(&quot;Select RecordTypeId, Prev_Record_Type__c from GS1_Request__c where Id = &apos;{!GS1_Request__c.Id}&apos;&quot;); 
+
+var gid = &apos;{!GS1_Request__c.Id}&apos;; 
+var chg = &apos;false&apos;; 
+var records = request.getArray(&quot;records&quot;); 
+if (records[0].Prev_Record_Type__c != null) {
+
+//if (records[0].Prev_Record_Type__c.length &gt; 0) { 
+if (records[0].RecordTypeId != records[0].Prev_Record_Type__c) { 
+
+var recordType = records[0].Prev_Record_Type__c; 
+
+var result = sforce.apex.execute(&quot;GS1_customPickListInVFController1&quot;, &quot;changeRequest&quot;,{requestID : gid, recordTypeId : recordType, chg : chg}); 
+var ret = parent.location.href; 
+window.location.href = &apos;/&apos; + gid + &apos;/e?retURL=&apos; + ret; 
+
+} // if (records[0].RecordTypeId != records[0].Prev_Record_Type__c) 
+else { 
+var ret = parent.location.href; 
+window.location.href = &apos;/&apos; + gid + &apos;/e?retURL=&apos; + ret; 
+} 
+} // prev record type avaailable 
+else { 
+var ret = parent.location.href; 
+window.location.href = &apos;/&apos; + gid + &apos;/e?retURL=&apos; + ret; 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Export_selected_to_Excel</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Export selected to Excel</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+var records = {!GETRECORDIDS($ObjectType.GS1_Request__c)}; 
+if(records.length&lt;1) { 
+    Utils.Dialog.alert(&quot;Please choose at least one record to export.&quot;,&apos;Error&apos;); 
+} else { 
+    var isIE = document.all;
+    if (isIE &amp;&amp; (records.length &gt; 100)) {
+        Utils.Dialog.alert(&quot;You can export only up 100 records.&quot;,&apos;Error&apos;);         
+    } else {
+        window.location.href=&quot;/apex/GS1_SelToExcel?ids=&quot;+escape(records);
+    }    
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Re_activate</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Re-activate</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+reactivateCurrentRequest();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Send_Back</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send Back</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+if (GS1.isAdmin) {
+	sendBack();
+} else {
+	Utils.Dialog.alert(&apos;You are not authorized to use that operation&apos;, &apos;Error&apos;);
+}
+function sendBack() {
+	var records = {!GETRECORDIDS($ObjectType.GS1_Request__c)};
+        var isIE = document.all;
+	if(records.length&lt;1) {
+		 Utils.Dialog.alert(&quot;Please choose at least one GS1 Request to send back.&quot;,&apos;Error&apos;);
+        } else if (isIE &amp;&amp; (records.length &gt; 100)) {
+                 Utils.Dialog.alert(&quot;You can send back only up 100 records.&quot;,&apos;Error&apos;);         
+	} else {
+		 Utils.Dialog.confirm(&quot;The selected requests will be sent back\n\nDo you wish to continue?&quot;,&quot;Warning&quot;, function() {
+			   window.location.href=&quot;/apex/GS1_SendBack?ids=&quot;+records+&apos;&amp;srcview=&apos;+getViewId();
+			}, true);
+	}
+}
+
+function getViewId() {
+    var cbo = GS1.getViewComboList();
+    if (cbo) {
+       if (cbo.id != &apos;&apos;) {
+          return cbo.id.split(&apos;_&apos;)[0];
+       }
+    }
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Short_Long_Barcode_Allocation</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Short/Long  Barcode Allocation</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+allocateLongShortEANToCurrentRequest();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Submit_Now</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Submit Now</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+submitForApproval();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Withdraw</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Withdraw</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+withdrawCurrentRequest();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>de_allocate_selected</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>De-allocate selected</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/connection.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/soap/ajax/34.0/apex.js&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_SharedJSFunctions&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_CustomLookupLoaderPage&apos;)} 
+{! REQUIRESCRIPT(&apos;/apex/GS1_AppWebHelperJS&apos;)} 
+
+var records = {!GETRECORDIDS($ObjectType.GS1_Request__c)}; 
+if(records.length&lt;1) { 
+    Utils.Dialog.alert(&quot;Please choose at least one GS1 Request to process.&quot;,&apos;Error&apos;); 
+} else { 
+    Utils.Dialog.confirm(&quot;The barcode allocation from selected requests will be revoked.\n\nDo you wish to continue?&quot;,&quot;Warning&quot;, function() {
+    var stat = GS1.deallocateRequests(records);
+    stat = JSON.parse(stat);
+    if (stat.status == &apos;ok&apos;) {
+       self.location.reload();
+    } else {
+       Utils.Dialog.alert(stat.message ,&apos;Error&apos;);
+    }
+}, true);
+}</url>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,32 @@
+<apex:page standardController="RFA__c" showheader="false">
+    <table width="100%">
+        <tr>
+        <td>
+               <img src="{!$Resource.coke_RFA_logo}" width="240" height="60"/> 
+        </td>
+        <td align="left">
+                <a href="javascript:self.close()">Close Window</a><br/>
+                <a href="javascript:window.print();">Print This Page</a>
+        </td>
+        </tr>
+    </table>
+    
+    <apex:detail subject="{!RFA__c}" relatedList="false" title="true"/> 
+    
+     <apex:outputPanel rendered="{!RFA__c.recordType.name !='Policy Exemption Request'}">
+
+    <div>
+      <apex:relatedList list="Three_Year_Cash_Spend__r" /><br/><br/>
+     </div>
+       </apex:outputPanel>
+
+     <div>
+       <apex:relatedList list="RFA_User_Roles__r" pageSize="100" />  
+      </div> 
+      <div>
+       <apex:relatedList list="NotesAndAttachments" pageSize="100" /> 
+      </div> 
+      <div>
+       <c:RFA_C08_RFAHistory subject="{!RFA__c.ID}"></c:RFA_C08_RFAHistory> 
+      </div> 
+</apex:page>

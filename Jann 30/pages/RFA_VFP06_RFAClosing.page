@@ -1,0 +1,82 @@
+<apex:page standardController="RFA__c" extensions="RFA_VFC05_RFAClosingController" sidebar="false" showHeader="false">  
+    
+    <script type="text/javascript">
+      //**********************http://pro-thoughts.blogspot.com/2006/10/incorrect-behavior-of-windowonblur.html******//
+      //********************** FIX FOR IE WINDOW.ONBLUR FUNCTION ***************************************************//
+            var active_element;
+            var bIsMSIE;
+            
+            function initiateSelfClosing() {
+            if(navigator.appName == "Microsoft Internet Explorer") {
+                active_element = document.activeElement;
+                document.onfocusout = closeWnd;
+                bIsMSIE = true;
+            }
+              else { window.onblur = closeWnd; }
+            }
+            
+            function closeWnd() {
+            if (window.opener != null) {
+                if (bIsMSIE && (active_element != document.activeElement)) {
+                  active_element = document.activeElement;
+                }
+                else {
+                  window.close();
+                }
+              }
+            }
+            
+            function window_Close(hasError) 
+            {        
+                           
+                  if(hasError == false)
+                  {
+                    window.opener.parentReload();             
+                  }
+                  
+            }
+            
+            window.onload = initiateSelfClosing();
+            
+      </script>
+    <apex:outputPanel id="NotApproved" rendered="{!hasApproved}">
+        <br/>
+        <br/>
+        <center>
+            <p>
+                <b>
+                    {!$Label.RFA_CL136}
+                </b>
+            </p>
+        </center>
+        <br/>
+        <!-- <center><p><b>RFA has at Info Copy User :  {!infoCopyIds}.</b></p></center> -->
+    </apex:outputPanel>  
+    <apex:form rendered="{! !hasApproved}">
+    <apex:pageMessages id="pageMessage">
+            </apex:pageMessages>
+        <apex:pageBlock title="RFA Final Submission Action">
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="OK" action="{!updateRFA}" oncomplete="window_Close({!hasError})" reRender="pageMessage"/>
+                
+                
+                <apex:commandButton value="Cancel" onClick="{self.close();}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.RFA__c.fields.Level__c.Label}"/>
+                    <apex:outputText value="{!RFA__c.Level__c}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="RFA Stage"/>
+                    <apex:selectList value="{!selectedStage}" size="1" required="true">
+                            <apex:selectOption itemValue="Approved" itemLabel="Approved"/>
+                            <apex:selectOption itemValue="Rejected" itemLabel="Rejected"/>
+                            <apex:selectOption itemValue="Closed" itemLabel="Closed"/>
+                        </apex:selectList> 
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>    
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

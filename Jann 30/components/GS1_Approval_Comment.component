@@ -1,0 +1,4 @@
+<apex:component controller="GS1_ApprCommentCtrl" access="global">
+<apex:attribute name="requestId" type="Id" assignTo="{!objectId}" description="the salesforce id of the request" />
+<apex:outputPanel rendered="{! comments!=null}"><p>Reason for rejection is/are: {! comments}</p></apex:outputPanel>
+</apex:component>

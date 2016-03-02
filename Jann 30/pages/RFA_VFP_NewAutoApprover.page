@@ -1,0 +1,155 @@
+<apex:page standardController="RFA__c" extensions="RFA_VFC_NewAutoApproverController" action="{!insertInauObj}">
+    <style>
+        .width15px {
+            
+            width: 13% !important;
+        }
+        .mySelect {    
+         font-size: 12px;
+         width:100%;
+         color: #000;
+         background: transparent;
+         appearance: none;
+        -webkit-appearance: none;
+         border: none;
+        width:initial;
+         }
+        .mySelect:focus {
+    -webkit-appearance: menulist ;
+    appearance: menulist ;
+    border: 1px solid #000;
+    background: white;
+    margin: 0;
+    width:initial;
+        }
+    </style>     
+    <apex:form >        
+        <apex:pageBlock id="pageblockid" title="Available Users">
+            <apex:pageMessage severity="Warning" summary="System determined users are not available for the given data.Please add Users Manually" rendered="{!Criteriausr}" strength="2"></apex:pageMessage>
+            <apex:messages style="color:red;" />
+            <apex:inputText value="{!searchstring}" label="Input"/>   
+  <apex:commandButton value="Search Users" action="{!searchUsers}" />  
+  <apex:commandButton value="Cancel " action="{!ClearUsers}" />            
+            
+            <apex:pageBlockTable value="{!users}" var="usr" style="width:100%;" id="AllusersTable">
+                <apex:column headerValue="Select User" style="width:50px;">                   
+                   <apex:facet name="header">
+                       <apex:inputCheckbox >
+                     <apex:actionSupport event="onclick" action="{!GetSelected}" onsubmit="checkAll(this)" rerender="Autoaprvrtable"/>
+                     </apex:inputCheckbox></apex:facet>
+                      <apex:inputCheckbox value="{!usr.selected}" id="checkedone">
+                           <apex:actionSupport event="onclick" action="{!GetSelected}" rerender="Selected_PBS"/>
+                       </apex:inputCheckbox>
+                </apex:column>
+                <apex:column headerValue="User Name">
+                     <apex:outputLabel value="{!usr.userobj.name}"></apex:outputLabel> 
+                    <!-- <apex:outputLabel value="{!users.name}"></apex:outputLabel> -->
+                </apex:column>
+                <apex:column headerValue="First Name">
+                     <apex:outputLabel value="{!usr.userobj.FirstName}"></apex:outputLabel> 
+                   <!-- <apex:outputLabel value="{!users.FirstName}"></apex:outputLabel> -->
+                </apex:column>
+                <apex:column headerValue="Last Name">
+                    <apex:outputLabel value="{!usr.userobj.LastName}"></apex:outputLabel> 
+                    <!-- <apex:outputLabel value="{!users.LastName}"></apex:outputLabel> -->
+                </apex:column>
+                <apex:column headerValue="User Email">
+                    <apex:outputLabel value="{!usr.userobj.email}"></apex:outputLabel> 
+                  <!--   <apex:outputLabel value="{!users.email}"></apex:outputLabel> -->
+                </apex:column>
+            </apex:pageBlockTable> 
+            <div align="right">
+                <apex:panelGrid columns="4">
+                   <apex:commandButton value="<<" action="{!first}" disabled="{!!hasPrevious}" />
+                   <apex:commandButton value="< Previous" action="{!previous}" disabled="{!!hasPrevious}"/>
+                   <apex:commandButton value="Next >" action="{!next}" disabled="{!!hasNext}"/>
+                   <apex:commandButton value=">>" action="{!last}" disabled="{!!hasNext}"/>
+            </apex:panelGrid>
+            </div>
+                                
+            <apex:pageBlockButtons >
+                <apex:CommandButton value="Add Users" action="{!Addtotable}" />
+                <br/>
+                <br/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+    <apex:form >
+        <div>
+            <apex:PageBlock title="Selected Approvers">
+                 <apex:pageMessage severity="Error" summary="Approved User can't be deleted" rendered="{!ErrorMessage}" strength="3"></apex:pageMessage>                
+                <apex:pageBlockTable value="{!intermapp}" var="loclvar"  headerClass="headerclass" style="width:100%;" id="Autoaprvrtable">
+                    <apex:column headerValue="Action" >
+                       <!-- <apex:commandLink value="Delete" action="{!DeleteRFAUserrole}" >
+                            <apex:param name="DeleteId" assignTo="{!tobeEdited}" value="{!loclvar.Id}" />
+                        </apex:commandLink disabled="{!Disbalebutton}">  -->
+                        <apex:commandLink Value="Remove" action="{!DeleteRFAUserrole}" >
+                          <apex:param name="DeleteId" assignTo="{!tobeDeleted}" value="{!loclvar.Id}" />
+                        </apex:commandLink>
+                    </apex:column>
+                    <apex:column headerValue="Manual/Automated" >
+                        <apex:outputLabel value="{!loclvar.Manual_Automated__c}"></apex:outputLabel>
+                    </apex:column>
+                    <apex:column headerValue="User Name" >
+                        <apex:outputField value="{!loclvar.Approver__c}">
+                         <apex:inlineEditSupport event="ondblclick" />
+                        </apex:outputField>
+                    </apex:column>
+                    <apex:column headerValue="User Type" >
+                        <apex:outputField value="{!loclvar.RoleType__c}" > 
+                         <apex:inlineEditSupport event="ondblclick" />                            
+                        </apex:outputField>
+                    </apex:column>
+                    <apex:column headerValue="Level" >
+                      <apex:outputField value="{!loclvar.Level__c}">
+                            <apex:inlineEditSupport event="ondblclick" />
+                        </apex:outputField> 
+                        
+                        <!--  <apex:outputLabel value="{!loclvar.Level__c}"  rendered="{!tobeEdited != loclvar.id}"  /> -->
+                  <!--  <apex:selectList value="{!loclvar.Level__c}" size="1" multiselect="false" styleClass="mySelect" >
+                        <apex:selectOptions value="{!setlevels}">
+                        </apex:selectOptions> 
+                    </apex:selectList> -->
+                    </apex:column>
+                    <apex:column headerValue="Approval Comments" >
+                        <apex:outputField value="{!loclvar.ApprovalComments__c}" >                        
+                        </apex:outputField>
+                    </apex:column>
+                    <apex:column headerValue="Agent 1" >
+                        <apex:outputField value="{!loclvar.Agent1__c}" >
+                            <apex:inlineEditSupport event="ondblclick" changedStyleClass="width15px"  />
+                        </apex:outputField>
+                        <!-- <apex:InputField value="{!loclvar.Agent1__c}" Id="agent1" rendered="{!tobeEdited == loclvar.id}"/> -->
+                    </apex:column>
+                    <apex:column headerValue="Agent 2" >
+                        <apex:outputField value="{!loclvar.Agent2__c}">
+                            <apex:inlineEditSupport event="ondblclick" changedStyleClass="width15px" />
+                        </apex:outputField>
+                        <!-- <apex:inputField value="{!loclvar.Agent2__c}"  rendered="{!tobeEdited == loclvar.id}"/> -->
+                    </apex:column>
+                    <apex:column headerValue="Agent 3" >
+                        <apex:outputField value="{!loclvar.Agent3__c}">
+                            <apex:inlineEditSupport event="ondblclick" changedStyleClass="width15px" />
+                        </apex:outputField>
+                        <!-- <apex:inputField value="{!loclvar.Agent3__c}"  rendered="{!tobeEdited == loclvar.id}"/> -->
+                    </apex:column>
+                </apex:pageBlockTable>
+                <apex:pageBlockButtons >
+                    <apex:commandButton Value="Proceed" action="{!InsertApprovers}" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <apex:commandButton Value="Cancel" action="{!Cancel}" />
+                </apex:pageBlockButtons>
+            </apex:PageBlock>
+        </div>
+    </apex:form>
+    <script>
+function checkAll(cb)
+{
+var inputElem = document.getElementsByTagName("input");
+for(var i=0; i<inputElem.length; i++)
+{
+if(inputElem[i].id.indexOf("checkedone")!=-1)
+inputElem[i].checked = cb.checked;
+}
+}      
+</script>
+</apex:page>

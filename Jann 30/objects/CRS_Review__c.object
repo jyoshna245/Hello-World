@@ -1,0 +1,889 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Active__c</fullName>
+        <externalId>false</externalId>
+        <label>Active</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Archive_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>CRS_Tracking__r.Archive_Date__c</formula>
+        <inlineHelpText>Last day of the year when the CRS review record should be considered for Archive status</inlineHelpText>
+        <label>Archive Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>BBN__c</fullName>
+        <externalId>false</externalId>
+        <formula>CRS_Tracking__r.BBN__c</formula>
+        <label>BBN</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Beverage_Category__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Beverage Category</label>
+        <referenceTo>CRS_Beverage_Category__c</referenceTo>
+        <relationshipLabel>CRS Reviews</relationshipLabel>
+        <relationshipName>CRS_Reviews_for_Beverage_Category</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CRS_Brand__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Brand</label>
+        <referenceTo>CRS_Brand__c</referenceTo>
+        <relationshipLabel>CRS Reviews</relationshipLabel>
+        <relationshipName>CRS_Reviews_for_Brand</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CRS_Business_Unit__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Business Unit</label>
+        <referenceTo>CRS_Business_Unit__c</referenceTo>
+        <relationshipLabel>CRS Reviews</relationshipLabel>
+        <relationshipName>CRS_Reviews_for_Business_Unit</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CRS_Country_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <length>32768</length>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Document_Title__c</fullName>
+        <externalId>false</externalId>
+        <formula>CRS_Tracking__r.CRS_Document_Title__c</formula>
+        <label>Document Title (not used)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CRS_Flavor_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>Flavor</label>
+        <length>32768</length>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Group__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Group</label>
+        <referenceTo>CRS_Group__c</referenceTo>
+        <relationshipLabel>CRS Reviews</relationshipLabel>
+        <relationshipName>CRS_Reviews_for_Group</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CRS_Media_Type_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>Media Type</label>
+        <length>32768</length>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Package_Type_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>Package Type</label>
+        <length>32768</length>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CRS_Product_Name__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Product</label>
+        <referenceTo>CRS_CRS_Product__c</referenceTo>
+        <relationshipLabel>CRS Reviews</relationshipLabel>
+        <relationshipName>CRS_Reviews_for_Product</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CRS_Tracking__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CRS Tracking #</label>
+        <referenceTo>CRS__c</referenceTo>
+        <relationshipLabel>CRS Reviews</relationshipLabel>
+        <relationshipName>CRS_Reviews</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CRS_Type_Names__c</fullName>
+        <externalId>false</externalId>
+        <label>CRS Type</label>
+        <length>32768</length>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Current_Reviewers__c</fullName>
+        <externalId>false</externalId>
+        <label>Current Reviewers</label>
+        <length>40</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_reviewer_FGD__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Current reviewer: FGD</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Current_reviewer_FL__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Current reviewer: FL</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Current_reviewer_PAC__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Current reviewer: PAC</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Current_reviewer_SRA__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Current reviewer: SRA</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Date_Initiated__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Initiated</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>32768</length>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Individual_CRS__c</fullName>
+        <externalId>false</externalId>
+        <formula>CRS_Tracking__r.Individual_CRSSum__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Individual CRS</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Initiated_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Initiated For</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>CRS_Reviews_for_Initiated_By</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>MTR_Day_Count__c</fullName>
+        <externalId>false</externalId>
+        <formula>CRS_Tracking__r.MTR_Day_Count__c</formula>
+        <label>Days Under Review</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Package_Size__c</fullName>
+        <externalId>false</externalId>
+        <formula>CRS_Tracking__r.Package_Size__c</formula>
+        <label>Package Size</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RAG_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>CRS_Tracking__r.RAG_Status__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RAG Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Read_Only__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Set to True when related CRS record is Abandoned,Approved,Rejected,Disapproved</inlineHelpText>
+        <label>Read-Only</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Review_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Review Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Under Review</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Review Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Review_Status_formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Review_Status__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Review Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_CRS__c</fullName>
+        <externalId>false</externalId>
+        <formula>CRS_Tracking__r.Total_CRS__c</formula>
+        <label>Total CRS</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Page_Count__c</fullName>
+        <externalId>false</externalId>
+        <formula>CRS_Tracking__r.Total_Page_Count__c</formula>
+        <label>Total Page Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>CRS Review</label>
+    <listViews>
+        <fullName>All_CRS_Reviews</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Review_Status__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS_Review__c.CRS_Review</value>
+        </filters>
+        <label>All CRS Reviews</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>CRS_Corporate_Level</group>
+            <group>CRS_Review_Only</group>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_Independent_Reviews</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Review_Status__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS_Review__c.Independent_Review</value>
+        </filters>
+        <label>All Independent Reviews</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>CRS_Corporate_Level</group>
+            <group>CRS_Review_Only</group>
+            <group>gvwCRS_Corporate_Level</group>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_gvwCRSReviews</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Review_Status__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS_Review__c.gvwCRS_Review</value>
+        </filters>
+        <label>All gvwCRS Reviews</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>CRS_Review_Only</group>
+            <group>gvwCRS_Corporate_Level</group>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Completed_CRSReviews</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Review_Status__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS_Review__c.CRS_Review</value>
+        </filters>
+        <filters>
+            <field>Review_Status__c</field>
+            <operation>equals</operation>
+            <value>Review Completed</value>
+        </filters>
+        <label>Completed CRS Reviews (Review Completed)</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>CRS_Corporate_Level</group>
+            <group>CRS_Review_Only</group>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Completed_gvwCRSReviews</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Review_Status__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS_Review__c.gvwCRS_Review</value>
+        </filters>
+        <filters>
+            <field>Review_Status__c</field>
+            <operation>equals</operation>
+            <value>Review Completed</value>
+        </filters>
+        <label>Completed gvwCRS Reviews (Rev.Completed)</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>CRS_Review_Only</group>
+            <group>gvwCRS_Corporate_Level</group>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>InProcess_CRSReviews</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Review_Status__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS_Review__c.CRS_Review</value>
+        </filters>
+        <filters>
+            <field>Review_Status__c</field>
+            <operation>equals</operation>
+            <value>Under Review</value>
+        </filters>
+        <label>CRS Reviews (Under Review)</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>CRS_Corporate_Level</group>
+            <group>CRS_Review_Only</group>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>InProcess_gvwCRSReviews</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Review_Status__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS_Review__c.gvwCRS_Review</value>
+        </filters>
+        <filters>
+            <field>Review_Status__c</field>
+            <operation>equals</operation>
+            <value>Under Review</value>
+        </filters>
+        <label>gvwCRS Reviews (Under Review)</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>CRS_Review_Only</group>
+            <group>gvwCRS_Corporate_Level</group>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Old_CRSReviewsArchived</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Review_Status__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>No</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS_Review__c.CRS_Review</value>
+        </filters>
+        <label>Old CRS Reviews (Archived)</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>CRS_Corporate_Level</group>
+            <group>CRS_Review_Only</group>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Old_IndependentReviewsArchived</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Review_Status__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>No</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS_Review__c.Independent_Review</value>
+        </filters>
+        <label>Old Independent Reviews (Archived)</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>CRS_Corporate_Level</group>
+            <group>CRS_Review_Only</group>
+            <group>gvwCRS_Corporate_Level</group>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Old_gvwCRSReviewsArchived</fullName>
+        <columns>NAME</columns>
+        <columns>Date_Initiated__c</columns>
+        <columns>CRS_Country_Names__c</columns>
+        <columns>CRS_Product_Name__c</columns>
+        <columns>CRS_Document_Title__c</columns>
+        <columns>Review_Status__c</columns>
+        <columns>MTR_Day_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>No</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>CRS_Review__c.gvwCRS_Review</value>
+        </filters>
+        <label>Old gvwCRS Reviews (Archived)</label>
+        <sharedTo>
+            <group>CRS_Business_Admin</group>
+            <group>CRS_Review_Only</group>
+            <group>gvwCRS_Corporate_Level</group>
+            <role>Top_Level</role>
+        </sharedTo>
+    </listViews>
+    <nameField>
+        <label>Review Tracking #</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>CRS Reviews</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>true</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>CRS_Review</fullName>
+        <active>true</active>
+        <description>CRS submission</description>
+        <label>CRS Review</label>
+        <picklistValues>
+            <picklist>Active__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Review_Status__c</picklist>
+            <values>
+                <fullName>Review Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Under Review</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Independent_Review</fullName>
+        <active>true</active>
+        <description>Not related to any CRS or gvwCRS record</description>
+        <label>Independent Review</label>
+        <picklistValues>
+            <picklist>Active__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Review_Status__c</picklist>
+            <values>
+                <fullName>Review Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Under Review</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>gvwCRS_Review</fullName>
+        <active>true</active>
+        <description>gvwCRS submission</description>
+        <label>gvwCRS Review</label>
+        <picklistValues>
+            <picklist>Active__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Review_Status__c</picklist>
+            <values>
+                <fullName>Review Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Under Review</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Date_Initiated__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CRS_Country_Names__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CRS_Product_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CRS_Document_Title__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Review_Status__c</customTabListAdditionalFields>
+        <listViewButtons>Export_To_Excel</listViewButtons>
+        <lookupDialogsAdditionalFields>Review_Status__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CRS_Document_Title__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Review_Status__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CRS_Document_Title__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Review_Status__c</searchFilterFields>
+        <searchFilterFields>CRS_Document_Title__c</searchFilterFields>
+        <searchResultsAdditionalFields>Review_Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CRS_Document_Title__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <webLinks>
+        <fullName>Export_To_Excel</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Export To Excel</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>var locationOfcurrentPage = location.href ; 
+var locationOfcurrentPage = locationOfcurrentPage.substring(locationOfcurrentPage.lastIndexOf(&apos;=&apos;)+1 , locationOfcurrentPage.length) ; 
+
+var selectedListViewId = locationOfcurrentPage+&apos;_listSelect&apos;; 
+var selectView = document.getElementById(selectedListViewId); 
+var selectedView = selectView .options[selectView .selectedIndex].text; 
+window.open(&apos;/apex/CRS_ReviewViewExportToExcel?selectedView=&apos; + selectedView);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Review_Complete</fullName>
+        <availability>online</availability>
+        <description>When user clicks “Review Complete” button in CRS Review record, (1) unlock original CRS record, (2) change CRS Review status from “Under Review” to “Review Completed”, (3) change CRS status in CRS record from “Under Review” back to “In Process”.</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Review Complete</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&apos;/soap/ajax/26.0/connection.js&apos;)} 
+{!REQUIRESCRIPT(&apos;/soap/ajax/26.0/apex.js&apos;)}
+{!REQUIRESCRIPT(&apos;/resource/1346411944000/jQuery&apos;)} 
+
+if(confirm(&apos;Review will be Completed. It will enable CRS objects and allow to continue Approval Process where it was stopped.&apos;)){
+var result1 = sforce.apex.execute(&apos;CRS_CRSReview&apos;,&apos;reviewComplete&apos;, {crsReviewId: &apos;{!CRS_Review__c.Id}&apos;});
+
+if (result1[0].indexOf(&apos;reload:&apos;)!=-1){
+  location.reload(true);
+} else if (result1[0].indexOf(&apos;error:&apos;)!=-1){
+    var errMsg = result1[0].substr(6);
+	$(&apos;.pbError&apos;).html(&apos;Error: &apos;+errMsg).show();
+} else if (result1[0]){
+    window.location=&apos;/&apos;+result1;
+} else {
+    $(&apos;.pbError&apos;).html(&apos;Internal Server Error&apos;).show();
+}
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Review_Complete2</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Review Complete</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&apos;/soap/ajax/26.0/connection.js&apos;)} 
+{!REQUIRESCRIPT(&apos;/soap/ajax/26.0/apex.js&apos;)} 
+{!REQUIRESCRIPT(&apos;/resource/1346411944000/jQuery&apos;)} 
+
+if(confirm(&apos;Review will be Completed.&apos;)){ 
+var result1 = sforce.apex.execute(&apos;CRS_CRSReview&apos;,&apos;reviewComplete&apos;, {crsReviewId: &apos;{!CRS_Review__c.Id}&apos;}); 
+if (result1[0].indexOf(&apos;reload:&apos;)!=-1){
+location.reload(true); 
+} else if (result1[0].indexOf(&apos;error:&apos;)!=-1){
+var errMsg = result1[0].substr(6);
+$(&apos;.pbError&apos;).html(&apos;Error: &apos;+errMsg).show(); 
+} else if (result1[0]){
+window.location=&apos;/&apos;+result1; 
+} else { 
+$(&apos;.pbError&apos;).html(&apos;Internal Server Error&apos;).show(); 
+} 
+}</url>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,53 @@
+<apex:page standardController="RFA__c" showHeader="false"  sidebar="false" extensions="RFA_VC_CloseDraftRFA" id="theMainPage" cache="false">
+    <script type="text/javascript">
+     if(window.opener==null)
+     {
+      alert('Sorry ! You are not allowed to open this page directly in Browser.');
+      window.location='{!defaultURL}';
+     } 
+      
+     function window_Close(hasError) {        
+                           
+           if(hasError == false){
+                 window.opener.parentReload();             
+           }       
+     }
+                  
+     function cancel_ParentRefresh(){
+           window.opener.parentReload();
+     }      
+    </script>
+    <apex:form >
+        <apex:pageBlock title="{!RFA__c.Name}" >
+            <br/>
+            <div align ="center">
+               <TABLE>
+                   <TBODY>
+                       <TR>
+                            <TD width="100%" align="left">
+                                <apex:outputText >Please click OK to reopen this RFA and move it back to Draft stage.</apex:outputText>
+                            </TD>
+                       </TR>
+                       <TR>
+                            <TD width="100%" align="left">
+                                 <!-- apex:inputTextarea style="width: 340px; height: 75px;" rows="3" cols="100" value="{!userComment}"/ -->
+                                 <br/>
+                            </TD>
+                       </TR>
+                   </TBODY>    
+               </TABLE>        
+            </div>
+             <div align ="center">
+            <apex:commandButton value="OK" action="{!reopenCloseDraftRFA}" onComplete="window_Close({!hasError});" reRender="pageMessage"/>
+            <apex:commandButton value="Cancel" onClick="cancel_ParentRefresh()" />
+            </div>
+            <apex:pageMessages id="pageMessage"></apex:pageMessages>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,11 @@
+<apex:page standardController="CRS__c" extensions="CRS_CRSDelete" action="{!deleteCRS}">
+<apex:form >
+	<apex:inputField value="{!CRS__c.Initiated_By__c}" rendered="false" />
+	<apex:inputField value="{!CRS__c.Name}" rendered="false" />
+	<apex:inputField value="{!CRS__c.Status__c}" rendered="false" />
+	<apex:inputField value="{!CRS__c.OwnerId}" rendered="false" />
+</apex:form>
+<apex:pageMessages />
+<apex:pageMessage severity="error" rendered="{!isError}" summary="{!message}"></apex:pageMessage>
+<apex:pageMessage severity="confirm" rendered="{!!isError}" summary="{!message}"></apex:pageMessage>
+</apex:page>

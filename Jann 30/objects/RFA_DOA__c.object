@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>RFA_VFP_DOATable</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>RFA_VFP_DOATable</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>RFA_VFP_DOATable</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This store the DOA category, Amount Ranges, Approver levels and Approver Groups.</description>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Amount_Lower_limit__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount (Lower limit)</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>4</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amount_Upper_limit__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount (Upper limit)</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>4</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approver_Group__c</fullName>
+        <externalId>false</externalId>
+        <label>Approver Group</label>
+        <picklist>
+            <picklistValues>
+                <fullName>ABC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Approver_Level__c</fullName>
+        <description>Approver Level</description>
+        <externalId>false</externalId>
+        <label>Approver Level</label>
+        <picklist>
+            <picklistValues>
+                <fullName>KEYOP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BU</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GROUP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CORP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EXEC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sr. EXEC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Approver_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Approver Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Approver</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Info Copy Only</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <description>Comments</description>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>DOA_Control_Level__c</fullName>
+        <description>This field will determine which coordinator level can control the levels</description>
+        <externalId>false</externalId>
+        <label>DOA Control Level</label>
+        <picklist>
+            <picklistValues>
+                <fullName>KEYOP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BU</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GROUP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CORP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Primary_DOA_Category__c</fullName>
+        <description>RFA Primary DOA Categorys</description>
+        <externalId>false</externalId>
+        <label>Primary DOA Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1.A.1 Capital Expenditures - Annual Capital Plan Request or Formal Approval of Annual Capital Plan Request</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.A.2.a Capital Expenditures - Unbudgeted CPR or SPR Covered by Budget Shift</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.A.2.b Capital Expenditures - Unbudgeted CPR or SPR Funded Partially or Fully from Corporate Reserve</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.A.3 Capital Expenditures - Increase or Scope Change to Previously Approved CPR or SPR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.A.4 Capital Expenditures - Transfer of Capital Budget across Groups for a Previously Approved CPR or SPR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.A.5 Capital Expenditures - Foreign Exchange Fluctuation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.A.8 Capital Expenditures - Advance Appropriations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.B Capital Expenditures - Capability and Performance Programs (CAPPrs)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1.C Capital Expenditures - Bottles and Cases, Including Overages</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2. IT Investments and Website Presence</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3.A Real Property - Acquisitions and Sales or Other Disposals of Real Property</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3.B Real Property - Donations of Real Property</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3.C Real Property - Condemnations or Easements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4.A Leases - Operating Leases</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4.B Leases - Capital Leases</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5.A Inventory Adjustments and Disposals</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5.B Other Asset Impairments</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5.C Asset Transfers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5.D Asset Disposals (Tangible Assets excluding Real Property and Inventory)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.A Treasury - Banking Information Reports (BIR)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.B Treasury - External Borrowings and Lines of Credit (RFFs)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.C Treasury - Intercompany Loans</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.D Treasury - Loans Third Parties (Including CCFC Target Loan Programs)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.E.1 Treasury - Guarantees to Third Parties - General</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.E.2 Treasury - Guarantees Related to Tax Disputes or Other Matters Involving Governmental Bodies</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.F Treasury - Comfort Letters and Other Financial Security Instruments</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.G Treasury - Accommodation Purchases</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.H Treasury - Credit Terms/Policies or Incentives for Sales to Customers, Bottlers or Distributors</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.I.1 Treasury - Exemption from Bad Debt Reserve Requirements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.I.2 Treasury - Write-offs of Uncollectible Accounts Receivable from Bad Debt Reserve</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.J Treasury - Consignment Sales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.K Treasury - Dividends or Stock Splits</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.L Treasury - Derivative Instruments and Other Financial Instruments</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.M Treasury - Pricing Letters</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7.A M&amp;A - General</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7.B M&amp;A - Investment Transactions Involving Intangible Rights and Assets</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7.C M&amp;A - Merchandising and Other Licensing of TCCC Trademarks, Patents and Copyrights</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7.D M&amp;A - TCCC Corporate Structures</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8.A Legal Matters - Appointments or Changes of Board Members</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8.B Legal Matters - Powers of Attorney</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8.C Legal Matters - Settlement of Litigation, Employee Relations Issues and Tax Matters</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8.D Legal Matters - Transshipment Settlements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8.E Legal Matters - Transactions involving Countries Subject to U.S. Foreign Trade Sanctions, Controls, Laws and Regulations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9.A Employee Related - Loans to Employees and Guarantees of Employee Liabilities</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9.B Employee Related - Employee Benefit, Pension and Compensation Plans and Programs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9.C Employee Related - Personal Benefits</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.A Consulting Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.B.1 Outside Professional Services - General</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.B.2 Outside Professional Services - Legal, Tax, M&amp;A, Accounting and Audit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.B.3 Outside Professional Services - Marketing &amp; Public Affairs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.C Outsourcing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.D Non-Employee Workers (NEWs)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.E Interns / Externs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.F Outside Services / Non-Core</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>11. Prepaid Amounts</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>12. Sponsorships, Marketing and Media Properties</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>13. Charitable Donations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>14. Political Contributions</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15.A Commercial Agreements - TCCC Authorization of Bottler and Other Production and Distribution Rights</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15.B Commercial Agreements - Bottler&apos;s Marketing Support Agreements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15.C Commercial Agreements - Supply, Purchase and Outsourcing Agreements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15.D Commercial Agreements - Customer Agreements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>16. Exceptional Transactions</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>17. LCOA Only - there is no DOA Category / Sub-Category for this RFA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>18. DOA Exemption</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TrimmedDOACategory__c</fullName>
+        <externalId>false</externalId>
+        <formula>substitute(TEXT(Primary_DOA_Category__c),&apos; &apos;,&apos;&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>TrimmedDOACategory</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>RFA DOA</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Approver_Level__c</columns>
+        <columns>Approver_Group__c</columns>
+        <columns>Approver_Type__c</columns>
+        <columns>DOA_Control_Level__c</columns>
+        <columns>Amount_Lower_limit__c</columns>
+        <columns>Amount_Upper_limit__c</columns>
+        <columns>Primary_DOA_Category__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>DOA-{0000}</displayFormat>
+        <label>DOA  Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>RFA DOAs</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>RFA_DOA_Amount_UpperLimit_Exceeded</fullName>
+        <active>true</active>
+        <description>DOA Amount should not exceed 25</description>
+        <errorConditionFormula>Amount_Lower_limit__c  &gt; Amount_Upper_limit__c || Amount_Lower_limit__c &lt; 0 || Amount_Lower_limit__c &lt; 0</errorConditionFormula>
+        <errorMessage>Amount (Upper limit) and Amount (Lower limit) should be non negative values.          
+Amount (Lower limit) should not be greater than Amount (Upper limit)</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RFA_DOA_ApproverLevelRequired</fullName>
+        <active>true</active>
+        <description>Approver Levl Validation check</description>
+        <errorConditionFormula>ISPICKVAL( Approver_Level__c , &apos;--Select--&apos;)</errorConditionFormula>
+        <errorMessage>Approver Level is Required</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RFA_DOA_ApproverTypeRequired</fullName>
+        <active>true</active>
+        <description>Approver Type Validation check</description>
+        <errorConditionFormula>ISPICKVAL(Approver_Type__c , &apos;--Select--&apos;)</errorConditionFormula>
+        <errorMessage>Approver Type is Required</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RFA_DOA_Category_Required</fullName>
+        <active>true</active>
+        <description>DOA Category Validation check</description>
+        <errorConditionFormula>ISPICKVAL(Primary_DOA_Category__c  , &apos;--Select--&apos;)</errorConditionFormula>
+        <errorMessage>DOA Category is Required</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RFA_DOA_ControlLevel_Required</fullName>
+        <active>true</active>
+        <description>DOA Control Level Validation check</description>
+        <errorConditionFormula>ISPICKVAL( DOA_Control_Level__c , &apos;--Select--&apos;)</errorConditionFormula>
+        <errorMessage>DOA Control Level is Required</errorMessage>
+    </validationRules>
+</CustomObject>
